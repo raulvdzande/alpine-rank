@@ -1,0 +1,102 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+}
+        
+
+//////////////////////////////////////////////////////
+// ENUMS
+//////////////////////////////////////////////////////
+
+enum Role {
+  USER
+  ADMIN
+}
+
+//////////////////////////////////////////////////////
+// USER
+//////////////////////////////////////////////////////
+
+model User {
+  id          String   @id @default(uuid())
+  name        String
+  email       String   @unique
+  password    String
+  role        Role     @default(USER)
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  reviews     Review[]
+
+  @@index([email])
+}
+
+//////////////////////////////////////////////////////
+// RESORT
+//////////////////////////////////////////////////////
+
+model Resort {
+  id                     String   @id @default(uuid())
+
+  // Dataset Fields
+  name                   String
+  url                    String?
+  locationCoordinate     String
+  locationCountry        String
+  locationRegion         String?
+
+  elevationTopM          Int
+  elevationDifferenceM   Int
+  totalSlopeLengthKm     Float
+  numberOfLifts          Int
+  numberOfSlopes         Int
+  annualSnowfallCm       Int
+
+  // Calculated / Cached Fields
+  averageOverallRating   Float?   @default(0)
+  reviewCount            Int      @default(0)
+
+  createdAt              DateTime @default(now())
+  updatedAt              DateTime @updatedAt
+
+  reviews                Review[]
+
+  @@index([locationCountry])
+  @@index([averageOverallRating])
+  @@index([reviewCount])
+}
+
+//////////////////////////////////////////////////////
+// REVIEW
+//////////////////////////////////////////////////////
+
+model Review {
+  id          String   @id @default(uuid())
+
+  userId      String
+  resortId    String
+
+  // Rating Categories (1-10 scale)
+  terrain     Int
+  snow        Int
+  lifts       Int
+  apres       Int
+  family      Int
+  value       Int
+  scenery     Int
+
+  overall     Float
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  resort      Resort   @relation(fields: [resortId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, resortId])
+  @@index([resortId])
+}
