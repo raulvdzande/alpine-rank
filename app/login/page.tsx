@@ -20,7 +20,7 @@ export default function LoginPage() {
     if (!valid) throw new Error("Invalid email or password");
 
     // Create JWT and store in httpOnly cookie
-    const token = signJwt({ id: user.id, email: user.email, name: user.name });
+    const token = await signJwt({ id: user.id, email: user.email, name: user.name });
 
     (await cookies()).set("session", token, {
       httpOnly: true,
