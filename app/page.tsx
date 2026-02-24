@@ -703,7 +703,7 @@ export default async function HomePage() {
               <span style={{ textAlign: "right" }}>Score</span>
             </div>
 
-            {topResorts.map((resort, i) => {
+           {topResorts.map((resort: typeof topResorts[number], i) => {
               const rowCls = i === 0 ? "is-gold" : i === 1 ? "is-silver" : i === 2 ? "is-bronze" : "";
               const scoreCls = i === 0 ? "is-gold" : i === 1 ? "is-silver" : i === 2 ? "is-bronze" : "is-rest";
               const medals = ["🥇", "🥈", "🥉"];
