@@ -599,7 +599,7 @@ export default async function ResortsPage({ searchParams }: Props) {
           {/* Country */}
           <select className="filter-select" name="country" defaultValue={country}>
             <option value="">All Countries</option>
-            {uniqueCountries.map(c => <option key={c} value={c}>{c}</option>)}
+            {uniqueCountries.map(c => <option key={c as string} value={c as string}>{c as string}</option>)}
           </select>
 
           {/* Min rating */}
