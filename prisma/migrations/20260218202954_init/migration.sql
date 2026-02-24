@@ -18,16 +18,8 @@ CREATE TABLE "User" (
 CREATE TABLE "Resort" (
     "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
-    "url" TEXT,
-    "locationCoordinate" TEXT NOT NULL,
-    "locationCountry" TEXT NOT NULL,
-    "locationRegion" TEXT,
-    "elevationTopM" INTEGER NOT NULL,
-    "elevationDifferenceM" INTEGER NOT NULL,
-    "totalSlopeLengthKm" DOUBLE PRECISION NOT NULL,
-    "numberOfLifts" INTEGER NOT NULL,
-    "numberOfSlopes" INTEGER NOT NULL,
-    "annualSnowfallCm" INTEGER NOT NULL,
+    "Country" TEXT NOT NULL,
+    "Continent" TEXT,
     "averageOverallRating" DOUBLE PRECISION DEFAULT 0,
     "reviewCount" INTEGER NOT NULL DEFAULT 0,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -62,7 +54,7 @@ CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
 CREATE INDEX "User_email_idx" ON "User"("email");
 
 -- CreateIndex
-CREATE INDEX "Resort_locationCountry_idx" ON "Resort"("locationCountry");
+CREATE INDEX "Resort_locationCountry_idx" ON "Resort"("Country");
 
 -- CreateIndex
 CREATE INDEX "Resort_averageOverallRating_idx" ON "Resort"("averageOverallRating");

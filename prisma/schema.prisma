@@ -44,17 +44,8 @@ model Resort {
 
   // Dataset Fields
   name                   String
-  url                    String?
-  locationCoordinate     String
-  locationCountry        String
-  locationRegion         String?
-
-  elevationTopM          Int
-  elevationDifferenceM   Int
-  totalSlopeLengthKm     Float
-  numberOfLifts          Int
-  numberOfSlopes         Int
-  annualSnowfallCm       Int
+  Country                String
+  Continent              String?
 
   // Calculated / Cached Fields
   averageOverallRating   Float?   @default(0)
@@ -65,7 +56,6 @@ model Resort {
 
   reviews                Review[]
 
-  @@index([locationCountry])
   @@index([averageOverallRating])
   @@index([reviewCount])
 }
