@@ -740,7 +740,7 @@ export default async function HomePage() {
           <h2 className="s-title">Explore by Country</h2>
         </div>
         <div className="country-wrap">
-          {countries.slice(0, 22).map((c) => (
+          {countries.slice(0, 22).map((c: typeof countries[number]) => (
             <Link key={c.Country} href={`/resort?country=${encodeURIComponent(c.Country)}`} className="c-tag">
               {c.Country}
             </Link>
