@@ -3,6 +3,8 @@ import { hashPassword } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import Link from "next/link";
 
+export const dynamic = "force-dynamic";
+
 export default function RegisterPage() {
   async function registerUser(formData: FormData) {
     "use server";

@@ -2,6 +2,8 @@ import { prisma } from "@/lib/prisma";
 import { calculateBayesianScore } from "@/lib/ranking";
 import Link from "next/link";
 
+export const dynamic = "force-dynamic";
+
 const MIN_VOTES = 5;
 
 const CATEGORIES = [

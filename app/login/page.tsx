@@ -4,6 +4,8 @@ import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import Link from "next/link";
 
+export const dynamic = "force-dynamic";
+
 export default function LoginPage() {
   async function loginUser(formData: FormData) {
     "use server";
