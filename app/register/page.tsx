@@ -5,7 +5,14 @@ import Link from "next/link";
 
 export const dynamic = "force-dynamic";
 
-export default function RegisterPage() {
+interface Props {
+  searchParams?: Promise<{ error?: string }>;
+}
+
+export default async function RegisterPage({ searchParams }: Props) {
+  const params = searchParams ? await searchParams : undefined;
+  const error = typeof params?.error === "string" ? params.error : "";
+
   async function registerUser(formData: FormData) {
     "use server";
 
@@ -13,11 +20,17 @@ export default function RegisterPage() {
     const email    = formData.get("email")    as string;
     const password = formData.get("password") as string;
 
-    if (!name || !email || !password) throw new Error("All fields are required");
-    if (password.length < 6) throw new Error("Password must be at least 6 characters");
+    if (!name || !email || !password) {
+      redirect(`/register?error=${encodeURIComponent("All fields are required")}`);
+    }
+    if (password.length < 6) {
+      redirect(`/register?error=${encodeURIComponent("Password must be at least 6 characters")}`);
+    }
 
     const existingUser = await prisma.user.findUnique({ where: { email } });
-    if (existingUser) throw new Error("Email already registered");
+    if (existingUser) {
+      redirect(`/register?error=${encodeURIComponent("Email already registered")}`);
+    }
 
     const hashedPassword = await hashPassword(password);
     await prisma.user.create({ data: { name, email, password: hashedPassword } });
@@ -265,6 +278,20 @@ export default function RegisterPage() {
           gap: 0.8rem;
         }
 
+        .form-error {
+          font-family: 'DM Mono', monospace;
+          font-size: 0.62rem;
+          letter-spacing: 0.1em;
+          text-transform: uppercase;
+          color: #ffd27a;
+          background: rgba(240,190,64,0.08);
+          border: 1px solid rgba(240,190,64,0.2);
+          padding: 0.8rem 1rem;
+          border-radius: 4px;
+          margin-bottom: 1.5rem;
+          line-height: 1.5;
+        }
+
         .form-heading::before {
           content: '';
           display: block;
@@ -461,6 +488,7 @@ export default function RegisterPage() {
         {/* Right: form */}
         <div className="reg-form-panel">
           <p className="form-heading">Create account</p>
+          {error && <p className="form-error">{error}</p>}
 
           <form action={registerUser}>
             <div className="field">

@@ -6,20 +6,33 @@ import Link from "next/link";
 
 export const dynamic = "force-dynamic";
 
-export default function LoginPage() {
+interface Props {
+  searchParams?: Promise<{ error?: string }>;
+}
+
+export default async function LoginPage({ searchParams }: Props) {
+  const params = searchParams ? await searchParams : undefined;
+  const error = typeof params?.error === "string" ? params.error : "";
+
   async function loginUser(formData: FormData) {
     "use server";
 
     const email    = formData.get("email")    as string;
     const password = formData.get("password") as string;
 
-    if (!email || !password) throw new Error("All fields are required");
+    if (!email || !password) {
+      redirect(`/login?error=${encodeURIComponent("All fields are required")}`);
+    }
 
     const user = await prisma.user.findUnique({ where: { email } });
-    if (!user) throw new Error("Invalid email or password");
+    if (!user) {
+      redirect(`/login?error=${encodeURIComponent("Invalid email or password")}`);
+    }
 
     const valid = await comparePassword(password, user.password);
-    if (!valid) throw new Error("Invalid email or password");
+    if (!valid) {
+      redirect(`/login?error=${encodeURIComponent("Invalid email or password")}`);
+    }
 
     // Create JWT and store in httpOnly cookie
     const token = await signJwt({ id: user.id, email: user.email, name: user.name });
@@ -272,6 +285,20 @@ export default function LoginPage() {
           gap: 0.8rem;
         }
 
+        .form-error {
+          font-family: 'DM Mono', monospace;
+          font-size: 0.62rem;
+          letter-spacing: 0.1em;
+          text-transform: uppercase;
+          color: #ffd27a;
+          background: rgba(240,190,64,0.08);
+          border: 1px solid rgba(240,190,64,0.2);
+          padding: 0.8rem 1rem;
+          border-radius: 4px;
+          margin-bottom: 1.5rem;
+          line-height: 1.5;
+        }
+
         .form-heading::before {
           content: '';
           display: block;
@@ -461,6 +488,7 @@ export default function LoginPage() {
         {/* Right: form */}
         <div className="login-form-panel">
           <p className="form-heading">Sign in</p>
+          {error && <p className="form-error">{error}</p>}
 
           <form action={loginUser}>
             <div className="field">

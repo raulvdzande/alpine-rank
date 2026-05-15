@@ -1,4 +1,6 @@
 import { prisma } from "@/lib/prisma";
+import { getCurrentUser } from "@/lib/auth";
+import { Prisma } from "@prisma/client";
 import { notFound, redirect } from "next/navigation";
 import Link from "next/link";
 
@@ -6,6 +8,7 @@ export const dynamic = "force-dynamic";
 
 interface Props {
   params: Promise<{ id: string }>;
+  searchParams?: Promise<{ error?: string }>;
 }
 
 const METRICS = ["terrain", "snow", "lifts", "apres", "family", "value", "scenery"] as const;
@@ -209,11 +212,30 @@ function RadarChart({ reviews }: { reviews: Array<Record<string, unknown>> }) {
 /* ─────────────────────────────────────────
    RatingForm — slider-based inputs
 ───────────────────────────────────────── */
-function RatingForm({ action, resortId }: { action: (fd: FormData) => Promise<void>; resortId: string }) {
+function RatingForm({
+  action,
+  resortId,
+  currentUser,
+}: {
+  action: (fd: FormData) => Promise<void>;
+  resortId: string;
+  currentUser: { id: string; name: string } | null;
+}) {
+  if (!currentUser) {
+    return (
+      <div className="rf-guest">
+        <div className="rf-guest-title">Sign in required</div>
+        <p className="rf-guest-copy">You need an account before you can submit a rating.</p>
+        <Link href={`/login?error=${encodeURIComponent("Please sign in to submit a review")}`} className="rf-guest-link">
+          Go to login
+        </Link>
+      </div>
+    );
+  }
+
   return (
     <form action={action} className="rf-form">
       <input type="hidden" name="resortId" value={resortId} />
-      <input type="hidden" name="userId" value="" />
 
       <div className="rf-sliders">
         {METRICS.map((key, i) => (
@@ -252,8 +274,11 @@ function RatingForm({ action, resortId }: { action: (fd: FormData) => Promise<vo
 /* ─────────────────────────────────────────
    Page
 ───────────────────────────────────────── */
-export default async function ResortPage({ params }: Props) {
+export default async function ResortPage({ params, searchParams }: Props) {
   const { id } = await params;
+  const currentUser = await getCurrentUser();
+  const pageParams = searchParams ? await searchParams : undefined;
+  const pageError = typeof pageParams?.error === "string" ? pageParams.error : "";
 
   const resort = await prisma.resort.findUnique({
     where: { id },
@@ -264,6 +289,12 @@ export default async function ResortPage({ params }: Props) {
 
   async function submitReview(formData: FormData) {
     "use server";
+    const sessionUser = await getCurrentUser();
+
+    if (!sessionUser) {
+      redirect(`/login?error=${encodeURIComponent("Please sign in to submit a review")}`);
+    }
+
     const terrain = Number(formData.get("terrain"));
     const snow    = Number(formData.get("snow"));
     const lifts   = Number(formData.get("lifts"));
@@ -271,22 +302,29 @@ export default async function ResortPage({ params }: Props) {
     const family  = Number(formData.get("family"));
     const value   = Number(formData.get("value"));
     const scenery = Number(formData.get("scenery"));
-    const userId  = formData.get("userId") as string;
     const overall = (terrain + snow + lifts + apres + family + value + scenery) / 7;
 
-    await prisma.review.create({
-      data: { userId, resortId: id, terrain, snow, lifts, apres, family, value, scenery, overall },
-    });
+    try {
+      await prisma.review.create({
+        data: { userId: sessionUser.id, resortId: id, terrain, snow, lifts, apres, family, value, scenery, overall },
+      });
 
-    const allReviews     = await prisma.review.findMany({ where: { resortId: id } });
-    const reviewCount    = allReviews.length;
-    const averageOverall = reviewCount > 0
-      ? allReviews.reduce((s, r) => s + r.overall, 0) / reviewCount : 0;
+      const allReviews = await prisma.review.findMany({ where: { resortId: id } });
+      const reviewCount = allReviews.length;
+      const averageOverall = reviewCount > 0
+        ? allReviews.reduce((s, r) => s + r.overall, 0) / reviewCount : 0;
 
-    await prisma.resort.update({
-      where: { id },
-      data: { averageOverallRating: averageOverall, reviewCount },
-    });
+      await prisma.resort.update({
+        where: { id },
+        data: { averageOverallRating: averageOverall, reviewCount },
+      });
+    } catch (error) {
+      if (error instanceof Prisma.PrismaClientKnownRequestError && error.code === "P2002") {
+        redirect(`/resorts/${id}?error=${encodeURIComponent("You already reviewed this resort")}`);
+      }
+
+      redirect(`/resorts/${id}?error=${encodeURIComponent("Could not save your review right now")}`);
+    }
 
     redirect(`/resorts/${id}`);
   }
@@ -782,6 +820,20 @@ export default async function ResortPage({ params }: Props) {
           margin-bottom: 2rem;
         }
 
+        .resort-error {
+          font-family: 'DM Mono', monospace;
+          font-size: 0.62rem;
+          letter-spacing: 0.1em;
+          text-transform: uppercase;
+          color: #ffd27a;
+          background: rgba(240,190,64,0.08);
+          border: 1px solid rgba(240,190,64,0.2);
+          padding: 0.8rem 1rem;
+          border-radius: 4px;
+          margin-bottom: 1.5rem;
+          line-height: 1.5;
+        }
+
         .rf-form { display: flex; flex-direction: column; gap: 0; }
 
         .rf-sliders {
@@ -898,6 +950,43 @@ export default async function ResortPage({ params }: Props) {
         .rf-submit-text, .rf-submit-arrow { position: relative; z-index: 1; }
         .rf-submit-arrow { font-family: sans-serif; transition: transform 0.2s; }
         .rf-submit:hover .rf-submit-arrow { transform: translateX(3px); }
+
+        .rf-guest {
+          border: 1px dashed rgba(140,200,240,0.14);
+          border-radius: 6px;
+          padding: 1.5rem;
+          background: rgba(140,200,240,0.03);
+        }
+
+        .rf-guest-title {
+          font-family: 'Bebas Neue', sans-serif;
+          font-size: 1.8rem;
+          letter-spacing: 0.05em;
+          color: var(--frost);
+          margin-bottom: 0.5rem;
+        }
+
+        .rf-guest-copy {
+          font-family: 'Instrument Serif', serif;
+          color: var(--muted);
+          margin-bottom: 1rem;
+          line-height: 1.6;
+        }
+
+        .rf-guest-link {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          font-family: 'DM Mono', monospace;
+          font-size: 0.62rem;
+          letter-spacing: 0.22em;
+          text-transform: uppercase;
+          color: var(--bg);
+          background: var(--ice);
+          border-radius: 4px;
+          padding: 0.85rem 1rem;
+          text-decoration: none;
+        }
 
         /* ════════════════════════════
            REVIEWS
@@ -1183,7 +1272,8 @@ export default async function ResortPage({ params }: Props) {
           <div className="form-card">
             <div className="form-title">Rate this resort</div>
             <p className="form-subtitle">Move the sliders to set your scores</p>
-            <RatingForm action={submitReview} resortId={id} />
+            {pageError && <p className="resort-error">{pageError}</p>}
+            <RatingForm action={submitReview} resortId={id} currentUser={currentUser} />
           </div>
         </div>
 
