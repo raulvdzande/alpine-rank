@@ -3,6 +3,7 @@ import { getCurrentUser } from "@/lib/auth";
 import { Prisma } from "@prisma/client";
 import { notFound, redirect } from "next/navigation";
 import Link from "next/link";
+import RatingForm from "@/app/components/RatingForm";
 
 export const dynamic = "force-dynamic";
 
@@ -206,68 +207,6 @@ function RadarChart({ reviews }: { reviews: Array<Record<string, unknown>> }) {
         );
       })}
     </svg>
-  );
-}
-
-/* ─────────────────────────────────────────
-   RatingForm — slider-based inputs
-───────────────────────────────────────── */
-function RatingForm({
-  action,
-  resortId,
-  currentUser,
-}: {
-  action: (fd: FormData) => Promise<void>;
-  resortId: string;
-  currentUser: { id: string; name: string } | null;
-}) {
-  if (!currentUser) {
-    return (
-      <div className="rf-guest">
-        <div className="rf-guest-title">Sign in required</div>
-        <p className="rf-guest-copy">You need an account before you can submit a rating.</p>
-        <Link href={`/login?error=${encodeURIComponent("Please sign in to submit a review")}`} className="rf-guest-link">
-          Go to login
-        </Link>
-      </div>
-    );
-  }
-
-  return (
-    <form action={action} className="rf-form">
-      <input type="hidden" name="resortId" value={resortId} />
-
-      <div className="rf-sliders">
-        {METRICS.map((key, i) => (
-          <div key={key} className="rf-row" style={{ animationDelay: `${0.05 * i}s` }}>
-            <div className="rf-row-head">
-              <span className="rf-icon">{METRIC_ICONS[key]}</span>
-              <label className="rf-label" htmlFor={`rf-${key}`}>
-                {METRIC_LABELS[key]}
-              </label>
-              <output className="rf-output" id={`out-${key}`}>5</output>
-            </div>
-            <div className="rf-track-wrap">
-              <input
-                id={`rf-${key}`}
-                name={key}
-                type="range"
-                min="1" max="10" step="0.5"
-                defaultValue="5"
-                className="rf-slider"
-                onInput={`this.parentElement.parentElement.querySelector('#out-${key}').value=this.value` as unknown as React.FormEventHandler}
-              />
-              <div className="rf-track-fill" />
-            </div>
-          </div>
-        ))}
-      </div>
-
-      <button type="submit" className="rf-submit">
-        <span className="rf-submit-text">Submit Rating</span>
-        <span className="rf-submit-arrow">→</span>
-      </button>
-    </form>
   );
 }
 
