@@ -535,7 +535,7 @@ export default async function RankingsPage() {
               const r = rankedOverall[idx];
               if (!r) return null;
               return (
-                <Link key={r.id} href={`/resorts/${r.id}`} className={`podium-card ${cls}`}>
+                <Link key={r.id} href={`/resort/${r.id}`} className={`podium-card ${cls}`}>
                   <span className="podium-medal">{["🥇","🥈","🥉"][idx]}</span>
                   <div className="podium-rank">{["1st Place","2nd Place","3rd Place"][idx]}</div>
                   <div className="podium-name">{r.name}</div>
@@ -554,7 +554,7 @@ export default async function RankingsPage() {
               <span className="r">Reviews</span><span className="r">Score bar</span><span className="r">Score</span>
             </div>
             {rankedOverall.slice(3).map((r, i) => (
-              <Link key={r.id} href={`/resorts/${r.id}`} className="rank-row">
+              <Link key={r.id} href={`/resort/${r.id}`} className="rank-row">
                 <div className="rr-pos"><span className="pos-num">{String(i + 4).padStart(2,"0")}</span></div>
                 <div>
                   <span className="rr-name">{r.name}</span>
@@ -596,7 +596,7 @@ export default async function RankingsPage() {
                   const posClass   = i === 0 ? "pos-1" : i === 1 ? "pos-2" : i === 2 ? "pos-3" : "";
                   const scoreClass = i === 0 ? "gold"  : i === 1 ? "silver": i === 2 ? "bronze": "rest";
                   return (
-                    <Link key={r.id} href={`/resorts/${r.id}`} className={`rank-row ${posClass}`}>
+                    <Link key={r.id} href={`/resort/${r.id}`} className={`rank-row ${posClass}`}>
                       <div className="rr-pos">
                         {i < 3
                           ? <span className="pos-medal">{["🥇","🥈","🥉"][i]}</span>

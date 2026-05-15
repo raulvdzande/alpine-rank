@@ -645,7 +645,7 @@ export default async function ResortsPage({ searchParams }: Props) {
             </div>
           ) : (
             resorts.map((resort, idx) => (
-              <Link key={resort.id} href={`/resorts/${resort.id}`} className="resort-card">
+              <Link key={resort.id} href={`/resort/${resort.id}`} className="resort-card">
                 <span className="card-index">#{String(idx + 1).padStart(2, "0")}</span>
 
                 <div className="card-top">

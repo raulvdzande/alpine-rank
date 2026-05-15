@@ -320,13 +320,12 @@ export default async function ResortPage({ params, searchParams }: Props) {
       });
     } catch (error) {
       if (error instanceof Prisma.PrismaClientKnownRequestError && error.code === "P2002") {
-        redirect(`/resorts/${id}?error=${encodeURIComponent("You already reviewed this resort")}`);
+        redirect(`/resort/${id}?error=${encodeURIComponent("You already reviewed this resort")}`);
       }
 
-      redirect(`/resorts/${id}?error=${encodeURIComponent("Could not save your review right now")}`);
+      redirect(`/resort/${id}?error=${encodeURIComponent("Could not save your review right now")}`);
     }
-
-    redirect(`/resorts/${id}`);
+    redirect(`/resort/${id}`);
   }
 
   const metricAverages = METRICS.map((key) => ({

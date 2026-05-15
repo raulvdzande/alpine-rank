@@ -488,7 +488,7 @@ export default async function ResortsPage({ searchParams }: Props) {
               </div>
             ) : (
               resorts.map((resort) => (
-                <Link key={resort.id} href={`/resorts/${resort.id}`} className="resort-card">
+                <Link key={resort.id} href={`/resort/${resort.id}`} className="resort-card">
                   {resort.Continent && (
                     <span className="card-continent">{resort.Continent}</span>
                   )}
