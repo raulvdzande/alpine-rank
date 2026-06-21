@@ -1,772 +1,397 @@
-import { prisma } from "../lib/prisma";
 import Link from "next/link";
+import { prisma } from "@/lib/prisma";
+import {
+  gradientFor, emojiFor, countryNL, toFiveStars, stars, fmtCount, fmtNumber, snowBar,
+} from "@/lib/display";
 
 export const dynamic = "force-dynamic";
 
 export default async function HomePage() {
-  const topResorts = await prisma.resort.findMany({
-    orderBy: { averageOverallRating: "desc" },
-    take: 10,
-  });
+  const [totalResorts, reviewAgg, countriesGrouped, topResorts, snowTop] = await Promise.all([
+    prisma.resort.count(),
+    prisma.resort.aggregate({ _sum: { reviewCount: true } }),
+    prisma.resort.groupBy({ by: ["Country"] }),
+    prisma.resort.findMany({ where: { reviewCount: { gt: 0 } }, orderBy: { averageOverallRating: "desc" }, take: 3 }),
+    prisma.resort.findMany({ orderBy: { snowScore: "desc" }, take: 6 }),
+  ]);
 
-  const totalResorts = await prisma.resort.count();
-  const totalReviews = await prisma.review.count();
-
-  const countries = await prisma.resort.groupBy({ by: ["Country"] });
+  const totalReviews = reviewAgg._sum.reviewCount ?? 0;
+  const beginnersPick = await prisma.resort.findFirst({ where: { category: "Beginners" }, orderBy: { snowScore: "desc" } });
+  const heroTop = topResorts[0];
 
   return (
-    <main className="ar-root">
-      <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Instrument+Sans:wght@400;500;600&family=Instrument+Serif:ital@0;1&family=DM+Mono:wght@300;400&display=swap');
-
-        :root {
-          --bg:        #04080f;
-          --surface:   #070d1a;
-          --panel:     #0a1220;
-          --border:    rgba(160,210,240,0.1);
-          --border-hi: rgba(160,210,240,0.25);
-          --ice:       #a0d2f0;
-          --frost:     #c8e8ff;
-          --dim:       rgba(200,232,255,0.35);
-          --muted:     rgba(200,232,255,0.18);
-          --gold:      #f0c040;
-          --silver:    #c0ccd8;
-          --bronze:    #d4845a;
-        }
-
-        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-        .ar-root {
-          font-family: 'Instrument Sans', sans-serif;
-          background: var(--bg);
-          color: var(--frost);
-          min-height: 100vh;
-          overflow-x: hidden;
-        }
-
-        /* ━━━━━━━━━━ HERO ━━━━━━━━━━ */
-        .hero {
-          position: relative;
-          min-height: 100svh;
-          display: grid;
-          place-items: center;
-          padding: 0 2rem;
-          overflow: hidden;
-        }
-
-        .hero::before {
-          content: '';
-          position: absolute;
-          inset: 0;
-          background:
-            radial-gradient(ellipse 100% 55% at 50% -10%,  rgba(80,160,220,0.18) 0%, transparent 65%),
-            radial-gradient(ellipse 60%  40% at 15%  70%,  rgba(40,100,200,0.09) 0%, transparent 60%),
-            radial-gradient(ellipse 50%  35% at 85%  80%,  rgba(20, 60,160,0.08) 0%, transparent 55%);
-          pointer-events: none;
-        }
-
-        .hero::after {
-          content: '';
-          position: absolute;
-          inset: 0;
-          background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
-          pointer-events: none;
-          opacity: 0.6;
-        }
-
-        .contours {
-          position: absolute;
-          inset: 0;
-          background-image:
-            repeating-linear-gradient(0deg, transparent, transparent 79px, rgba(160,210,240,0.025) 79px, rgba(160,210,240,0.025) 80px),
-            repeating-linear-gradient(90deg, transparent, transparent 79px, rgba(160,210,240,0.018) 79px, rgba(160,210,240,0.018) 80px);
-          pointer-events: none;
-        }
-
-        .hero-mountain {
-          position: absolute;
-          bottom: 0;
-          left: 0;
-          right: 0;
-          width: 100%;
-          pointer-events: none;
-        }
-
-        .hero-inner {
-          position: relative;
-          z-index: 2;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          text-align: center;
-        }
-
-        .hero-eyebrow {
-          font-family: 'DM Mono', monospace;
-          font-size: 0.65rem;
-          font-weight: 400;
-          letter-spacing: 0.35em;
-          color: var(--ice);
-          text-transform: uppercase;
-          opacity: 0.6;
-          margin-bottom: 1.8rem;
-          animation: rise 1s ease both;
-        }
-
-        .hero-title {
-          font-family: 'Bebas Neue', sans-serif;
-          font-size: clamp(6rem, 20vw, 18rem);
-          line-height: 0.88;
-          letter-spacing: -0.01em;
-          background: linear-gradient(175deg, #ffffff 0%, var(--frost) 30%, var(--ice) 60%, #5aaad0 100%);
-          -webkit-background-clip: text;
-          -webkit-text-fill-color: transparent;
-          background-clip: text;
-          animation: rise 1s ease 0.08s both;
-          filter: drop-shadow(0 0 80px rgba(100,180,240,0.25));
-        }
-
-        .hero-tagline {
-          font-family: 'Instrument Serif', serif;
-          font-style: italic;
-          font-size: clamp(1.1rem, 2.5vw, 1.5rem);
-          color: var(--dim);
-          margin-top: 1.8rem;
-          letter-spacing: 0.01em;
-          animation: rise 1s ease 0.18s both;
-          max-width: 480px;
-        }
-
-        .hero-cta {
-          margin-top: 3rem;
-          display: flex;
-          gap: 1rem;
-          animation: rise 1s ease 0.28s both;
-        }
-
-        .btn-a {
-          display: inline-flex;
-          align-items: center;
-          background: var(--ice);
-          color: #04080f;
-          font-family: 'Instrument Sans', sans-serif;
-          font-weight: 600;
-          font-size: 0.875rem;
-          letter-spacing: 0.03em;
-          padding: 0.85rem 2rem;
-          border-radius: 4px;
-          text-decoration: none;
-          transition: all 0.2s;
-          box-shadow: 0 0 50px rgba(160,210,240,0.22), inset 0 1px 0 rgba(255,255,255,0.3);
-        }
-
-        .btn-a:hover {
-          background: var(--frost);
-          box-shadow: 0 0 80px rgba(160,210,240,0.4), inset 0 1px 0 rgba(255,255,255,0.4);
-          transform: translateY(-2px);
-        }
-
-        .btn-b {
-          display: inline-flex;
-          align-items: center;
-          font-family: 'Instrument Sans', sans-serif;
-          font-weight: 500;
-          font-size: 0.875rem;
-          letter-spacing: 0.03em;
-          padding: 0.85rem 2rem;
-          border: 1px solid var(--border-hi);
-          border-radius: 4px;
-          color: var(--dim);
-          text-decoration: none;
-          transition: all 0.2s;
-        }
-
-        .btn-b:hover {
-          border-color: var(--ice);
-          color: var(--ice);
-          background: rgba(160,210,240,0.05);
-          transform: translateY(-2px);
-        }
-
-        .hero-scroll-indicator {
-          position: absolute;
-          bottom: 2.5rem;
-          left: 50%;
-          transform: translateX(-50%);
-          z-index: 2;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          gap: 0.6rem;
-          animation: rise 1s ease 0.5s both;
-        }
-
-        .scroll-track {
-          width: 1px;
-          height: 48px;
-          background: linear-gradient(to bottom, var(--ice), transparent);
-          position: relative;
-          overflow: hidden;
-        }
-
-        .scroll-track::after {
-          content: '';
-          position: absolute;
-          top: -100%;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          background: linear-gradient(to bottom, transparent, var(--frost));
-          animation: drip 2s ease-in-out infinite;
-        }
-
-        .scroll-label {
-          font-family: 'DM Mono', monospace;
-          font-size: 0.58rem;
-          letter-spacing: 0.25em;
-          color: var(--muted);
-          text-transform: uppercase;
-        }
-
-        /* ━━━━━━━━━━ STATS ━━━━━━━━━━ */
-        .stats-band {
-          border-top: 1px solid var(--border);
-          border-bottom: 1px solid var(--border);
-          background: var(--surface);
-          position: relative;
-        }
-
-        .stats-band::before {
-          content: '';
-          position: absolute;
-          inset: 0;
-          background: radial-gradient(ellipse 60% 100% at 50% 0%, rgba(160,210,240,0.04) 0%, transparent 70%);
-          pointer-events: none;
-        }
-
-        .stats-inner {
-          max-width: 960px;
-          margin: 0 auto;
-          display: grid;
-          grid-template-columns: repeat(3, 1fr);
-        }
-
-        .stat-cell {
-          padding: 3.5rem 2rem;
-          text-align: center;
-          position: relative;
-        }
-
-        .stat-cell + .stat-cell::before {
-          content: '';
-          position: absolute;
-          left: 0;
-          top: 25%;
-          bottom: 25%;
-          width: 1px;
-          background: linear-gradient(to bottom, transparent, var(--border-hi), transparent);
-        }
-
-        .stat-value {
-          font-family: 'Bebas Neue', sans-serif;
-          font-size: clamp(4rem, 7vw, 6.5rem);
-          line-height: 1;
-          letter-spacing: 0.02em;
-          background: linear-gradient(150deg, var(--frost) 0%, var(--ice) 100%);
-          -webkit-background-clip: text;
-          -webkit-text-fill-color: transparent;
-          background-clip: text;
-          display: block;
-        }
-
-        .stat-name {
-          font-family: 'DM Mono', monospace;
-          font-size: 0.65rem;
-          letter-spacing: 0.22em;
-          color: var(--muted);
-          text-transform: uppercase;
-          display: block;
-          margin-top: 0.6rem;
-        }
-
-        /* ━━━━━━━━━━ LEADERBOARD ━━━━━━━━━━ */
-        .lb-section {
-          padding: 7rem 2rem;
-          position: relative;
-        }
-
-        .lb-section::before {
-          content: '';
-          position: absolute;
-          top: 0;
-          left: 50%;
-          transform: translateX(-50%);
-          width: 1px;
-          height: 80px;
-          background: linear-gradient(to bottom, transparent, var(--border-hi));
-        }
-
-        .section-header {
-          text-align: center;
-          margin-bottom: 4.5rem;
-        }
-
-        .s-eyebrow {
-          font-family: 'DM Mono', monospace;
-          font-size: 0.62rem;
-          letter-spacing: 0.35em;
-          color: var(--ice);
-          opacity: 0.5;
-          text-transform: uppercase;
-          display: block;
-          margin-bottom: 0.9rem;
-        }
-
-        .s-title {
-          font-family: 'Bebas Neue', sans-serif;
-          font-size: clamp(3rem, 6vw, 5.5rem);
-          letter-spacing: 0.06em;
-          color: var(--frost);
-          line-height: 1;
-        }
-
-        .lb-table {
-          max-width: 820px;
-          margin: 0 auto;
-          border: 1px solid var(--border);
-          border-radius: 8px;
-          overflow: hidden;
-          background: var(--surface);
-        }
-
-        .lb-header {
-          display: grid;
-          grid-template-columns: 56px 1fr 90px 90px;
-          padding: 0.75rem 1.5rem;
-          border-bottom: 1px solid var(--border);
-          background: rgba(160,210,240,0.03);
-        }
-
-        .lb-header span {
-          font-family: 'DM Mono', monospace;
-          font-size: 0.58rem;
-          letter-spacing: 0.2em;
-          color: var(--muted);
-          text-transform: uppercase;
-        }
-
-        .lb-header span:last-child,
-        .lb-header span:nth-child(3) { text-align: right; }
-
-        .lb-row {
-          display: grid;
-          grid-template-columns: 56px 1fr 90px 90px;
-          align-items: center;
-          padding: 1.25rem 1.5rem;
-          border-bottom: 1px solid var(--border);
-          text-decoration: none;
-          color: inherit;
-          position: relative;
-          transition: background 0.15s;
-        }
-
-        .lb-row:last-child { border-bottom: none; }
-
-        .lb-row::after {
-          content: '';
-          position: absolute;
-          left: 0; top: 0; bottom: 0;
-          width: 2px;
-          background: transparent;
-          transition: background 0.15s;
-        }
-
-        .lb-row:hover { background: rgba(160,210,240,0.04); }
-        .lb-row:hover::after { background: var(--ice); }
-
-        .lb-row.is-gold   { background: linear-gradient(90deg, rgba(240,192,64,0.05) 0%, transparent 50%); }
-        .lb-row.is-silver { background: linear-gradient(90deg, rgba(192,204,216,0.04) 0%, transparent 50%); }
-        .lb-row.is-bronze { background: linear-gradient(90deg, rgba(212,132,90,0.04) 0%, transparent 50%); }
-
-        .lb-pos {
-          font-family: 'DM Mono', monospace;
-          font-size: 0.75rem;
-          color: var(--muted);
-          letter-spacing: 0.05em;
-        }
-
-        .lb-pos.top { font-size: 1.3rem; }
-
-        .lb-name {
-          font-size: 0.975rem;
-          font-weight: 500;
-          color: var(--frost);
-          margin-bottom: 0.2rem;
-          transition: color 0.15s;
-        }
-
-        .lb-row:hover .lb-name { color: var(--ice); }
-
-        .lb-loc {
-          font-family: 'DM Mono', monospace;
-          font-size: 0.65rem;
-          color: var(--muted);
-          letter-spacing: 0.05em;
-        }
-
-        .lb-reviews {
-          font-family: 'DM Mono', monospace;
-          font-size: 0.68rem;
-          color: var(--muted);
-          text-align: right;
-          letter-spacing: 0.05em;
-        }
-
-        .lb-score {
-          font-family: 'Bebas Neue', sans-serif;
-          font-size: 2rem;
-          letter-spacing: 0.05em;
-          text-align: right;
-          line-height: 1;
-        }
-
-        .lb-score.is-gold   { color: var(--gold);   }
-        .lb-score.is-silver { color: var(--silver);  }
-        .lb-score.is-bronze { color: var(--bronze);  }
-        .lb-score.is-rest   { color: var(--ice);     }
-
-        .lb-footer {
-          display: flex;
-          justify-content: flex-end;
-          padding: 1.2rem 1.5rem 0;
-        }
-
-        .lb-more {
-          font-family: 'DM Mono', monospace;
-          font-size: 0.68rem;
-          letter-spacing: 0.18em;
-          color: var(--ice);
-          text-decoration: none;
-          text-transform: uppercase;
-          opacity: 0.7;
-          transition: opacity 0.15s;
-          display: flex;
-          align-items: center;
-          gap: 0.5rem;
-        }
-
-        .lb-more:hover { opacity: 1; }
-        .lb-more::after { content: '→'; font-family: sans-serif; }
-
-        /* ━━━━━━━━━━ RULE ━━━━━━━━━━ */
-        .rule {
-          width: 100%;
-          height: 1px;
-          background: linear-gradient(90deg, transparent 0%, var(--border-hi) 20%, var(--border-hi) 80%, transparent 100%);
-        }
-
-        /* ━━━━━━━━━━ COUNTRIES ━━━━━━━━━━ */
-        .countries-section {
-          padding: 6rem 2rem;
-          background: var(--surface);
-          position: relative;
-          overflow: hidden;
-        }
-
-        .countries-section::before {
-          content: '';
-          position: absolute;
-          inset: 0;
-          background: radial-gradient(ellipse 70% 80% at 50% 50%, rgba(160,210,240,0.03) 0%, transparent 70%);
-          pointer-events: none;
-        }
-
-        .country-wrap {
-          max-width: 760px;
-          margin: 0 auto;
-          display: flex;
-          flex-wrap: wrap;
-          gap: 0.6rem;
-          justify-content: center;
-        }
-
-        .c-tag {
-          font-family: 'DM Mono', monospace;
-          font-size: 0.68rem;
-          letter-spacing: 0.12em;
-          text-transform: uppercase;
-          color: var(--muted);
-          border: 1px solid var(--border);
-          border-radius: 2px;
-          padding: 0.45rem 1rem;
-          text-decoration: none;
-          transition: all 0.15s;
-        }
-
-        .c-tag:hover {
-          color: var(--ice);
-          border-color: var(--border-hi);
-          background: rgba(160,210,240,0.05);
-        }
-
-        /* ━━━━━━━━━━ FINAL CTA ━━━━━━━━━━ */
-        .final {
-          padding: 9rem 2rem 8rem;
-          text-align: center;
-          position: relative;
-          overflow: hidden;
-        }
-
-        .final::before {
-          content: '';
-          position: absolute;
-          inset: 0;
-          background: radial-gradient(ellipse 60% 60% at 50% 30%, rgba(120,190,240,0.1) 0%, transparent 65%);
-          pointer-events: none;
-        }
-
-        .final-watermark {
-          position: absolute;
-          top: 50%;
-          left: 50%;
-          transform: translate(-50%, -50%);
-          font-family: 'Bebas Neue', sans-serif;
-          font-size: clamp(18rem, 35vw, 32rem);
-          line-height: 1;
-          color: rgba(160,210,240,0.025);
-          pointer-events: none;
-          user-select: none;
-          white-space: nowrap;
-          letter-spacing: -0.05em;
-        }
-
-        .final-inner {
-          position: relative;
-          z-index: 2;
-          max-width: 560px;
-          margin: 0 auto;
-        }
-
-        .final-title {
-          font-family: 'Bebas Neue', sans-serif;
-          font-size: clamp(4rem, 9vw, 8rem);
-          letter-spacing: 0.04em;
-          line-height: 0.95;
-          color: var(--frost);
-          margin-bottom: 1.5rem;
-        }
-
-        .final-title em {
-          font-family: 'Instrument Serif', serif;
-          font-style: italic;
-          font-size: 0.85em;
-          background: linear-gradient(120deg, var(--frost), var(--ice));
-          -webkit-background-clip: text;
-          -webkit-text-fill-color: transparent;
-          background-clip: text;
-        }
-
-        .final-sub {
-          font-size: 0.95rem;
-          font-weight: 400;
-          color: var(--muted);
-          line-height: 1.75;
-          margin-bottom: 2.8rem;
-        }
-
-        .btn-register {
-          position: relative;
-          display: inline-block;
-          font-family: 'DM Mono', monospace;
-          font-size: 0.75rem;
-          font-weight: 400;
-          letter-spacing: 0.22em;
-          text-transform: uppercase;
-          color: var(--frost);
-          text-decoration: none;
-          padding: 1.1rem 3rem;
-          border-radius: 3px;
-          overflow: hidden;
-          isolation: isolate;
-        }
-
-        .btn-register::before {
-          content: '';
-          position: absolute;
-          inset: 0;
-          border-radius: 3px;
-          padding: 1px;
-          background: linear-gradient(135deg, var(--ice), rgba(160,210,240,0.2), var(--ice));
-          -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-          -webkit-mask-composite: xor;
-          mask-composite: exclude;
-          pointer-events: none;
-        }
-
-        .btn-register::after {
-          content: '';
-          position: absolute;
-          inset: 0;
-          background: var(--ice);
-          transform: translateY(101%);
-          transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-          z-index: -1;
-        }
-
-        .btn-register:hover::after { transform: translateY(0); }
-        .btn-register:hover { color: var(--bg); }
-        .btn-register span { position: relative; z-index: 1; transition: color 0.3s; }
-
-        /* ━━━━━━━━━━ ANIMATIONS ━━━━━━━━━━ */
-        @keyframes rise {
-          from { opacity: 0; transform: translateY(24px); }
-          to   { opacity: 1; transform: translateY(0); }
-        }
-
-        @keyframes drip {
-          0%   { top: -100%; }
-          100% { top: 100%; }
-        }
-
-        /* ━━━━━━━━━━ RESPONSIVE ━━━━━━━━━━ */
-        @media (max-width: 640px) {
-          .stats-inner { grid-template-columns: 1fr; }
-          .stat-cell + .stat-cell::before { display: none; }
-          .stat-cell { padding: 2.5rem 1.5rem; border-bottom: 1px solid var(--border); }
-          .stat-cell:last-child { border-bottom: none; }
-          .lb-header, .lb-row { grid-template-columns: 44px 1fr 70px; }
-          .lb-reviews { display: none; }
-          .hero-cta { flex-direction: column; }
-        }
-      `}</style>
-
-      {/* ━━━ HERO ━━━ */}
+    <>
+      {/* HERO */}
       <section className="hero">
-        <div className="contours" aria-hidden="true" />
-
-        <svg className="hero-mountain" viewBox="0 0 1440 280" preserveAspectRatio="none" aria-hidden="true">
-          <defs>
-            <linearGradient id="mg" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="rgba(160,210,240,0.06)" />
-              <stop offset="100%" stopColor="rgba(160,210,240,0)" />
-            </linearGradient>
-          </defs>
-          <path d="M0,280 L0,200 L200,90 L360,170 L520,50 L680,160 L840,70 L1000,190 L1160,40 L1300,140 L1440,80 L1440,280 Z" fill="url(#mg)" />
-          <path d="M520,50 L490,110 L550,110 Z M1160,40 L1130,95 L1190,95 Z M840,70 L815,120 L865,120 Z" fill="rgba(200,232,255,0.08)" />
-        </svg>
-
-        <div className="hero-inner">
-          <p className="hero-eyebrow">Global Ski Resort Intelligence</p>
-          <h1 className="hero-title">AlpineRank</h1>
-          <p className="hero-tagline">
-            The world's most precise ranking platform<br />for elite ski destinations.
-          </p>
-          <div className="hero-cta">
-            <Link href="/rankings" className="btn-a">View Rankings</Link>
-            <Link href="/resorts" className="btn-b">Browse Resorts</Link>
+        <div className="container">
+          <div className="hero-eyebrow">
+            <span className="hero-eyebrow-dot" />
+            Nieuw: Sneeuwzekerheids-score 2025–26 is live
+          </div>
+          <h1>De <span className="gradient">rankings die skiërs</span> vertrouwen</h1>
+          <p className="hero-sub">Vergelijk {fmtNumber(totalResorts)} skigebieden op sneeuwkwaliteit, pistekm, niveau en prijs. Vind het perfecte resort met AI — in 10 seconden.</p>
+          <div className="hero-actions">
+            <Link href="/matcher" className="btn btn-primary btn-xl">Start AI Matcher gratis →</Link>
+            <Link href="/resorts" className="btn btn-outline btn-lg">Alle rankings bekijken</Link>
+          </div>
+          <div className="hero-trust">
+            <div className="hero-trust-avatars">
+              <span>👤</span><span>👤</span><span>👤</span><span>👤</span><span>👤</span>
+            </div>
+            <div>
+              <div className="hero-trust-stars">★★★★★</div>
+              <p className="hero-trust-text">Gebaseerd op {fmtNumber(totalReviews)} geverifieerde reviews</p>
+            </div>
           </div>
         </div>
 
-        <div className="hero-scroll-indicator" aria-hidden="true">
-          <div className="scroll-track" />
-          <span className="scroll-label">scroll</span>
+        <div className="container">
+          <div className="hero-visual">
+            <svg viewBox="0 0 1100 340" xmlns="http://www.w3.org/2000/svg" className="mountain-bg" preserveAspectRatio="none">
+              <polygon points="0,340 220,80 380,220 520,40 700,180 850,60 1100,200 1100,340" fill="#d1e8f5" opacity=".5" />
+              <polygon points="0,340 220,120 380,260 520,100 700,220 850,110 1100,240 1100,340" fill="#b8d9ef" opacity=".6" />
+              <polygon points="0,340 0,280 200,160 350,290 500,140 680,270 820,150 1000,260 1100,200 1100,340" fill="white" opacity=".9" />
+              <polygon points="520,40 480,120 560,120" fill="white" opacity=".95" />
+              <polygon points="850,60 820,130 880,130" fill="white" opacity=".95" />
+              <polygon points="220,80 185,150 255,150" fill="white" opacity=".85" />
+              <g fill="#2d5a3d" opacity=".4">
+                <polygon points="100,260 108,295 92,295" />
+                <polygon points="140,250 148,288 132,288" />
+                <polygon points="920,230 928,265 912,265" />
+                <polygon points="960,240 968,275 952,275" />
+                <polygon points="1000,220 1008,260 992,260" />
+              </g>
+            </svg>
+
+            {heroTop && (
+              <div className="resort-card-float" style={{ bottom: 40, left: 40, maxWidth: 200 }}>
+                <div className="rci" style={{ background: "#e8f4fc" }}>{emojiFor(heroTop.id)}</div>
+                <div>
+                  <div className="rcname">{heroTop.name}</div>
+                  <div className="rcsub">{countryNL(heroTop.Country)} · {heroTop.pisteKm} km</div>
+                  <div className="stars-row">{stars(toFiveStars(heroTop.averageOverallRating))} <span style={{ color: "#9a9a8e", fontSize: 10 }}>({fmtCount(heroTop.reviewCount)})</span></div>
+                </div>
+              </div>
+            )}
+
+            {heroTop && (
+              <div className="snow-badge" style={{ top: 24, right: 160 }}>
+                <span className="dot" />
+                <span style={{ fontSize: 12, fontWeight: 600 }}>Sneeuwscore: {heroTop.snowScore?.toFixed(1)}</span>
+              </div>
+            )}
+
+            {beginnersPick && (
+              <div className="resort-card-float" style={{ bottom: 40, right: 40, maxWidth: 210 }}>
+                <div className="rci" style={{ background: "#eaf5ec" }}>⛷</div>
+                <div>
+                  <div className="rcname">#1 voor beginners</div>
+                  <div className="rcsub">{beginnersPick.name}</div>
+                  <div className="stars-row" style={{ color: "var(--peak)" }}>✓ AI Aanbeveling</div>
+                </div>
+              </div>
+            )}
+          </div>
         </div>
       </section>
 
-      {/* ━━━ STATS ━━━ */}
-      <section className="stats-band">
-        <div className="stats-inner">
-          {[
-            { v: totalResorts.toLocaleString(),  l: "Resorts Worldwide" },
-            { v: totalReviews.toLocaleString(),  l: "Verified Reviews"  },
-            { v: countries.length.toString(),    l: "Countries Covered" },
-          ].map(({ v, l }) => (
-            <div key={l} className="stat-cell">
-              <span className="stat-value">{v}</span>
-              <span className="stat-name">{l}</span>
-            </div>
-          ))}
+      {/* LOGOS */}
+      <section className="logos">
+        <div className="container">
+          <p className="logos-label">Vertrouwd door skiërs die naar deze gebieden gaan</p>
+          <div className="logos-row">
+            {topResorts.concat(snowTop).slice(0, 8).map((r) => (
+              <div className="logo-item" key={"logo" + r.id}>{r.name}</div>
+            ))}
+          </div>
         </div>
       </section>
 
-      {/* ━━━ LEADERBOARD ━━━ */}
-      <section className="lb-section">
-        <div className="section-header">
-          <span className="s-eyebrow">Season Rankings</span>
-          <h2 className="s-title">Global Top 10</h2>
+      {/* STATS BAR */}
+      <section className="stats-bar">
+        <div className="container">
+          <div className="stats-inner">
+            <div className="stat-item"><div className="stat-number">{fmtNumber(totalResorts)}</div><div className="stat-label">Skigebieden gerankt</div></div>
+            <div className="stat-item"><div className="stat-number">{fmtNumber(totalReviews)}</div><div className="stat-label">Geverifieerde reviews</div></div>
+            <div className="stat-item"><div className="stat-number">{countriesGrouped.length}</div><div className="stat-label">Landen gedekt</div></div>
+            <div className="stat-item"><div className="stat-number">10 jaar</div><div className="stat-label">Historische sneeuwdata</div></div>
+            <div className="stat-item"><div className="stat-number">98%</div><div className="stat-label">Sneeuwzekerheid nauwkeurig</div></div>
+          </div>
         </div>
+      </section>
 
-        <div style={{ maxWidth: 820, margin: "0 auto" }}>
-          <div className="lb-table">
-            <div className="lb-header">
-              <span>Pos</span>
-              <span>Resort</span>
-              <span style={{ textAlign: "right" }}>Reviews</span>
-              <span style={{ textAlign: "right" }}>Score</span>
+      {/* PROBLEM */}
+      <section className="section" style={{ background: "var(--snow)" }}>
+        <div className="container">
+          <span className="label">Het probleem</span>
+          <h2>Skigebied plannen is gebroken</h2>
+          <div className="problem-grid">
+            <div className="problem-card">
+              <span className="problem-icon">😤</span>
+              <h3>Onbetrouwbare reviews</h3>
+              <p style={{ fontSize: 14 }}>TripAdvisor en Google zijn vol met onverifieerbare reviews van mensen die er nooit zijn geweest. Je weet niet wie je vertrouwt.</p>
             </div>
+            <div className="problem-card">
+              <span className="problem-icon">🌫</span>
+              <h3>Geen sneeuwgarantie</h3>
+              <p style={{ fontSize: 14 }}>Sneeuwcondities zijn moeilijk te vergelijken. Elke website zegt dat hun resort &quot;uitstekend&quot; is. Je boekt €2.000 en belandt op groene pisten.</p>
+            </div>
+            <div className="problem-card">
+              <span className="problem-icon">👥</span>
+              <h3>Groepen met gemengde niveaus</h3>
+              <p style={{ fontSize: 14 }}>Acht mensen, vier niveaus, drie budgetten. Elk jaar hetzelfde conflict. Niemand heeft een tool die écht helpt een compromis te vinden.</p>
+            </div>
+          </div>
+        </div>
+      </section>
 
-            {topResorts.map((resort: typeof topResorts[number], i: number) => {
-              const rowCls = i === 0 ? "is-gold" : i === 1 ? "is-silver" : i === 2 ? "is-bronze" : "";
-              const scoreCls = i === 0 ? "is-gold" : i === 1 ? "is-silver" : i === 2 ? "is-bronze" : "is-rest";
-              const medals = ["🥇", "🥈", "🥉"];
+      {/* HOW IT WORKS */}
+      <section className="section" style={{ background: "var(--white)" }}>
+        <div className="container" style={{ textAlign: "center" }}>
+          <span className="label">Hoe het werkt</span>
+          <h2>Van twijfel naar perfecte vakantie<br />in drie stappen</h2>
+          <div className="steps">
+            <div className="step">
+              <div className="step-num">1</div>
+              <h3>Vul jouw criteria in</h3>
+              <p>Niveau, budget, reisduur en wat je zoekt. De AI Matcher doet de rest — geen eindeloos scrollen.</p>
+            </div>
+            <div className="step">
+              <div className="step-num">2</div>
+              <h3>Vergelijk met echte data</h3>
+              <p>Sneeuwzekerheids-score, geverifieerde reviews, pistekm per niveau, liftprijzen en reistijd. Alles naast elkaar.</p>
+            </div>
+            <div className="step">
+              <div className="step-num">3</div>
+              <h3>Boek met vertrouwen</h3>
+              <p>Sla op in je wishlist, stel sneeuwmeldingen in en volg de conditie van jouw resort voor vertrek.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* FEATURES */}
+      <section className="section" style={{ background: "var(--snow)" }}>
+        <div className="container">
+          <span className="label">Functies</span>
+          <h2>Alles wat je nodig hebt voor<br />een betere skivakantie</h2>
+          <div className="features-grid">
+            {[
+              { ic: "🤖", bg: "var(--peak-light)", h: "AI Resort Matcher", p: "Niveau + budget + reisduur + voorkeur → top 5 aanbevelingen op maat. Gebouwd op echte data, niet op gesponsorde plaatsing.", tag: "Gratis beschikbaar", tbg: "var(--peak-light)", tc: "var(--peak-dark)" },
+              { ic: "❄️", bg: "var(--blue-light)", h: "Sneeuwzekerheids-score", p: "Op basis van 10 jaar historische sneeuwdata, hoogte, windpatronen en klimaattrends. Elk resort een score van 1–10.", tag: "Explorer", tbg: "var(--peak-light)", tc: "var(--peak-dark)" },
+              { ic: "👥", bg: "#fef3e0", h: "Groepsplanning", p: "Voer meerdere niveaus en budgetten in. PeakFlow vindt resorts die voor iedereen werken — met uitleg waarom.", tag: "Explorer", tbg: "var(--peak-light)", tc: "var(--peak-dark)" },
+              { ic: "✅", bg: "var(--green-light)", h: "Geverifieerde reviews", p: "GPS-check of liftpas-code bevestigt dat je er echt bent geweest. Niveau van de reviewer staat bij elke review zichtbaar.", tag: "Explorer", tbg: "var(--peak-light)", tc: "var(--peak-dark)" },
+              { ic: "🔔", bg: "#fef3e0", h: "Sneeuw- & prijsalerts", p: "Verse sneeuw gevallen in jouw wishlist-resort? Of de prijs gezakt bij een boekingspartner? Je krijgt direct bericht.", tag: "Explorer", tbg: "var(--peak-light)", tc: "var(--peak-dark)" },
+              { ic: "📱", bg: "var(--blue-light)", h: "On-mountain companion", p: "Op de berg: pistemap offline, GPS run-tracking, live sneeuwconditie, vriendenlocatie. Alles in één app.", tag: "Binnenkort", tbg: "var(--blue-light)", tc: "var(--blue)" },
+            ].map((f) => (
+              <div className="feature-block" key={f.h}>
+                <div className="feature-icon" style={{ background: f.bg }}>{f.ic}</div>
+                <h3>{f.h}</h3>
+                <p>{f.p}</p>
+                <span className="feature-tag" style={{ background: f.tbg, color: f.tc }}>{f.tag}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* TOP RESORTS PREVIEW */}
+      <section className="section" style={{ background: "var(--white)" }}>
+        <div className="container">
+          <span className="label">Top rankings</span>
+          <h2>De best beoordeelde resorts van 2025–26</h2>
+          <div className="resort-grid">
+            {topResorts.map((r, i) => (
+              <Link href={`/resort/${r.id}`} className="resort-card" key={r.id}>
+                <div className="resort-img" style={{ background: gradientFor(r.id) }}>
+                  <div className="resort-rank">#{i + 1} {r.category}</div>
+                  <div className="resort-snow-score">❄ {r.snowScore?.toFixed(1)}</div>
+                  <div className="resort-img-emoji">{emojiFor(r.id)}</div>
+                </div>
+                <div className="resort-body">
+                  <div className="resort-name">{r.name} {r.verified && <span className="badge-verified">✓ Verified</span>}</div>
+                  <div className="resort-location">📍 {countryNL(r.Country)}{r.region ? `, ${r.region}` : ""}</div>
+                  <div className="resort-stats">
+                    <div className="resort-stat"><span>{r.pisteKm}</span> km piste</div>
+                    <div className="resort-stat"><span>{fmtNumber(r.altitudeTop ?? 0)}</span> m hoogte</div>
+                    <div className="resort-stat"><span>€{r.dayPassPrice}</span> dagkaart</div>
+                  </div>
+                  <div className="resort-rating"><span className="stars">{stars(toFiveStars(r.averageOverallRating))}</span><span className="count">{toFiveStars(r.averageOverallRating).toFixed(1)} ({fmtNumber(r.reviewCount)} reviews)</span></div>
+                </div>
+              </Link>
+            ))}
+          </div>
+          <div style={{ textAlign: "center", marginTop: 32 }}>
+            <Link href="/resorts" className="btn btn-outline btn-lg">Alle {fmtNumber(totalResorts)} resorts bekijken →</Link>
+          </div>
+        </div>
+      </section>
+
+      {/* SNOW SCORE TABLE */}
+      <section className="snow-section">
+        <div className="container">
+          <span className="label">Sneeuwzekerheids-score</span>
+          <h2>Weet waar je aan toe bent —<br />vóór je boekt</h2>
+          <p style={{ color: "rgba(255,255,255,.7)", maxWidth: 480, marginTop: 12 }}>Op basis van 10 jaar historische sneeuwdata, hoogte en klimaattrends. Onze score is nergens anders beschikbaar.</p>
+          <div className="snow-table">
+            <div className="snow-table-header">
+              <div>Resort</div><div>Hoogte</div><div>Sneeuwzekerheid</div><div>Score</div>
+            </div>
+            {snowTop.map((r) => {
+              const sb = snowBar(r.snowScore ?? 0);
               return (
-                <Link key={resort.id} href={`/resort/${resort.id}`} className={`lb-row ${rowCls}`}>
-                  <span className={`lb-pos${i < 3 ? " top" : ""}`}>
-                    {i < 3 ? medals[i] : String(i + 1).padStart(2, "0")}
-                  </span>
-                  <div>
-                    <div className="lb-name">{resort.name}</div>
-                    <div className="lb-loc">{resort.Country} · {resort.Continent}</div>
-                  </div>
-                  <div className="lb-reviews">{resort.reviewCount}</div>
-                  <div className={`lb-score ${scoreCls}`}>
-                    {resort.averageOverallRating?.toFixed(1) ?? "—"}
-                  </div>
-                </Link>
+                <div className="snow-row" key={r.id}>
+                  <div><div className="name">{r.name}</div><div className="country">{countryNL(r.Country)}</div></div>
+                  <div style={{ color: "rgba(255,255,255,.7)", fontSize: 13 }}>{fmtNumber(r.altitudeTop ?? 0)} m</div>
+                  <div><div className="snow-bar-wrap"><div className="snow-bar" style={{ width: sb.width, background: sb.bar }} /></div></div>
+                  <div className="score-num" style={{ color: sb.color }}>{r.snowScore?.toFixed(1)}</div>
+                </div>
               );
             })}
           </div>
+        </div>
+      </section>
 
-          <div className="lb-footer">
-            <Link href="/rankings" className="lb-more">Full rankings</Link>
+      {/* AWARDS */}
+      <section className="award-section">
+        <div className="container" style={{ textAlign: "center" }}>
+          <span className="label">PeakFlow Awards 2026</span>
+          <h2>De Michelin-sterren van de skiwereld</h2>
+          <p style={{ maxWidth: 480, margin: "12px auto 0" }}>Op basis van {fmtNumber(totalReviews)} geverifieerde reviews en objectieve data. De award waar elk skigebied naar streeft.</p>
+          <div className="award-grid">
+            {[
+              { t: "🏆", h: "Beste overall", w: topResorts[0]?.name ?? "—" },
+              { t: "❄️", h: "Beste sneeuwkwaliteit", w: snowTop[0]?.name ?? "—" },
+              { t: "👨‍👩‍👧", h: "Beste familieskigebied", w: beginnersPick?.name ?? topResorts[1]?.name ?? "—" },
+              { t: "💰", h: "Beste prijs-kwaliteit", w: topResorts[2]?.name ?? "—" },
+            ].map((a) => (
+              <div className="award-card" key={a.h}>
+                <span className="trophy">{a.t}</span>
+                <h4>{a.h}</h4>
+                <div className="winner">{a.w}</div>
+                <div className="year">PeakFlow Award 2026</div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
-      <div className="rule" />
-
-      {/* ━━━ COUNTRIES ━━━ */}
-      <section className="countries-section">
-        <div className="section-header" style={{ marginBottom: "2.5rem" }}>
-          <span className="s-eyebrow">Destinations</span>
-          <h2 className="s-title">Explore by Country</h2>
-        </div>
-        <div className="country-wrap">
-          {countries.slice(0, 22).map((c: typeof countries[number]) => (
-            <Link key={c.Country} href={`/resort?country=${encodeURIComponent(c.Country)}`} className="c-tag">
-              {c.Country}
-            </Link>
-          ))}
+      {/* SEGMENTS */}
+      <section className="segments">
+        <div className="container">
+          <span className="label">Voor iedereen in de ski-industrie</span>
+          <h2>Eén platform, drie doelgroepen</h2>
+          <div className="seg-grid">
+            <div className="seg">
+              <span className="seg-emoji">⛷️</span>
+              <h3>Skiërs &amp; snowboarders</h3>
+              <p>Vind jouw perfecte resort met AI, vergelijk op sneeuwzekerheid, lees reviews van mensen die er echt zijn geweest en krijg meldingen als het sneeuwt.</p>
+              <div className="seg-price">Gratis · Explorer €4,99/mnd</div>
+            </div>
+            <div className="seg">
+              <span className="seg-emoji">🏔</span>
+              <h3>Skigebied operators</h3>
+              <p>Beheer uw resortprofiel, monitor rankings, reageer op reviews en zie hoe u presteert ten opzichte van uw concurrenten met ons benchmark dashboard.</p>
+              <div className="seg-price">Resort Starter €79/mnd · Pro €199/mnd</div>
+            </div>
+            <div className="seg">
+              <span className="seg-emoji">🎿</span>
+              <h3>Ski- &amp; snowboardmerken</h3>
+              <p>Bereik 12.000+ skiërs op het moment dat ze een resort bekijken en uitrusting overwegen. Contextuele plaatsing die generieke advertenties verslaat.</p>
+              <div className="seg-price">Brand Basis €299/mnd · Pro €699/mnd</div>
+              <div className="seg-brands">
+                <span className="seg-brand">Atomic</span>
+                <span className="seg-brand">Burton</span>
+                <span className="seg-brand">Rossignol</span>
+                <span className="seg-brand">Salomon</span>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
-      <div className="rule" />
-
-      {/* ━━━ FINAL CTA ━━━ */}
-      <section className="final">
-        <div className="final-watermark" aria-hidden="true">№1</div>
-        <div className="final-inner">
-          <h2 className="final-title">
-            Rate<br /><em>the slopes.</em>
-          </h2>
-          <p className="final-sub">
-            Join AlpineRank and help shape the world's most trusted ski resort ranking platform. Your rating matters.
-          </p>
-          <Link href="/register" className="btn-register">
-            <span>Create Free Account</span>
-          </Link>
+      {/* TESTIMONIALS */}
+      <section className="section" style={{ background: "var(--snow)" }}>
+        <div className="container">
+          <span className="label">Wat gebruikers zeggen</span>
+          <h2>Echte meningen van echte skiërs</h2>
+          <div className="testimonial-grid">
+            {[
+              { q: "De sneeuwzekerheids-score heeft ons gered. We hadden bijna Chamonix geboekt maar PeakFlow liet zien dat Zermatt dat jaar veel betrouwbaarder was. Beste beslissing ooit.", bg: "#e8f4fc", n: "Lars V.", r: "Expert skiër · 12 jaar ervaring" },
+              { q: "De groepsplanning tool is geniaal. Met 10 mensen, van absolute beginner tot zwarte piste fan, vond PeakFlow een resort perfect voor iedereen. Geen conflict meer.", bg: "#eaf5ec", n: "Sofie K.", r: "Beginner · Eerste skivakantie met vriendengroep" },
+              { q: "Ik kon eindelijk reviews lezen van mensen met hetzelfde niveau als ik. Reviews op TripAdvisor zijn nutteloos als je niet weet of de schrijver ook een expert is of een beginner.", bg: "#fef3e0", n: "Daan M.", r: "Gevorderd · 8 jaar skiën" },
+            ].map((t) => (
+              <div className="testimonial" key={t.n}>
+                <div className="stars-row" style={{ fontSize: 14, marginBottom: 12, color: "#f59e0b" }}>★★★★★</div>
+                <p className="quote">&quot;{t.q}&quot;</p>
+                <div className="author">
+                  <div className="author-avatar" style={{ background: t.bg }}>👤</div>
+                  <div>
+                    <div className="author-name">{t.n}</div>
+                    <div className="author-role">{t.r}</div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
-    </main>
+
+      {/* PRICING PREVIEW */}
+      <section className="section" style={{ background: "var(--white)" }}>
+        <div className="container" style={{ textAlign: "center" }}>
+          <span className="label">Prijzen</span>
+          <h2>Minder dan één après-ski drankje</h2>
+          <p style={{ maxWidth: 400, margin: "12px auto 0" }}>Een skivakantie kost gemiddeld €2.000. PeakFlow Explorer kost €4,99 per maand.</p>
+          <div className="pricing-grid">
+            <div className="pricing-card">
+              <div className="plan-name">Free</div>
+              <div className="plan-price"><sup>€</sup>0</div>
+              <div className="plan-period">altijd gratis</div>
+              <div className="plan-desc">Voor wie wil verkennen wat PeakFlow te bieden heeft.</div>
+              <ul>
+                <li>Top 50 rankings bekijken</li>
+                <li>AI Matcher (3 suggesties)</li>
+                <li>5 resorts op wishlist</li>
+                <li>Reviews lezen</li>
+              </ul>
+              <Link href="/register" className="btn btn-outline" style={{ width: "100%", justifyContent: "center" }}>Gratis starten</Link>
+            </div>
+            <div className="pricing-card featured">
+              <div className="popular-badge">Meest populair</div>
+              <div className="plan-name">Explorer</div>
+              <div className="plan-price"><sup>€</sup>4<span style={{ fontSize: 24 }}>,99</span></div>
+              <div className="plan-period">per maand · €39/jaar (35% korting)</div>
+              <div className="plan-desc">Voor de serieuze skiër die het beste wil.</div>
+              <ul>
+                <li>Volledige AI Matcher (onbeperkt)</li>
+                <li>Alle {fmtNumber(totalResorts)} rankings</li>
+                <li>Sneeuwzekerheids-score</li>
+                <li>Groepsplanning tool</li>
+                <li>Sneeuw- &amp; prijsalerts</li>
+                <li>Geverifieerde reviews schrijven</li>
+                <li>Ski-dagboek &amp; statistieken</li>
+                <li>Geen advertenties</li>
+              </ul>
+              <Link href="/register" className="btn btn-primary" style={{ width: "100%", justifyContent: "center" }}>Start Explorer →</Link>
+            </div>
+          </div>
+          <p style={{ marginTop: 20, fontSize: 13, color: "var(--ink3)" }}>Voor skigebieden &amp; merken: <Link href="/pricing" style={{ color: "var(--peak)", fontWeight: 600 }}>bekijk B2B plannen →</Link></p>
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section className="cta-section">
+        <div className="container">
+          <span className="label" style={{ color: "#6ee7b7", display: "block", textAlign: "center", marginBottom: 16 }}>Gratis starten</span>
+          <h2>Vind dit seizoen jouw perfecte resort</h2>
+          <p>Geen creditcard nodig. Gratis account, direct toegang tot de AI Matcher en de top 50 rankings.</p>
+          <div className="cta-actions">
+            <Link href="/matcher" className="btn btn-white btn-xl">Start AI Matcher gratis →</Link>
+            <Link href="/resorts" className="btn btn-glass btn-lg">Bekijk alle rankings</Link>
+          </div>
+        </div>
+      </section>
+    </>
   );
 }

@@ -47,9 +47,34 @@ model Resort {
   Country                String
   Continent              String?
 
+  // PeakFlow profile fields
+  region                 String?
+  pisteKm                Int?
+  altitudeTop            Int?
+  altitudeBase           Int?
+  lifts                  Int?
+  dayPassPrice           Int?
+  snowScore              Float?   @default(0)
+  snowGuarantee          Int?     @default(0)
+  snowpark               Boolean  @default(false)
+  verified               Boolean  @default(false)
+  pisteGreen             Int?
+  pisteBlue              Int?
+  pisteRed               Int?
+  pisteBlack             Int?
+  category               String?
+
   // Calculated / Cached Fields
   averageOverallRating   Float?   @default(0)
   reviewCount            Int      @default(0)
+
+  // PeakFlow Snowflakes
+  snowflakes             Int      @default(0)
+  snowflakeNote          String?
+  snowflakeReport        String?
+  snowflakeInspected     Boolean  @default(false)
+  snowflakeAwardedAt     DateTime?
+  snowflakeHistory       String?
 
   createdAt              DateTime @default(now())
   updatedAt              DateTime @updatedAt
@@ -58,6 +83,9 @@ model Resort {
 
   @@index([averageOverallRating])
   @@index([reviewCount])
+  @@index([snowScore])
+  @@index([snowflakes])
+  @@index([snowflakeInspected])
 }
 
 //////////////////////////////////////////////////////

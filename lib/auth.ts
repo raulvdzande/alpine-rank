@@ -28,25 +28,19 @@ export async function verifyJwt(token: string) {
 
 export async function getCurrentUser() {
   const session = (await cookies()).get("session")?.value;
-
   if (!session) return null;
-
   try {
     const payload = await verifyJwt(session);
-    const id = payload.id;
-    const email = payload.email;
-    const name = payload.name;
-
-    if (
-      typeof id !== "string" ||
-      typeof email !== "string" ||
-      typeof name !== "string"
-    ) {
-      return null;
-    }
-
-    return { id, email, name };
+    const { id, email, name, role } = payload;
+    if (typeof id !== "string" || typeof email !== "string" || typeof name !== "string") return null;
+    return { id, email, name, role: (typeof role === "string" ? role : "USER") };
   } catch {
     return null;
   }
+}
+
+export async function requireSuperAdmin() {
+  const user = await getCurrentUser();
+  if (!user || user.role !== "ADMIN") return null;
+  return user;
 }
