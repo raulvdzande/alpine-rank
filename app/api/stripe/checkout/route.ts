@@ -7,6 +7,13 @@ const ORIGIN = process.env.NEXT_PUBLIC_APP_URL || "https://peakflow.io";
 
 export async function POST(req: NextRequest) {
   try {
+    if (!stripe) {
+      return NextResponse.json(
+        { error: "Stripe not configured" },
+        { status: 500 }
+      );
+    }
+
     const user = await getCurrentUser();
     if (!user) {
       return NextResponse.json(

@@ -9,9 +9,9 @@ const resend = process.env.RESEND_API_KEY ? new Resend(process.env.RESEND_API_KE
 const WEBHOOK_SECRET = process.env.STRIPE_WEBHOOK_SECRET;
 
 export async function POST(req: NextRequest) {
-  if (!WEBHOOK_SECRET) {
+  if (!WEBHOOK_SECRET || !stripe) {
     return NextResponse.json(
-      { error: "Webhook secret not configured" },
+      { error: "Stripe not configured" },
       { status: 500 }
     );
   }

@@ -3,6 +3,13 @@ import { NextResponse } from "next/server";
 
 export async function POST() {
   try {
+    if (!stripe) {
+      return NextResponse.json(
+        { error: "Stripe not configured" },
+        { status: 500 }
+      );
+    }
+
     console.log("🔧 Setting up Stripe products and prices...");
 
     // Consumer Products
