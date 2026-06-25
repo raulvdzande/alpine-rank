@@ -9,15 +9,15 @@ export default function MatcherPage() {
   const [results, setResults] = useState<MatchResult[]>([]);
   const [, startTransition] = useTransition();
 
-  const [level, setLevel] = useState("gevorderd");
-  const [budget, setBudget] = useState("mid");
-  const [region, setRegion] = useState("fr");
-  const [priority, setPriority] = useState("value");
+  const [level, setLevel] = useState("intermediate");
+  const [budgetPerDay, setBudgetPerDay] = useState(50);
+  const [tripDays, setTripDays] = useState(7);
+  const [preference, setPreference] = useState("pistes");
 
   function runMatcher() {
     setState("loading");
     startTransition(async () => {
-      const r = await findMatches({ level, budget, region, priority });
+      const r = await findMatches({ level, budgetPerDay, tripDays, preference });
       // small delay so the "Analyseren..." state is visible
       setTimeout(() => {
         setResults(r);
@@ -48,30 +48,33 @@ export default function MatcherPage() {
               </div>
               <div className="ai-input-group">
                 <label>Budget per dag (dagkaart)</label>
-                <select value={budget} onChange={(e) => setBudget(e.target.value)}>
-                  <option value="low">🟢 Onder €40</option>
-                  <option value="mid">🔵 €40–€65</option>
-                  <option value="high">🔴 €65–€90</option>
-                  <option value="any">⚫ Budget geen issue</option>
-                </select>
+                <input
+                  type="range"
+                  min="20"
+                  max="100"
+                  value={budgetPerDay}
+                  onChange={(e) => setBudgetPerDay(parseInt(e.target.value))}
+                  style={{ width: "100%", cursor: "pointer" }}
+                />
+                <div style={{ textAlign: "center", marginTop: 8, fontSize: 13, color: "var(--ink3)" }}>
+                  €{budgetPerDay} per dag
+                </div>
               </div>
               <div className="ai-input-group">
-                <label>Regio voorkeur</label>
-                <select value={region} onChange={(e) => setRegion(e.target.value)}>
-                  <option value="all">Hele Alpen</option>
-                  <option value="at">Oostenrijk</option>
-                  <option value="fr">Frankrijk</option>
-                  <option value="ch">Zwitserland</option>
-                  <option value="it">Italië</option>
-                  <option value="sc">Scandinavië</option>
+                <label>Trip duur</label>
+                <select value={tripDays} onChange={(e) => setTripDays(parseInt(e.target.value))}>
+                  <option value={1}>1 dag</option>
+                  <option value={3}>Weekend (3 dagen)</option>
+                  <option value={7}>Week (7 dagen)</option>
+                  <option value={14}>2 weken</option>
                 </select>
               </div>
               <div className="ai-input-group">
                 <label>Prioriteit</label>
-                <select value={priority} onChange={(e) => setPriority(e.target.value)}>
-                  <option value="snow">Sneeuwkwaliteit</option>
-                  <option value="km">Pistekm</option>
-                  <option value="value">Prijs-kwaliteit</option>
+                <select value={preference} onChange={(e) => setPreference(e.target.value)}>
+                  <option value="pistes">Pistekm</option>
+                  <option value="powder">Poeder/sneeuw</option>
+                  <option value="park">Snowpark</option>
                   <option value="apres">Apres-ski</option>
                   <option value="family">Familie-vriendelijk</option>
                 </select>
@@ -98,12 +101,12 @@ export default function MatcherPage() {
                   <p style={{ fontSize: 13, color: "rgba(255,255,255,.6)", padding: "8px 0" }}>Geen resorts gevonden — probeer een ander filter.</p>
                 )}
                 {results.map((res) => (
-                  <Link href={`/resort/${res.id}`} className="ai-result-row" key={res.id} style={{ color: "inherit" }}>
+                  <Link href={res.slug ? `/resorts/${res.slug}` : `/resort/${res.id}`} className="ai-result-row" key={res.id} style={{ color: "inherit" }}>
                     <div className="air-rank">{res.rank}</div>
                     <div className="air-name">{res.name}</div>
                     <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-                      <span className="air-tag">{res.tag}</span>
-                      <span className="air-score">{res.score}</span>
+                      <span className="air-tag">{res.matchReason}</span>
+                      <span className="air-score">{res.totalScore}/100</span>
                     </div>
                   </Link>
                 ))}

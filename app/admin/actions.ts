@@ -4,6 +4,8 @@ import { prisma } from "@/lib/prisma";
 import { requireSuperAdmin } from "@/lib/auth";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
+import { computeSnowScore } from "@/lib/snowScore";
+import { generateSlug } from "@/lib/slug";
 
 export interface RatingData {
   terrain: number;
@@ -119,4 +121,174 @@ export async function clearResortRating(resortId: string) {
   revalidatePath("/");
 
   redirect("/admin");
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// RESORT AANMAKEN / BEWERKEN / VERWIJDEREN
+// ─────────────────────────────────────────────────────────────────────────────
+
+export interface ResortFormData {
+  name: string;
+  Country: string;
+  region: string;
+  altitudeTop: string;
+  altitudeBase: string;
+  pisteKm: string;
+  pisteBlue: string;
+  pisteRed: string;
+  pisteBlack: string;
+  pisteGreen: string;
+  lifts: string;
+  dayPassPrice: string;
+  lat: string;
+  lon: string;
+  snowpark: string;
+  website: string;
+  category: string;
+}
+
+function parseResortForm(data: ResortFormData) {
+  return {
+    name:         data.name.trim(),
+    Country:      data.Country.trim(),
+    region:       data.region.trim() || null,
+    altitudeTop:  data.altitudeTop  ? parseInt(data.altitudeTop)  : null,
+    altitudeBase: data.altitudeBase ? parseInt(data.altitudeBase) : null,
+    pisteKm:      data.pisteKm      ? parseInt(data.pisteKm)      : null,
+    pisteBlue:    data.pisteBlue    ? parseInt(data.pisteBlue)    : null,
+    pisteRed:     data.pisteRed     ? parseInt(data.pisteRed)     : null,
+    pisteBlack:   data.pisteBlack   ? parseInt(data.pisteBlack)   : null,
+    pisteGreen:   data.pisteGreen   ? parseInt(data.pisteGreen)   : null,
+    lifts:        data.lifts        ? parseInt(data.lifts)        : null,
+    dayPassPrice: data.dayPassPrice ? parseInt(data.dayPassPrice) : null,
+    lat:          data.lat          ? parseFloat(data.lat)        : null,
+    lon:          data.lon          ? parseFloat(data.lon)        : null,
+    snowpark:     data.snowpark === "true",
+    website:      data.website.trim() || null,
+    category:     data.category.trim() || null,
+  };
+}
+
+export async function createResort(data: ResortFormData) {
+  const user = await requireSuperAdmin();
+  if (!user) throw new Error("Geen toegang");
+  if (!data.name.trim()) throw new Error("Naam is verplicht");
+  if (!data.Country.trim()) throw new Error("Land is verplicht");
+
+  const fields = parseResortForm(data);
+
+  // Bereken sneeuwscore direct na aanmaken
+  let snowScore = 0;
+  if (fields.lat !== null && fields.lon !== null) {
+    const result = await computeSnowScore({
+      altitudeTop:  fields.altitudeTop,
+      altitudeBase: fields.altitudeBase,
+      lat:          fields.lat,
+      lon:          fields.lon,
+    });
+    snowScore = result.finalScore;
+  } else if (fields.altitudeTop || fields.altitudeBase) {
+    const result = await computeSnowScore({
+      altitudeTop:  fields.altitudeTop,
+      altitudeBase: fields.altitudeBase,
+      lat:          null,
+      lon:          null,
+    });
+    snowScore = result.finalScore;
+  }
+
+  const slug = generateSlug(fields.name, fields.Country);
+  const resort = await prisma.resort.create({
+    data: { ...fields, slug, snowScore, Continent: "Europe" },
+  });
+
+  revalidatePath("/admin");
+  revalidatePath("/resorts");
+  revalidatePath("/");
+
+  redirect(`/admin/resort/${resort.id}`);
+}
+
+export async function updateResortData(resortId: string, data: ResortFormData) {
+  const user = await requireSuperAdmin();
+  if (!user) throw new Error("Geen toegang");
+  if (!data.name.trim()) throw new Error("Naam is verplicht");
+
+  const fields = parseResortForm(data);
+
+  // Herbereken sneeuwscore na data-update
+  const result = await computeSnowScore({
+    altitudeTop:  fields.altitudeTop,
+    altitudeBase: fields.altitudeBase,
+    lat:          fields.lat,
+    lon:          fields.lon,
+  });
+
+  await prisma.resort.update({
+    where: { id: resortId },
+    data:  { ...fields, snowScore: result.finalScore },
+  });
+
+  revalidatePath("/admin");
+  revalidatePath(`/admin/resort/${resortId}`);
+  revalidatePath(`/resort/${resortId}`);
+  revalidatePath("/resorts");
+  revalidatePath("/");
+
+  redirect(`/admin/resort/${resortId}`);
+}
+
+export async function deleteResort(resortId: string) {
+  const user = await requireSuperAdmin();
+  if (!user) throw new Error("Geen toegang");
+
+  await prisma.review.deleteMany({ where: { resortId } });
+  await prisma.resort.delete({ where: { id: resortId } });
+
+  revalidatePath("/admin");
+  revalidatePath("/resorts");
+  revalidatePath("/");
+
+  redirect("/admin");
+}
+
+export async function deleteAllResorts() {
+  const user = await requireSuperAdmin();
+  if (!user) throw new Error("Geen toegang");
+
+  await prisma.review.deleteMany({});
+  await prisma.resort.deleteMany({});
+
+  revalidatePath("/admin");
+  revalidatePath("/resorts");
+  revalidatePath("/");
+}
+
+export async function recalcSnowScore(resortId: string) {
+  const user = await requireSuperAdmin();
+  if (!user) throw new Error("Geen toegang");
+
+  const resort = await prisma.resort.findUnique({
+    where:  { id: resortId },
+    select: { altitudeTop: true, altitudeBase: true, lat: true, lon: true },
+  });
+  if (!resort) throw new Error("Resort niet gevonden");
+
+  const result = await computeSnowScore({
+    altitudeTop:  resort.altitudeTop,
+    altitudeBase: resort.altitudeBase,
+    lat:          resort.lat,
+    lon:          resort.lon,
+  });
+
+  await prisma.resort.update({
+    where: { id: resortId },
+    data:  { snowScore: result.finalScore },
+  });
+
+  revalidatePath(`/admin/resort/${resortId}`);
+  revalidatePath(`/resort/${resortId}`);
+  revalidatePath("/resorts");
+
+  return result;
 }

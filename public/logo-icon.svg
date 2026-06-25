@@ -1,0 +1,67 @@
+<svg viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg" width="300" height="300">
+  <defs>
+    <linearGradient id="peakGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1d9e75;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0f6e50;stop-opacity:1" />
+    </linearGradient>
+
+    <linearGradient id="peakGrad2" x1="100%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#2db882;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1d9e75;stop-opacity:1" />
+    </linearGradient>
+
+    <linearGradient id="peakGrad3" x1="50%" y1="0%" x2="50%" y2="100%">
+      <stop offset="0%" style="stop-color:#0f6e50;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#1d9e75;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0f6e50;stop-opacity:0.95" />
+    </linearGradient>
+
+    <radialGradient id="snowGrad" cx="50%" cy="20%" r="60%">
+      <stop offset="0%" style="stop-color:#ffffff;stop-opacity:0.98" />
+      <stop offset="100%" style="stop-color:#f0f8f5;stop-opacity:0.8" />
+    </radialGradient>
+
+    <filter id="shadowIcon">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="2.5"/>
+      <feOffset dx="0" dy="1.5" result="offsetblur"/>
+      <feComponentTransfer>
+        <feFuncA type="linear" slope="0.12"/>
+      </feComponentTransfer>
+      <feMerge>
+        <feMergeNode/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Icon-only version -->
+  <g id="icon-peaks" filter="url(#shadowIcon)">
+    <!-- Left secondary peak -->
+    <polygon points="65,200 110,95 155,200" fill="url(#peakGrad1)" opacity="0.85"/>
+
+    <!-- Center main peak -->
+    <polygon points="90,200 150,20 210,200" fill="url(#peakGrad3)" opacity="0.98"/>
+
+    <!-- Right secondary peak -->
+    <polygon points="125,200 180,110 235,200" fill="url(#peakGrad2)" opacity="0.88"/>
+  </g>
+
+  <!-- Snow caps -->
+  <g id="snow-caps">
+    <!-- Main peak snow -->
+    <polygon points="150,20 140,50 160,50" fill="url(#snowGrad)" opacity="0.96"/>
+    <polygon points="150,20 145,35 155,35" fill="#ffffff" opacity="0.7"/>
+
+    <!-- Left peak snow -->
+    <polygon points="110,95 103,115 117,115" fill="url(#snowGrad)" opacity="0.92"/>
+    <polygon points="110,95 107,105 113,105" fill="#ffffff" opacity="0.6"/>
+
+    <!-- Right peak snow -->
+    <polygon points="180,110 172,130 188,130" fill="url(#snowGrad)" opacity="0.92"/>
+    <polygon points="180,110 177,120 183,120" fill="#ffffff" opacity="0.6"/>
+
+    <!-- Ice details -->
+    <line x1="150" y1="25" x2="145" y2="40" stroke="#ffffff" stroke-width="0.8" opacity="0.5"/>
+    <line x1="150" y1="25" x2="155" y2="40" stroke="#ffffff" stroke-width="0.8" opacity="0.5"/>
+  </g>
+</svg>

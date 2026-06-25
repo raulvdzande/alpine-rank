@@ -3,118 +3,247 @@ generator client {
 }
 
 datasource db {
-  provider  = "postgresql"
+  provider = "postgresql"
 }
-        
-
-//////////////////////////////////////////////////////
-// ENUMS
-//////////////////////////////////////////////////////
-
-enum Role {
-  USER
-  ADMIN
-}
-
-//////////////////////////////////////////////////////
-// USER
-//////////////////////////////////////////////////////
 
 model User {
-  id          String   @id @default(uuid())
-  name        String
-  email       String   @unique
-  password    String
-  role        Role     @default(USER)
-
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-
-  reviews     Review[]
+  id           String         @id @default(uuid())
+  name         String
+  email        String         @unique
+  password     String
+  role         Role           @default(USER)
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+  country      String?
+  skiLevel     String?
+  reviews      Review[]
+  subscription Subscription?
+  wishlist     WishlistItem[]
 
   @@index([email])
 }
 
-//////////////////////////////////////////////////////
-// RESORT
-//////////////////////////////////////////////////////
-
 model Resort {
-  id                     String   @id @default(uuid())
-
-  // Dataset Fields
-  name                   String
-  Country                String
-  Continent              String?
-
-  // PeakFlow profile fields
-  region                 String?
-  pisteKm                Int?
-  altitudeTop            Int?
-  altitudeBase           Int?
-  lifts                  Int?
-  dayPassPrice           Int?
-  snowScore              Float?   @default(0)
-  snowGuarantee          Int?     @default(0)
-  snowpark               Boolean  @default(false)
-  verified               Boolean  @default(false)
-  pisteGreen             Int?
-  pisteBlue              Int?
-  pisteRed               Int?
-  pisteBlack             Int?
-  category               String?
-
-  // Calculated / Cached Fields
-  averageOverallRating   Float?   @default(0)
-  reviewCount            Int      @default(0)
-
-  // PeakFlow Snowflakes
-  snowflakes             Int      @default(0)
-  snowflakeNote          String?
-  snowflakeReport        String?
-  snowflakeInspected     Boolean  @default(false)
-  snowflakeAwardedAt     DateTime?
-  snowflakeHistory       String?
-
-  createdAt              DateTime @default(now())
-  updatedAt              DateTime @updatedAt
-
-  reviews                Review[]
+  id                   String         @id @default(uuid())
+  name                 String
+  Country              String
+  Continent            String?
+  averageOverallRating Float?         @default(0)
+  reviewCount          Int            @default(0)
+  createdAt            DateTime       @default(now())
+  updatedAt            DateTime       @updatedAt
+  altitudeBase         Int?
+  altitudeTop          Int?
+  category             String?
+  dayPassPrice         Int?
+  lifts                Int?
+  pisteBlack           Int?
+  pisteBlue            Int?
+  pisteGreen           Int?
+  pisteKm              Int?
+  pisteRed             Int?
+  region               String?
+  snowGuarantee        Int?           @default(0)
+  snowScore            Float?         @default(0)
+  snowpark             Boolean        @default(false)
+  verified             Boolean        @default(false)
+  snowflakeAwardedAt   DateTime?
+  snowflakeHistory     String?
+  snowflakeInspected   Boolean        @default(false)
+  snowflakeNote        String?
+  snowflakeReport      String?
+  snowflakes           Int            @default(0)
+  website              String?
+  lat                  Float?
+  lon                  Float?
+  snowDepthBase        Int?
+  snowDepthTop         Int?
+  freshSnow24h         Float?
+  tempBase             Float?
+  conditionsUpdatedAt  DateTime?
+  slug                 String         @unique
+  companyId            String?
+  company              Company?       @relation("CompanyResorts", fields: [companyId], references: [id])
+  reviews              Review[]
+  wishlist             WishlistItem[]
 
   @@index([averageOverallRating])
   @@index([reviewCount])
   @@index([snowScore])
   @@index([snowflakes])
   @@index([snowflakeInspected])
+  @@index([companyId])
 }
 
-//////////////////////////////////////////////////////
-// REVIEW
-//////////////////////////////////////////////////////
-
 model Review {
-  id          String   @id @default(uuid())
-
-  userId      String
-  resortId    String
-
-  // Rating Categories (1-10 scale)
-  terrain     Int
-  snow        Int
-  lifts       Int
-  apres       Int
-  family      Int
-  value       Int
-  scenery     Int
-
-  overall     Float
-
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-
-  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  resort      Resort   @relation(fields: [resortId], references: [id], onDelete: Cascade)
+  id            String   @id @default(uuid())
+  userId        String
+  resortId      String
+  terrain       Int
+  snow          Int
+  lifts         Int
+  apres         Int
+  family        Int
+  value         Int
+  scenery       Int
+  overall       Float
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  reviewerLevel String?
+  season        String?
+  title         String?
+  verifiedVisit Boolean  @default(false)
+  visitMonth    Int?
+  resort        Resort   @relation(fields: [resortId], references: [id], onDelete: Cascade)
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([userId, resortId])
   @@index([resortId])
+}
+
+model WishlistItem {
+  id        String   @id @default(uuid())
+  userId    String
+  resortId  String
+  createdAt DateTime @default(now())
+  resort    Resort   @relation(fields: [resortId], references: [id], onDelete: Cascade)
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, resortId])
+  @@index([userId])
+  @@index([resortId])
+}
+
+model Company {
+  id                 String               @id @default(uuid())
+  type               CompanyType
+  name               String
+  email              String               @unique
+  phone              String?
+  website            String?
+  street             String
+  city               String
+  postalCode         String
+  country            String
+  taxId              String?
+  createdAt          DateTime             @default(now())
+  updatedAt          DateTime             @updatedAt
+  logo               String?
+  plan               String?
+  planEndDate        DateTime?
+  planStartDate      DateTime?
+  parentBrands       CompanyBrand[]       @relation("BrandParents")
+  brandAssociations  CompanyBrand[]       @relation("CompanyBrands")
+  contactSubmissions CompanyContact[]
+  employees          CompanyEmployee[]
+  subscription       CompanySubscription?
+  resorts            Resort[]             @relation("CompanyResorts")
+
+  @@index([type])
+  @@index([email])
+}
+
+model CompanyBrand {
+  id        String   @id @default(uuid())
+  companyId String
+  brandId   String
+  createdAt DateTime @default(now())
+  brand     Company  @relation("BrandParents", fields: [brandId], references: [id], onDelete: Cascade)
+  company   Company  @relation("CompanyBrands", fields: [companyId], references: [id], onDelete: Cascade)
+
+  @@unique([companyId, brandId])
+  @@index([companyId])
+  @@index([brandId])
+}
+
+model CompanyEmployee {
+  id        String   @id @default(uuid())
+  companyId String
+  name      String
+  email     String   @unique
+  password  String
+  role      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  company   Company  @relation(fields: [companyId], references: [id], onDelete: Cascade)
+
+  @@index([companyId])
+  @@index([email])
+}
+
+model CompanyRegistration {
+  id              String      @id @default(uuid())
+  type            CompanyType
+  name            String
+  email           String      @unique
+  phone           String?
+  website         String?
+  street          String
+  city            String
+  postalCode      String
+  country         String
+  taxId           String?
+  managerName     String
+  managerEmail    String
+  stripeSessionId String?
+  status          String      @default("pending")
+  createdAt       DateTime    @default(now())
+  expiresAt       DateTime
+
+  @@index([email])
+  @@index([status])
+}
+
+model CompanySubscription {
+  id                   String    @id @default(uuid())
+  companyId            String    @unique
+  status               String
+  stripeSubscriptionId String?   @unique
+  stripeCustomerId     String?
+  currentPeriodEnd     DateTime?
+  createdAt            DateTime  @default(now())
+  updatedAt            DateTime  @updatedAt
+  company              Company   @relation(fields: [companyId], references: [id], onDelete: Cascade)
+
+  @@index([status])
+}
+
+model CompanyContact {
+  id        String   @id @default(uuid())
+  companyId String
+  name      String
+  email     String
+  subject   String
+  message   String
+  read      Boolean  @default(false)
+  createdAt DateTime @default(now())
+  company   Company  @relation(fields: [companyId], references: [id], onDelete: Cascade)
+
+  @@index([companyId])
+  @@index([read])
+}
+
+model Subscription {
+  id                   String    @id @default(uuid())
+  userId               String    @unique
+  plan                 String
+  status               String
+  stripeSubscriptionId String?   @unique
+  stripeCustomerId     String?
+  currentPeriodEnd     DateTime?
+  createdAt            DateTime  @default(now())
+  updatedAt            DateTime  @updatedAt
+  user                 User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([status])
+}
+
+enum Role {
+  USER
+  ADMIN
+}
+
+enum CompanyType {
+  RESORT
+  BRAND
 }

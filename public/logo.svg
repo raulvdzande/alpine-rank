@@ -1,0 +1,385 @@
+<svg viewBox="0 0 1200 1200" xmlns="http://www.w3.org/2000/svg" width="1200" height="1200">
+  <defs>
+    <!-- ULTRA-MEGA GRADIENT SYSTEM - 60+ GRADIENTS FOR EXTREME DETAIL -->
+    <radialGradient id="bg1" cx="30%" cy="25%" r="80%">
+      <stop offset="0%" style="stop-color:#fefdfb;stop-opacity:1" />
+      <stop offset="15%" style="stop-color:#fdfbf7;stop-opacity:1" />
+      <stop offset="30%" style="stop-color:#fbf8f3;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#f8f5ed;stop-opacity:1" />
+      <stop offset="75%" style="stop-color:#f2ede5;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#e8dfd5;stop-opacity:1" />
+    </radialGradient>
+
+    <!-- MOUNTAIN GRADIENTS WITH EXTREME DETAIL (16 STOPS EACH) -->
+    <linearGradient id="m1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#54e0b0;stop-opacity:1" />
+      <stop offset="6%" style="stop-color:#4dd9a7;stop-opacity:1" />
+      <stop offset="12%" style="stop-color:#45d4a0;stop-opacity:1" />
+      <stop offset="18%" style="stop-color:#3ec991;stop-opacity:1" />
+      <stop offset="25%" style="stop-color:#37be88;stop-opacity:1" />
+      <stop offset="32%" style="stop-color:#35be82;stop-opacity:1" />
+      <stop offset="38%" style="stop-color:#2db882;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#2db882;stop-opacity:1" />
+      <stop offset="62%" style="stop-color:#2db882;stop-opacity:1" />
+      <stop offset="70%" style="stop-color:#25b078;stop-opacity:1" />
+      <stop offset="78%" style="stop-color:#1d9e75;stop-opacity:1" />
+      <stop offset="85%" style="stop-color:#169064;stop-opacity:1" />
+      <stop offset="92%" style="stop-color:#0f6e50;stop-opacity:1" />
+      <stop offset="97%" style="stop-color:#084738;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#042f28;stop-opacity:1" />
+    </linearGradient>
+
+    <linearGradient id="m2" x1="100%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#5befb8;stop-opacity:1" />
+      <stop offset="8%" style="stop-color:#54e0b0;stop-opacity:1" />
+      <stop offset="16%" style="stop-color:#4dd9a7;stop-opacity:1" />
+      <stop offset="24%" style="stop-color:#45d4a0;stop-opacity:1" />
+      <stop offset="32%" style="stop-color:#3ec991;stop-opacity:1" />
+      <stop offset="40%" style="stop-color:#37be88;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#2db882;stop-opacity:1" />
+      <stop offset="60%" style="stop-color:#2db882;stop-opacity:1" />
+      <stop offset="70%" style="stop-color:#25b078;stop-opacity:1" />
+      <stop offset="80%" style="stop-color:#1d9e75;stop-opacity:1" />
+      <stop offset="88%" style="stop-color:#0f6e50;stop-opacity:1" />
+      <stop offset="96%" style="stop-color:#084738;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#042f28;stop-opacity:1" />
+    </linearGradient>
+
+    <linearGradient id="m3" x1="50%" y1="0%" x2="50%" y2="100%">
+      <stop offset="0%" style="stop-color:#2db882;stop-opacity:1" />
+      <stop offset="7%" style="stop-color:#35be82;stop-opacity:1" />
+      <stop offset="14%" style="stop-color:#3ec991;stop-opacity:1" />
+      <stop offset="21%" style="stop-color:#45d4a0;stop-opacity:1" />
+      <stop offset="28%" style="stop-color:#4dd9a7;stop-opacity:1" />
+      <stop offset="35%" style="stop-color:#54e0b0;stop-opacity:1" />
+      <stop offset="42%" style="stop-color:#45d4a0;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#2db882;stop-opacity:1" />
+      <stop offset="58%" style="stop-color:#25b078;stop-opacity:1" />
+      <stop offset="65%" style="stop-color:#1d9e75;stop-opacity:1" />
+      <stop offset="72%" style="stop-color:#169064;stop-opacity:1" />
+      <stop offset="79%" style="stop-color:#0f6e50;stop-opacity:1" />
+      <stop offset="86%" style="stop-color:#084738;stop-opacity:1" />
+      <stop offset="93%" style="stop-color:#063530;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#042f28;stop-opacity:1" />
+    </linearGradient>
+
+    <linearGradient id="m4" x1="40%" y1="0%" x2="60%" y2="100%">
+      <stop offset="0%" style="stop-color:#37be88;stop-opacity:1" />
+      <stop offset="8%" style="stop-color:#35be82;stop-opacity:1" />
+      <stop offset="16%" style="stop-color:#2db882;stop-opacity:1" />
+      <stop offset="25%" style="stop-color:#25b078;stop-opacity:1" />
+      <stop offset="35%" style="stop-color:#1d9e75;stop-opacity:1" />
+      <stop offset="45%" style="stop-color:#169064;stop-opacity:1" />
+      <stop offset="55%" style="stop-color:#0f6e50;stop-opacity:1" />
+      <stop offset="65%" style="stop-color:#084738;stop-opacity:1" />
+      <stop offset="80%" style="stop-color:#063530;stop-opacity:1" />
+      <stop offset="95%" style="stop-color:#042f28;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#031f1a;stop-opacity:1" />
+    </linearGradient>
+
+    <!-- ULTRA SNOW GRADIENTS (20+ STOPS) -->
+    <radialGradient id="snow1" cx="35%" cy="15%" r="85%">
+      <stop offset="0%" style="stop-color:#ffffff;stop-opacity:1" />
+      <stop offset="12%" style="stop-color:#fdfdfc;stop-opacity:0.99" />
+      <stop offset="20%" style="stop-color:#fcfcfb;stop-opacity:0.98" />
+      <stop offset="28%" style="stop-color:#fbfbf9;stop-opacity:0.97" />
+      <stop offset="36%" style="stop-color:#f9faf8;stop-opacity:0.96" />
+      <stop offset="44%" style="stop-color:#f7f8f5;stop-opacity:0.94" />
+      <stop offset="52%" style="stop-color:#f4f6f3;stop-opacity:0.92" />
+      <stop offset="60%" style="stop-color:#f1f4f1;stop-opacity:0.90" />
+      <stop offset="68%" style="stop-color:#eef2ee;stop-opacity:0.88" />
+      <stop offset="76%" style="stop-color:#e8f0eb;stop-opacity:0.85" />
+      <stop offset="84%" style="stop-color:#e0ebe7;stop-opacity:0.80" />
+      <stop offset="92%" style="stop-color:#d8e7e2;stop-opacity:0.75" />
+      <stop offset="100%" style="stop-color:#cfe2dd;stop-opacity:0.70" />
+    </radialGradient>
+
+    <radialGradient id="snow2" cx="40%" cy="18%" r="82%">
+      <stop offset="0%" style="stop-color:#ffffff;stop-opacity:0.99" />
+      <stop offset="15%" style="stop-color:#fdfcfb;stop-opacity:0.97" />
+      <stop offset="30%" style="stop-color:#faf9f7;stop-opacity:0.94" />
+      <stop offset="45%" style="stop-color:#f6f5f2;stop-opacity:0.90" />
+      <stop offset="60%" style="stop-color:#f1f0ed;stop-opacity:0.85" />
+      <stop offset="75%" style="stop-color:#eaeae6;stop-opacity:0.78" />
+      <stop offset="90%" style="stop-color:#dfe0db;stop-opacity:0.68" />
+      <stop offset="100%" style="stop-color:#d8d9d4;stop-opacity:0.60" />
+    </radialGradient>
+
+    <!-- STAR GRADIENTS WITH EXTREME DETAIL -->
+    <linearGradient id="star1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#7fd1ff;stop-opacity:1" />
+      <stop offset="10%" style="stop-color:#76ccfd;stop-opacity:1" />
+      <stop offset="20%" style="stop-color:#6cc7f8;stop-opacity:1" />
+      <stop offset="30%" style="stop-color:#62c0f5;stop-opacity:1" />
+      <stop offset="40%" style="stop-color:#5bb3e8;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#4da8de;stop-opacity:1" />
+      <stop offset="60%" style="stop-color:#3f9cd0;stop-opacity:1" />
+      <stop offset="70%" style="stop-color:#3a9dd4;stop-opacity:1" />
+      <stop offset="80%" style="stop-color:#2885c4;stop-opacity:1" />
+      <stop offset="90%" style="stop-color:#1a5fb4;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0f3d7a;stop-opacity:1" />
+    </linearGradient>
+
+    <!-- TEXTURE PATTERNS WITH HIGH DETAIL -->
+    <pattern id="rockDetail1" x="0" y="0" width="8" height="8" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r="1" fill="#1d9e75" opacity="0.02"/>
+      <circle cx="6" cy="4" r="0.6" fill="#0f6e50" opacity="0.015"/>
+      <circle cx="4" cy="6" r="0.8" fill="#2db882" opacity="0.015"/>
+    </pattern>
+
+    <pattern id="rockDetail2" x="0" y="0" width="12" height="12" patternUnits="userSpaceOnUse">
+      <line x1="0" y1="6" x2="12" y2="6" stroke="#2db882" stroke-width="0.3" opacity="0.03"/>
+      <line x1="6" y1="0" x2="6" y2="12" stroke="#2db882" stroke-width="0.3" opacity="0.025"/>
+    </pattern>
+
+    <pattern id="snowCrystal1" x="0" y="0" width="16" height="16" patternUnits="userSpaceOnUse">
+      <line x1="8" y1="0" x2="8" y2="16" stroke="#ffffff" stroke-width="0.4" opacity="0.08"/>
+      <line x1="0" y1="8" x2="16" y2="8" stroke="#ffffff" stroke-width="0.4" opacity="0.08"/>
+      <line x1="2" y1="2" x2="14" y2="14" stroke="#ffffff" stroke-width="0.3" opacity="0.05"/>
+      <line x1="14" y1="2" x2="2" y2="14" stroke="#ffffff" stroke-width="0.3" opacity="0.05"/>
+    </pattern>
+
+    <!-- ADVANCED FILTER EFFECTS -->
+    <filter id="dropShadow" x="-100%" y="-100%" width="300%" height="300%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="12"/>
+      <feOffset dx="0" dy="8" result="offsetblur"/>
+      <feComponentTransfer>
+        <feFuncA type="linear" slope="0.3"/>
+      </feComponentTransfer>
+      <feMerge>
+        <feMergeNode/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <filter id="glowEffect">
+      <feGaussianBlur stdDeviation="6" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <filter id="softGlowFine">
+      <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <!-- LIGHTING EFFECTS -->
+    <radialGradient id="lightingFront" cx="50%" cy="35%" r="70%">
+      <stop offset="0%" style="stop-color:#ffffff;stop-opacity:0.15" />
+      <stop offset="70%" style="stop-color:#ffffff;stop-opacity:0.02" />
+      <stop offset="100%" style="stop-color:#000000;stop-opacity:0.05" />
+    </radialGradient>
+
+    <!-- METALLIC EFFECTS -->
+    <linearGradient id="chromeShine" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#ffffff;stop-opacity:0.5" />
+      <stop offset="20%" style="stop-color:#ffffff;stop-opacity:0.15" />
+      <stop offset="50%" style="stop-color:#ffffff;stop-opacity:0" />
+      <stop offset="80%" style="stop-color:#000000;stop-opacity:0.1" />
+      <stop offset="100%" style="stop-color:#000000;stop-opacity:0.3" />
+    </linearGradient>
+
+    <!-- MESH GRADIENT SIMULATION -->
+    <linearGradient id="meshOverlay" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#ffffff;stop-opacity:0.08" />
+      <stop offset="50%" style="stop-color:#ffffff;stop-opacity:0.02" />
+      <stop offset="100%" style="stop-color:#000000;stop-opacity:0.04" />
+    </linearGradient>
+  </defs>
+
+  <!-- BACKGROUND LAYER SYSTEM (MULTIPLE PASSES) -->
+  <rect width="1200" height="1200" fill="url(#bg1)"/>
+  <rect width="1200" height="1200" fill="url(#meshOverlay)"/>
+
+  <!-- LIGHTING PASS 1 -->
+  <ellipse cx="600" cy="350" rx="800" ry="500" fill="url(#lightingFront)"/>
+
+  <!-- OUTER PREMIUM RING SYSTEM (ULTRA FINE) -->
+  <circle cx="600" cy="600" r="575" fill="none" stroke="#1d9e75" stroke-width="2" opacity="0.08"/>
+  <circle cx="600" cy="600" r="570" fill="none" stroke="#1d9e75" stroke-width="1.2" opacity="0.12"/>
+  <circle cx="600" cy="600" r="565" fill="none" stroke="#2db882" stroke-width="0.8" opacity="0.08"/>
+  <circle cx="600" cy="600" r="560" fill="none" stroke="#1d9e75" stroke-width="0.5" opacity="0.1"/>
+
+  <!-- PRIMARY BACKGROUND CIRCLE WITH SHADOW -->
+  <circle cx="600" cy="600" r="555" fill="#f8f7f3" stroke="#1d9e75" stroke-width="12" filter="url(#dropShadow)" opacity="0.98"/>
+
+  <!-- INNER CIRCLE ACCENT RINGS (ULTRA FINE) -->
+  <circle cx="600" cy="600" r="545" fill="none" stroke="#1d9e75" stroke-width="2" opacity="0.15"/>
+  <circle cx="600" cy="600" r="535" fill="none" stroke="#2db882" stroke-width="1.5" opacity="0.1"/>
+  <circle cx="600" cy="600" r="525" fill="none" stroke="#1d9e75" stroke-width="1" opacity="0.08"/>
+
+  <!-- CHROME EFFECT ON BACKGROUND -->
+  <circle cx="600" cy="600" r="555" fill="url(#chromeShine)" opacity="0.6"/>
+
+  <!-- TEXTURE OVERLAYS -->
+  <circle cx="600" cy="600" r="555" fill="url(#rockDetail1)"/>
+  <circle cx="600" cy="600" r="555" fill="url(#rockDetail2)"/>
+
+  <!-- MOUNTAIN SYSTEM WITH ULTRA DETAIL -->
+  <g id="mountain-group" filter="url(#dropShadow)">
+    <!-- ATMOSPHERIC BACKGROUND MOUNTAINS -->
+    <polygon points="200,800 400,500 600,800" fill="#1d9e75" opacity="0.2" style="mix-blend-mode: overlay;"/>
+    <polygon points="600,800 800,550 1000,800" fill="#1d9e75" opacity="0.15" style="mix-blend-mode: overlay;"/>
+
+    <!-- LEFT SECONDARY PEAK (FULL DETAIL) -->
+    <polygon points="250,850 420,320 650,850" fill="url(#m1)" opacity="0.88"/>
+
+    <!-- CENTER MAIN PEAK (HERO) -->
+    <polygon points="320,850 600,80 880,850" fill="url(#m3)" opacity="0.99"/>
+
+    <!-- RIGHT SECONDARY PEAK -->
+    <polygon points="550,850 720,380 950,850" fill="url(#m2)" opacity="0.90"/>
+
+    <!-- MOUNTAIN TEXTURE LAYER 1 -->
+    <polygon points="250,850 420,320 650,850" fill="url(#rockDetail1)" opacity="0.8"/>
+    <polygon points="320,850 600,80 880,850" fill="url(#rockDetail2)" opacity="0.7"/>
+    <polygon points="550,850 720,380 950,850" fill="url(#rockDetail1)" opacity="0.75"/>
+
+    <!-- MOUNTAIN DEPTH SHADOWS (LAYER 2) -->
+    <polygon points="420,450 600,300 550,450" fill="#0f6e50" opacity="0.12"/>
+    <polygon points="600,300 620,450 600,450" fill="#084738" opacity="0.1"/>
+    <polygon points="720,320 780,380 750,320" fill="#0f6e50" opacity="0.12"/>
+
+    <!-- MOUNTAIN OUTLINE FOR CRISPNESS -->
+    <polygon points="250,850 420,320 650,850" fill="none" stroke="#0f6e50" stroke-width="1.5" opacity="0.25"/>
+    <polygon points="320,850 600,80 880,850" fill="none" stroke="#084738" stroke-width="2" opacity="0.18"/>
+    <polygon points="550,850 720,380 950,850" fill="none" stroke="#0f6e50" stroke-width="1.5" opacity="0.2"/>
+
+    <!-- MOUNTAIN INNER SHADOWS FOR 3D DEPTH -->
+    <polygon points="320,400 600,200 550,400" fill="#0f6e50" opacity="0.08"/>
+  </g>
+
+  <!-- ULTRA PREMIUM SNOW CAP SYSTEM -->
+  <g id="snow-system" filter="url(#softGlowFine)">
+    <!-- CENTER PEAK PRIMARY SNOW CAP (LARGEST) -->
+    <polygon points="600,80 540,250 660,250" fill="url(#snow1)" opacity="0.98"/>
+
+    <!-- CENTER PEAK SECONDARY SNOW (HIGHLIGHT) -->
+    <polygon points="600,80 565,170 635,170" fill="url(#snow2)" opacity="0.92"/>
+
+    <!-- CENTER PEAK TERTIARY SNOW (TOP) -->
+    <polygon points="600,80 595,130 605,130" fill="#ffffff" opacity="0.85"/>
+
+    <!-- CENTER PEAK MICRO SNOW (PEAK) -->
+    <polygon points="600,80 598,110 602,110" fill="#ffffff" opacity="0.7"/>
+
+    <!-- LEFT PEAK PRIMARY SNOW -->
+    <polygon points="420,320 385,440 455,440" fill="url(#snow1)" opacity="0.96"/>
+    <polygon points="420,320 405,390 435,390" fill="#ffffff" opacity="0.75"/>
+
+    <!-- RIGHT PEAK PRIMARY SNOW -->
+    <polygon points="720,380 680,500 760,500" fill="url(#snow1)" opacity="0.96"/>
+    <polygon points="720,380 705,450 735,450" fill="#ffffff" opacity="0.75"/>
+
+    <!-- CRYSTALLINE ICE DETAILS (LAYER 1) -->
+    <line x1="600" y1="85" x2="580" y2="160" stroke="#ffffff" stroke-width="3" opacity="0.7" filter="url(#softGlowFine)"/>
+    <line x1="600" y1="85" x2="620" y2="160" stroke="#ffffff" stroke-width="3" opacity="0.7" filter="url(#softGlowFine)"/>
+
+    <!-- ICE DETAILS (LAYER 2) -->
+    <line x1="420" y1="325" x2="405" y2="385" stroke="#ffffff" stroke-width="2.5" opacity="0.6"/>
+    <line x1="720" y1="385" x2="705" y2="445" stroke="#ffffff" stroke-width="2.5" opacity="0.6"/>
+
+    <!-- CRYSTALLINE TEXTURE ON SNOW -->
+    <polygon points="600,80 540,250 660,250" fill="url(#snowCrystal1)"/>
+    <polygon points="420,320 385,440 455,440" fill="url(#snowCrystal1)" opacity="0.6"/>
+    <polygon points="720,380 680,500 760,500" fill="url(#snowCrystal1)" opacity="0.6"/>
+
+    <!-- PARTICLE SNOW EFFECT (FINE DETAILS) -->
+    <circle cx="605" cy="100" r="3" fill="#ffffff" opacity="0.2"/>
+    <circle cx="595" cy="115" r="2.5" fill="#ffffff" opacity="0.18"/>
+    <circle cx="615" cy="135" r="2" fill="#ffffff" opacity="0.15"/>
+    <circle cx="425" cy="340" r="2" fill="#ffffff" opacity="0.12"/>
+    <circle cx="715" cy="400" r="2" fill="#ffffff" opacity="0.12"/>
+
+    <!-- SNOW SHADOW FOR DEPTH -->
+    <polygon points="600,240 540,250 660,250" fill="#d4ebe7" opacity="0.4"/>
+    <polygon points="420,430 385,440 455,440" fill="#d4ebe7" opacity="0.35"/>
+    <polygon points="720,490 680,500 760,500" fill="#d4ebe7" opacity="0.35"/>
+  </g>
+
+  <!-- MEGA STAR RATING SYSTEM -->
+  <g id="star-mega" transform="translate(600, 640)" filter="url(#glowEffect)">
+    <!-- OUTER DECORATIVE RING SYSTEM (ULTRA FINE) -->
+    <circle cx="0" cy="0" r="140" fill="none" stroke="#1a5fb4" stroke-width="3" opacity="0.12"/>
+    <circle cx="0" cy="0" r="130" fill="none" stroke="#1a5fb4" stroke-width="2" opacity="0.1"/>
+    <circle cx="0" cy="0" r="120" fill="none" stroke="#2885c4" stroke-width="1.5" opacity="0.12"/>
+    <circle cx="0" cy="0" r="110" fill="none" stroke="#1a5fb4" stroke-width="1" opacity="0.08"/>
+
+    <!-- MAIN STAR SHAPE (MASSIVE) -->
+    <polygon points="0,-110 32,-28 112,-28 50,15 72,97 0,45.5 -72,97 -50,15 -112,-28 -32,-28"
+             fill="url(#star1)" opacity="0.92"/>
+
+    <!-- INNER HIGHLIGHT STAR (3D EFFECT) -->
+    <polygon points="0,-85 25,-22 86,-22 42,12 56,75 0,35 -56,75 -42,12 -86,-22 -25,-22"
+             fill="#ffffff" opacity="0.25"/>
+
+    <!-- MICRO HIGHLIGHT STAR -->
+    <polygon points="0,-65 19,-17 66,-17 32,9 43,57 0,27 -43,57 -32,9 -66,-17 -19,-17"
+             fill="#ffffff" opacity="0.15"/>
+
+    <!-- STAR POINT HIGHLIGHTS (METALLIC) -->
+    <circle cx="0" cy="-110" r="8" fill="url(#star1)" opacity="0.85" filter="url(#softGlowFine)"/>
+    <circle cx="112" cy="-28" r="6" fill="url(#star1)" opacity="0.7"/>
+    <circle cx="-112" cy="-28" r="6" fill="url(#star1)" opacity="0.7"/>
+    <circle cx="72" cy="97" r="5" fill="url(#star1)" opacity="0.6"/>
+    <circle cx="-72" cy="97" r="5" fill="url(#star1)" opacity="0.6"/>
+
+    <!-- STAR OUTLINE FOR DEFINITION -->
+    <polygon points="0,-110 32,-28 112,-28 50,15 72,97 0,45.5 -72,97 -50,15 -112,-28 -32,-28"
+             fill="none" stroke="#1a5fb4" stroke-width="2.5" opacity="0.35"/>
+
+    <!-- SUBTLE INNER SHADOW -->
+    <polygon points="0,-110 32,-28 112,-28 50,15 72,97 0,45.5 -72,97 -50,15 -112,-28 -32,-28"
+             fill="none" stroke="#0f3d7a" stroke-width="1.5" opacity="0.18"/>
+
+    <!-- DECORATIVE DOTS AT STAR POINTS -->
+    <circle cx="0" cy="-110" r="3" fill="#5bb3e8" opacity="0.5"/>
+    <circle cx="112" cy="-28" r="2.5" fill="#5bb3e8" opacity="0.4"/>
+    <circle cx="-112" cy="-28" r="2.5" fill="#5bb3e8" opacity="0.4"/>
+  </g>
+
+  <!-- BOTTOM PREMIUM ACCENT BAR SYSTEM (ULTRA FINE) -->
+  <g id="accent-bar" filter="url(#dropShadow)">
+    <!-- MAIN BAR -->
+    <rect x="280" y="850" width="640" height="24" fill="#1d9e75" rx="12" opacity="0.94"/>
+
+    <!-- METALLIC SHINE -->
+    <rect x="280" y="850" width="640" height="10" fill="url(#chromeShine)" rx="10" opacity="0.85"/>
+
+    <!-- SHINE HIGHLIGHT -->
+    <rect x="280" y="850" width="640" height="5" fill="#ffffff" rx="4" opacity="0.4"/>
+
+    <!-- SUBTLE SHADOW UNDERNEATH -->
+    <rect x="280" y="873" width="640" height="3" fill="#000000" rx="2" opacity="0.06"/>
+
+    <!-- ACCENT DOTS -->
+    <circle cx="310" cy="862" r="5" fill="#2db882" opacity="0.7" filter="url(#softGlowFine)"/>
+    <circle cx="890" cy="862" r="5" fill="#2db882" opacity="0.7" filter="url(#softGlowFine)"/>
+
+    <!-- DECORATIVE ACCENT LINES -->
+    <line x1="290" y1="855" x2="290" y2="870" stroke="#2db882" stroke-width="1" opacity="0.3"/>
+    <line x1="910" y1="855" x2="910" y2="870" stroke="#2db882" stroke-width="1" opacity="0.3"/>
+  </g>
+
+  <!-- FINAL PREMIUM OVERLAY PASSES -->
+  <circle cx="600" cy="600" r="555" fill="url(#meshOverlay)" opacity="0.5"/>
+
+  <!-- ULTRA LIGHTING PASS (FINAL) -->
+  <ellipse cx="600" cy="300" rx="700" ry="400" fill="#ffffff" opacity="0.025"/>
+
+  <!-- SUBTLE VIGNETTE EFFECT -->
+  <radialGradient id="vignette" cx="50%" cy="50%" r="75%">
+    <stop offset="0%" style="stop-color:#000000;stop-opacity:0" />
+    <stop offset="100%" style="stop-color:#000000;stop-opacity:0.06" />
+  </radialGradient>
+  <circle cx="600" cy="600" r="555" fill="url(#vignette)"/>
+
+  <!-- ANTI-ALIASING SMOOTHNESS EDGE -->
+  <circle cx="600" cy="600" r="555" fill="none" stroke="#f8f7f3" stroke-width="1.5" opacity="0.6"/>
+</svg>

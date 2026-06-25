@@ -4,6 +4,8 @@ import type { Prisma } from "@prisma/client";
 import {
   gradientFor, emojiFor, countryNL, countryFlag, toFiveStars, stars, fmtCount, fmtNumber,
 } from "@/lib/display";
+import { getCurrentUser } from "@/lib/auth";
+import ResortSearch from "./ResortSearch";
 
 export const dynamic = "force-dynamic";
 
@@ -20,7 +22,7 @@ const CAT_FILTERS = [
   { key: "Expert", label: "⚫ Expert" },
 ];
 
-type Search = { country?: string; cat?: string; sort?: string; sf?: string };
+type Search = { country?: string; cat?: string; sort?: string; sf?: string; q?: string };
 
 function buildQuery(next: Search): string {
   const p = new URLSearchParams();
@@ -28,20 +30,28 @@ function buildQuery(next: Search): string {
   if (next.cat) p.set("cat", next.cat);
   if (next.sort) p.set("sort", next.sort);
   if (next.sf) p.set("sf", next.sf);
+  if (next.q) p.set("q", next.q);
   const s = p.toString();
   return s ? `/resorts?${s}` : "/resorts";
 }
 
 export default async function ResortsPage({ searchParams }: { searchParams?: Promise<Search> }) {
-  const sp = searchParams ? await searchParams : {};
+  const [sp, user] = await Promise.all([
+    searchParams ? searchParams : Promise.resolve({} as Search),
+    getCurrentUser(),
+  ]);
+  const isSuperAdmin = user?.role === "ADMIN";
+
   const country = sp.country ?? "";
   const cat = sp.cat ?? "";
   const sort = sp.sort ?? "snow";
   const sf = sp.sf ?? "";
+  const q = isSuperAdmin ? (sp.q ?? "") : "";
 
   const where: Prisma.ResortWhereInput = {};
   if (country) where.Country = country;
   if (cat) where.category = cat;
+  if (q) where.name = { contains: q, mode: "insensitive" };
 
   const orderBy: Prisma.ResortOrderByWithRelationInput =
     sort === "rating" ? { averageOverallRating: "desc" } :
@@ -51,13 +61,25 @@ export default async function ResortsPage({ searchParams }: { searchParams?: Pro
   const sfOnly = sp.sf === "1";
   if (sfOnly) where.snowflakes = { gt: 0 };
 
-  const resorts = await prisma.resort.findMany({ where, orderBy, take: 24 });
+  const resorts = await prisma.resort.findMany({ where, orderBy, take: q ? 100 : 24 });
 
   return (
     <section className="section">
       <div className="container">
         <span className="label">Rankings 2025–26</span>
         <h2>De meest complete ski rankings van Europa</h2>
+        {isSuperAdmin && (
+          <div style={{ marginBottom: 16, display: "flex", alignItems: "center", gap: 12 }}>
+            <span style={{ fontSize: 11, fontWeight: 700, color: "#f59e0b", textTransform: "uppercase", letterSpacing: 1 }}>Admin zoeken</span>
+            <ResortSearch current={q} />
+            {q && (
+              <span style={{ fontSize: 13, color: "#64748b" }}>
+                {resorts.length} resultaat{resorts.length !== 1 ? "en" : ""} voor &ldquo;{q}&rdquo;
+              </span>
+            )}
+          </div>
+        )}
+
         <div className="filter-row">
           {COUNTRY_FILTERS.map((f) => (
             <Link key={f.label} href={buildQuery({ country: f.key, cat, sort })}
@@ -96,7 +118,7 @@ export default async function ResortsPage({ searchParams }: { searchParams?: Pro
         ) : (
           <div className="resort-grid">
             {resorts.map((r, i) => (
-              <Link href={`/resort/${r.id}`} className="resort-card" key={r.id} style={{ position: "relative" }}>
+              <Link href={r.slug ? `/resorts/${r.slug}` : `/resort/${r.id}`} className="resort-card" key={r.id} style={{ position: "relative" }}>
                 {r.snowflakes > 0 && (
                   <div className={`sf-card-badge sf-${r.snowflakes}`}>{"❄".repeat(r.snowflakes)}</div>
                 )}

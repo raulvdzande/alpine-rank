@@ -42,7 +42,7 @@ export default async function RegisterPage({ searchParams }: Props) {
     <div className="auth-wrap">
       <div className="auth-card">
         <div className="auth-logo">
-          <div className="nav-logo-icon">⛰</div>
+          <img src="/logo-icon.svg" alt="PeakFlow" style={{ width: 40, height: 40, marginBottom: 8 }} />
           <span className="nav-logo-text">PeakFlow</span>
         </div>
         <h1 className="auth-title">Gratis starten</h1>

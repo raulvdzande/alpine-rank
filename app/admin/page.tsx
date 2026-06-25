@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { prisma } from "@/lib/prisma";
 import { countryFlag, countryNL, toFiveStars } from "@/lib/display";
+import ClearAllButton from "./ClearAllButton";
 
 export const dynamic = "force-dynamic";
 
@@ -97,9 +98,20 @@ export default async function AdminPage({ searchParams }: { searchParams?: SP })
 
   return (
     <>
-      <div style={{ marginBottom: 28 }}>
-        <h1 style={{ fontSize: 22, fontWeight: 700, color: "white", marginBottom: 4 }}>Resort Ratings Beheer</h1>
-        <p style={{ fontSize: 13, color: "#64748b" }}>Stel de officiële PeakFlow beoordelingen in voor elk skigebied.</p>
+      <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", marginBottom: 28, gap: 16, flexWrap: "wrap" }}>
+        <div>
+          <h1 style={{ fontSize: 22, fontWeight: 700, color: "white", marginBottom: 4 }}>Resort Ratings Beheer</h1>
+          <p style={{ fontSize: 13, color: "#64748b" }}>Stel de officiële PeakFlow beoordelingen in voor elk skigebied.</p>
+        </div>
+        <div style={{ display: "flex", gap: 10, flexWrap: "wrap", justifyContent: "flex-end", alignItems: "center" }}>
+          <ClearAllButton total={total} />
+          <Link
+            href="/admin/resort/nieuw"
+            style={{ background: "#0f6e50", color: "white", borderRadius: 8, padding: "8px 18px", fontSize: 13, fontWeight: 700, textDecoration: "none", display: "inline-flex", alignItems: "center", gap: 6 }}
+          >
+            + Nieuw resort
+          </Link>
+        </div>
       </div>
 
       {/* Stats */}

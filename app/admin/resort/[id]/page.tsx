@@ -34,9 +34,15 @@ export default async function AdminResortPage({ params }: { params: Promise<{ id
   return (
     <>
       {/* Breadcrumb */}
-      <div style={{ marginBottom: 24 }}>
-        <Link href="/admin" style={{ fontSize: 13, color: "#64748b", textDecoration: "none", display: "inline-flex", alignItems: "center", gap: 6 }}>
+      <div style={{ marginBottom: 24, display: "flex", alignItems: "center", gap: 16 }}>
+        <Link href="/admin" style={{ fontSize: 13, color: "#64748b", textDecoration: "none" }}>
           ← Terug naar overzicht
+        </Link>
+        <Link
+          href={`/admin/resort/${id}/data`}
+          style={{ fontSize: 13, color: "#93c5fd", textDecoration: "none", background: "rgba(96,165,250,.1)", border: "1px solid rgba(96,165,250,.2)", borderRadius: 6, padding: "5px 12px" }}
+        >
+          ✏️ Data bewerken
         </Link>
       </div>
 

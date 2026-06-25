@@ -7,7 +7,7 @@ export default function Footer() {
         <div className="footer-grid">
           <div className="footer-brand">
             <div className="logo">
-              <div className="logo-icon">⛰</div>
+              <img src="/logo-icon.svg" alt="PeakFlow" style={{ width: 32, height: 32 }} />
               <span style={{ fontSize: 17, fontWeight: 700 }}>PeakFlow</span>
             </div>
             <p>De rankings die skiërs vertrouwen. Data-gedreven, door skiërs gemaakt, voor skiërs.</p>
