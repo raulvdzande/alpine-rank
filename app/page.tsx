@@ -7,16 +7,29 @@ import {
 export const dynamic = "force-dynamic";
 
 export default async function HomePage() {
-  const [totalResorts, reviewAgg, countriesGrouped, topResorts, snowTop] = await Promise.all([
-    prisma.resort.count(),
-    prisma.resort.aggregate({ _sum: { reviewCount: true } }),
-    prisma.resort.groupBy({ by: ["Country"] }),
-    prisma.resort.findMany({ where: { reviewCount: { gt: 0 } }, orderBy: { averageOverallRating: "desc" }, take: 3 }),
-    prisma.resort.findMany({ orderBy: { snowScore: "desc" }, take: 6 }),
-  ]);
+  let totalResorts = 0, totalReviews = 0, countriesGrouped: { Country: string }[] = [];
+  let topResorts: Awaited<ReturnType<typeof prisma.resort.findMany>> = [];
+  let snowTop: Awaited<ReturnType<typeof prisma.resort.findMany>> = [];
+  let beginnersPick: Awaited<ReturnType<typeof prisma.resort.findFirst>> = null;
 
-  const totalReviews = reviewAgg._sum.reviewCount ?? 0;
-  const beginnersPick = await prisma.resort.findFirst({ where: { category: "Beginners" }, orderBy: { snowScore: "desc" } });
+  try {
+    const [resortsCount, reviewAgg, countries, top, snow] = await Promise.all([
+      prisma.resort.count(),
+      prisma.resort.aggregate({ _sum: { reviewCount: true } }),
+      prisma.resort.groupBy({ by: ["Country"] }),
+      prisma.resort.findMany({ where: { reviewCount: { gt: 0 } }, orderBy: { averageOverallRating: "desc" }, take: 3 }),
+      prisma.resort.findMany({ orderBy: { snowScore: "desc" }, take: 6 }),
+    ]);
+    totalResorts = resortsCount;
+    totalReviews = reviewAgg._sum.reviewCount ?? 0;
+    countriesGrouped = countries;
+    topResorts = top;
+    snowTop = snow;
+    beginnersPick = await prisma.resort.findFirst({ where: { category: "Beginners" }, orderBy: { snowScore: "desc" } });
+  } catch (err) {
+    console.error("[HomePage] DB error:", err);
+  }
+
   const heroTop = topResorts[0];
 
   return (
