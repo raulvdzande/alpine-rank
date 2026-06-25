@@ -78,7 +78,6 @@ export default function PrivacyPage() {
           </p>
           <ul style={{ marginLeft: 20, marginBottom: 24, listStyleType: "disc" }}>
             <li><strong>Stripe:</strong> voor betalingsverwerking</li>
-            <li><strong>Resend:</strong> voor e-mailbezorging</li>
             <li><strong>Analytics:</strong> geanonimiseerde data</li>
           </ul>
 
