@@ -41,7 +41,7 @@ export default function AddResortButton({ companyId }: { companyId: string }) {
         body: JSON.stringify({ companyId, resortId: selectedResortId }),
       });
       if (res.ok) {
-        alert("Skigebied toegevoegd");
+        alert("Ski resort added");
         setOpen(false);
         setSearchQuery("");
         setSelectedResortId("");
@@ -49,7 +49,7 @@ export default function AddResortButton({ companyId }: { companyId: string }) {
         window.location.reload();
       } else {
         const data = await res.json();
-        alert("Fout: " + (data.error || "Toevoegen mislukt"));
+        alert("Error: " + (data.error || "Failed to add"));
       }
     } finally {
       setLoading(false);
@@ -71,7 +71,7 @@ export default function AddResortButton({ companyId }: { companyId: string }) {
           fontSize: 13,
         }}
       >
-        + Skigebied toevoegen
+        + Add ski resort
       </button>
     );
   }
@@ -95,12 +95,12 @@ export default function AddResortButton({ companyId }: { companyId: string }) {
         margin: 20,
       }}>
         <h2 style={{ marginBottom: 20, fontSize: 18, fontWeight: 700 }}>
-          Skigebied toevoegen
+          Add ski resort
         </h2>
 
         <div style={{ marginBottom: 16 }}>
           <label style={{ display: "block", fontSize: 13, fontWeight: 600, marginBottom: 6 }}>
-            Zoek skigebied
+            Search ski resort
           </label>
           <div style={{ display: "flex", gap: 8 }}>
             <input
@@ -108,7 +108,7 @@ export default function AddResortButton({ companyId }: { companyId: string }) {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               onKeyPress={(e) => e.key === "Enter" && handleSearch()}
-              placeholder="Bijv. Verbier, Zermatt..."
+              placeholder="e.g. Verbier, Zermatt..."
               style={{
                 flex: 1,
                 padding: "10px 14px",
@@ -133,7 +133,7 @@ export default function AddResortButton({ companyId }: { companyId: string }) {
                 opacity: loading ? 0.6 : 1,
               }}
             >
-              Zoeken
+              Search
             </button>
           </div>
         </div>
@@ -141,7 +141,7 @@ export default function AddResortButton({ companyId }: { companyId: string }) {
         {searched && resorts.length > 0 && (
           <div style={{ marginBottom: 16 }}>
             <label style={{ display: "block", fontSize: 13, fontWeight: 600, marginBottom: 6 }}>
-              Selecteer skigebied
+              Select ski resort
             </label>
             <select
               value={selectedResortId}
@@ -155,7 +155,7 @@ export default function AddResortButton({ companyId }: { companyId: string }) {
                 boxSizing: "border-box",
               }}
             >
-              <option value="">— Kies een skigebied —</option>
+              <option value="">— Choose a ski resort —</option>
               {resorts.map((resort) => (
                 <option key={resort.id} value={resort.id}>
                   {resort.name}, {resort.Country}
@@ -166,7 +166,7 @@ export default function AddResortButton({ companyId }: { companyId: string }) {
         )}
 
         {searched && resorts.length === 0 && (
-          <p style={{ fontSize: 13, color: "var(--ink3)", marginBottom: 16 }}>Geen skigebieden gevonden</p>
+          <p style={{ fontSize: 13, color: "var(--ink3)", marginBottom: 16 }}>No ski resorts found</p>
         )}
 
         <div style={{ display: "flex", gap: 12 }}>
@@ -185,7 +185,7 @@ export default function AddResortButton({ companyId }: { companyId: string }) {
               fontWeight: 600,
             }}
           >
-            Annuleren
+            Cancel
           </button>
           <button
             onClick={handleAdd}
@@ -203,7 +203,7 @@ export default function AddResortButton({ companyId }: { companyId: string }) {
               opacity: loading || !selectedResortId ? 0.6 : 1,
             }}
           >
-            {loading ? "Bezig..." : "Toevoegen"}
+            {loading ? "Saving..." : "Add"}
           </button>
         </div>
       </div>

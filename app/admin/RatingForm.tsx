@@ -17,13 +17,13 @@ interface Props {
 }
 
 const CATEGORIES = [
-  { key: "terrain", label: "Terrein & variatie", emoji: "🏔" },
-  { key: "snow", label: "Sneeuwkwaliteit", emoji: "❄" },
-  { key: "lifts", label: "Liften & wachtrijen", emoji: "🚡" },
+  { key: "terrain", label: "Terrain & variety", emoji: "🏔" },
+  { key: "snow", label: "Snow quality", emoji: "❄" },
+  { key: "lifts", label: "Lifts & queues", emoji: "🚡" },
   { key: "apres", label: "Après-ski", emoji: "🍺" },
-  { key: "family", label: "Familie-vriendelijk", emoji: "👨‍👩‍👧" },
-  { key: "value", label: "Prijs-kwaliteit", emoji: "💰" },
-  { key: "scenery", label: "Uitzicht & sfeer", emoji: "🎑" },
+  { key: "family", label: "Family-friendly", emoji: "👨‍👩‍👧" },
+  { key: "value", label: "Value for money", emoji: "💰" },
+  { key: "scenery", label: "Scenery & vibe", emoji: "🎑" },
 ] as const;
 
 type CategoryKey = typeof CATEGORIES[number]["key"];
@@ -53,7 +53,7 @@ export default function RatingForm({ resortId, initial }: Props) {
   }
 
   function handleClear() {
-    if (!confirm("Beoordeling verwijderen?")) return;
+    if (!confirm("Delete rating?")) return;
     startClear(async () => {
       await clearResortRating(resortId);
     });
@@ -86,9 +86,9 @@ export default function RatingForm({ resortId, initial }: Props) {
         gap: 24,
       }}>
         <div>
-          <div style={{ fontSize: 11, color: "rgba(255,255,255,.5)", fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.5px", marginBottom: 4 }}>Berekende totaalscore</div>
+          <div style={{ fontSize: 11, color: "rgba(255,255,255,.5)", fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.5px", marginBottom: 4 }}>Calculated total score</div>
           <div style={{ fontSize: 36, fontWeight: 800, color: "#fbbf24" }}>{stars.toFixed(2)} ★</div>
-          <div style={{ fontSize: 13, color: "rgba(255,255,255,.5)" }}>{starStr(stars)} · gemiddeld {avg.toFixed(1)}/10</div>
+          <div style={{ fontSize: 13, color: "rgba(255,255,255,.5)" }}>{starStr(stars)} · average {avg.toFixed(1)}/10</div>
         </div>
         <div style={{ flex: 1, display: "grid", gridTemplateColumns: "1fr 1fr 1fr 1fr", gap: 8 }}>
           {CATEGORIES.map(c => (
@@ -150,7 +150,7 @@ export default function RatingForm({ resortId, initial }: Props) {
             gap: 8,
           }}
         >
-          {saving ? "⏳ Opslaan..." : "✓ Beoordeling opslaan"}
+          {saving ? "⏳ Saving..." : "✓ Save rating"}
         </button>
         {initial && (
           <button
@@ -166,7 +166,7 @@ export default function RatingForm({ resortId, initial }: Props) {
               cursor: clearing ? "not-allowed" : "pointer",
             }}
           >
-            {clearing ? "..." : "Verwijderen"}
+            {clearing ? "..." : "Delete"}
           </button>
         )}
       </div>

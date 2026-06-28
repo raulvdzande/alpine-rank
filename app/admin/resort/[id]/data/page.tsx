@@ -51,26 +51,26 @@ export default async function EditResortDataPage({ params }: { params: Promise<{
     <div style={{ maxWidth: 760 }}>
       <div style={{ marginBottom: 24, display: "flex", gap: 16, alignItems: "center" }}>
         <Link href={`/admin/resort/${id}`} style={{ fontSize: 13, color: "#64748b", textDecoration: "none" }}>
-          ← Terug naar beoordelen
+          ← Back to rating
         </Link>
         <Link href="/admin" style={{ fontSize: 13, color: "#475569", textDecoration: "none" }}>
-          Admin overzicht
+          Admin overview
         </Link>
       </div>
 
       <div style={{ marginBottom: 24 }}>
         <h1 style={{ fontSize: 22, fontWeight: 700, color: "white", marginBottom: 4 }}>
-          {resort.name} — Data bewerken
+          {resort.name} — Edit data
         </h1>
         <p style={{ fontSize: 13, color: "#64748b" }}>
-          Pas de fysieke gegevens aan. De sneeuwscore wordt direct herberekend.
+          Update the physical data. The snow score is recalculated immediately.
         </p>
       </div>
 
-      {/* Huidige sneeuwscore breakdown */}
+      {/* Current snow score breakdown */}
       <div style={{ background: "#1e293b", border: "1px solid #334155", borderRadius: 12, padding: "16px 20px", marginBottom: 24 }}>
         <div style={{ fontSize: 13, fontWeight: 700, color: "#94a3b8", marginBottom: 12, textTransform: "uppercase", letterSpacing: "0.4px" }}>
-          Huidige sneeuwzekerheids-score
+          Current snow certainty score
         </div>
         <div style={{ display: "flex", gap: 24, alignItems: "center", flexWrap: "wrap" }}>
           <div style={{ fontSize: 40, fontWeight: 800, color: scoreColor(breakdown.finalScore) }}>
@@ -79,10 +79,10 @@ export default async function EditResortDataPage({ params }: { params: Promise<{
           </div>
           <div style={{ display: "flex", gap: 16, flexWrap: "wrap" }}>
             {[
-              { l: "Hoogte (40%)",       v: breakdown.altitudeScore },
-              { l: "Historisch (35%)",   v: breakdown.historicalScore },
-              { l: "Breedtegraad (15%)", v: breakdown.latitudeScore },
-              { l: "Bereik (10%)",       v: breakdown.rangeScore },
+              { l: "Altitude (40%)",    v: breakdown.altitudeScore },
+              { l: "Historical (35%)",  v: breakdown.historicalScore },
+              { l: "Latitude (15%)",    v: breakdown.latitudeScore },
+              { l: "Range (10%)",       v: breakdown.rangeScore },
             ].map(({ l, v }) => (
               <div key={l} style={{ textAlign: "center" }}>
                 <div style={{ fontSize: 18, fontWeight: 700, color: v !== null ? scoreColor(v) : "#475569" }}>
@@ -106,7 +106,7 @@ export default async function EditResortDataPage({ params }: { params: Promise<{
 
       <ResortDataForm
         initial={initial}
-        submitLabel="Opslaan + sneeuwscore herberekenen"
+        submitLabel="Save + recalculate snow score"
         onSubmit={(data: ResortFormData) => updateResortData(id, data)}
         onDelete={() => deleteResort(id)}
       />

@@ -12,13 +12,13 @@ export const dynamic = "force-dynamic";
 const SUPER_ADMIN_EMAIL = "raulvdzande740@gmail.com";
 
 const CATEGORIES = [
-  { key: "terrain" as const, label: "Terrein", emoji: "🏔" },
-  { key: "snow" as const, label: "Sneeuw", emoji: "❄" },
-  { key: "lifts" as const, label: "Liften", emoji: "🚡" },
+  { key: "terrain" as const, label: "Terrain", emoji: "🏔" },
+  { key: "snow" as const, label: "Snow", emoji: "❄" },
+  { key: "lifts" as const, label: "Lifts", emoji: "🚡" },
   { key: "apres" as const, label: "Après", emoji: "🍺" },
-  { key: "family" as const, label: "Familie", emoji: "👨‍👩‍👧" },
-  { key: "value" as const, label: "Prijs", emoji: "💰" },
-  { key: "scenery" as const, label: "Uitzicht", emoji: "🎑" },
+  { key: "family" as const, label: "Family", emoji: "👨‍👩‍👧" },
+  { key: "value" as const, label: "Value", emoji: "💰" },
+  { key: "scenery" as const, label: "Scenery", emoji: "🎑" },
 ];
 
 function getCatColor(val: number): string {
@@ -37,7 +37,7 @@ const cardStyle: React.CSSProperties = {
 };
 
 function monthYear(d: Date): string {
-  return d.toLocaleDateString("nl-NL", { month: "long", year: "numeric" });
+  return d.toLocaleDateString("en-GB", { month: "long", year: "numeric" });
 }
 
 export default async function ResortDetailPage({ params }: { params: Promise<{ id: string }> }) {
@@ -64,7 +64,6 @@ export default async function ResortDetailPage({ params }: { params: Promise<{ i
     ? reviews.find(rv => rv.userId === currentUser.id) ?? null
     : null;
 
-  // Category averages from all reviews
   const catAvg: Record<string, number> = {};
   if (reviews.length > 0) {
     for (const cat of CATEGORIES) {
@@ -74,10 +73,10 @@ export default async function ResortDetailPage({ params }: { params: Promise<{ i
   }
 
   const piste = [
-    { c: "#2ecc71", p: r.pisteGreen ?? 0, l: "Groen" },
-    { c: "#3498db", p: r.pisteBlue ?? 0, l: "Blauw" },
-    { c: "#e74c3c", p: r.pisteRed ?? 0, l: "Rood" },
-    { c: "#2c3e50", p: r.pisteBlack ?? 0, l: "Zwart" },
+    { c: "#2ecc71", p: r.pisteGreen ?? 0, l: "Green" },
+    { c: "#3498db", p: r.pisteBlue ?? 0, l: "Blue" },
+    { c: "#e74c3c", p: r.pisteRed ?? 0, l: "Red" },
+    { c: "#2c3e50", p: r.pisteBlack ?? 0, l: "Black" },
   ];
   const maxP = Math.max(...piste.map((x) => x.p), 1);
 
@@ -104,9 +103,9 @@ export default async function ResortDetailPage({ params }: { params: Promise<{ i
               </p>
               <div style={{ display: "flex", gap: 20, flexWrap: "wrap", marginBottom: 32 }}>
                 {[
-                  { v: r.snowScore?.toFixed(1) ?? "—", l: "Sneeuwscore", c: "#6ee7b7" },
+                  { v: r.snowScore?.toFixed(1) ?? "—", l: "Snow score", c: "#6ee7b7" },
                   { v: String(r.pisteKm ?? "—"), l: "km piste" },
-                  { v: String(r.lifts ?? "—"), l: "liften" },
+                  { v: String(r.lifts ?? "—"), l: "lifts" },
                   ...(hasRating ? [{ v: `${fiveStar.toFixed(1)}★`, l: `${r.reviewCount} ${r.reviewCount === 1 ? "review" : "reviews"}` }] : []),
                 ].map((s) => (
                   <div key={s.l}>
@@ -116,8 +115,8 @@ export default async function ResortDetailPage({ params }: { params: Promise<{ i
                 ))}
               </div>
               <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
-                <button className="btn btn-primary btn-lg">Dagkaart boeken →</button>
-                <Link href="/resorts" className="btn" style={{ background: "rgba(255,255,255,.1)", color: "white", border: "1px solid rgba(255,255,255,.2)" }}>← Terug</Link>
+                <button className="btn btn-primary btn-lg">Book day pass →</button>
+                <Link href="/resorts" className="btn" style={{ background: "rgba(255,255,255,.1)", color: "white", border: "1px solid rgba(255,255,255,.2)" }}>← Back</Link>
               </div>
             </div>
             <div style={{ fontSize: 120, lineHeight: 1, filter: "drop-shadow(0 8px 24px rgba(0,0,0,.3))", alignSelf: "flex-end" }}>{emojiFor(r.id)}</div>
@@ -137,7 +136,7 @@ export default async function ResortDetailPage({ params }: { params: Promise<{ i
               </div>
               <div className="sf-meta">
                 <div className="sf-year">{r.snowflakeAwardedAt ? new Date(r.snowflakeAwardedAt).getFullYear() : ""}</div>
-                <div className="sf-seal">PeakFlow Inspectie ✓</div>
+                <div className="sf-seal">PeakFlow Inspection ✓</div>
               </div>
             </div>
           </div>
@@ -148,9 +147,9 @@ export default async function ResortDetailPage({ params }: { params: Promise<{ i
       <div className="container" style={{ paddingTop: 40, paddingBottom: 60 }}>
         <div style={{ display: "grid", gridTemplateColumns: "2fr 1fr", gap: 28, alignItems: "start" }}>
           <div>
-            {/* PISTE VERDELING */}
+            {/* PISTE DISTRIBUTION */}
             <div style={cardStyle}>
-              <h3 style={{ marginBottom: 16 }}>Pisteverdeling</h3>
+              <h3 style={{ marginBottom: 16 }}>Piste distribution</h3>
               <div style={{ display: "flex", gap: 12, marginBottom: 16, alignItems: "flex-end" }}>
                 {piste.map((b) => (
                   <div key={b.l} style={{ textAlign: "center", flex: 1 }}>
@@ -163,13 +162,13 @@ export default async function ResortDetailPage({ params }: { params: Promise<{ i
               </div>
             </div>
 
-            {/* RATING BREAKDOWN — only if reviews exist */}
+            {/* RATING BREAKDOWN */}
             {reviews.length > 0 && (
               <div style={cardStyle}>
                 <div style={{ display: "flex", alignItems: "center", gap: 16, marginBottom: 20 }}>
                   <div>
-                    <h3 style={{ marginBottom: 4 }}>PeakFlow Beoordelingen</h3>
-                    <div style={{ fontSize: 13, color: "var(--ink3)" }}>{r.reviewCount} {r.reviewCount === 1 ? "beoordeling" : "beoordelingen"}</div>
+                    <h3 style={{ marginBottom: 4 }}>PeakFlow Reviews</h3>
+                    <div style={{ fontSize: 13, color: "var(--ink3)" }}>{r.reviewCount} {r.reviewCount === 1 ? "review" : "reviews"}</div>
                   </div>
                   <div style={{ marginLeft: "auto", textAlign: "right" }}>
                     <div style={{ fontSize: 36, fontWeight: 800, color: "var(--peak-dark)" }}>{fiveStar.toFixed(1)}</div>
@@ -197,7 +196,7 @@ export default async function ResortDetailPage({ params }: { params: Promise<{ i
             {/* REVIEWS LIST */}
             {reviews.length > 0 && (
               <div style={cardStyle}>
-                <h3 style={{ marginBottom: 16 }}>Beoordelingen</h3>
+                <h3 style={{ marginBottom: 16 }}>Reviews</h3>
                 {reviews.map((rv, idx) => {
                   const isAdmin = rv.user.email === SUPER_ADMIN_EMAIL;
                   const rvStars = toFiveStars(rv.overall);
@@ -211,21 +210,21 @@ export default async function ResortDetailPage({ params }: { params: Promise<{ i
                         <div style={{ flex: 1 }}>
                           <div style={{ display: "flex", alignItems: "center", gap: 6, flexWrap: "wrap" }}>
                             <span style={{ fontSize: 13, fontWeight: 600 }}>
-                              {isAdmin ? "PeakFlow Redactie" : rv.user.name}
+                              {isAdmin ? "PeakFlow Editorial" : rv.user.name}
                             </span>
                             {isAdmin && (
                               <span style={{ background: "var(--peak-light)", color: "var(--peak-dark)", fontSize: 10, fontWeight: 700, padding: "2px 7px", borderRadius: 999 }}>
-                                ✓ Officieel
+                                ✓ Official
                               </span>
                             )}
                             {!isAdmin && (
                               <span style={{ background: "#f0fdf4", color: "#15803d", fontSize: 10, fontWeight: 600, padding: "2px 7px", borderRadius: 999 }}>
-                                ✓ Geverifieerd
+                                ✓ Verified
                               </span>
                             )}
                             {isOwn && !isAdmin && (
                               <span style={{ background: "#eff6ff", color: "#1d4ed8", fontSize: 10, fontWeight: 600, padding: "2px 7px", borderRadius: 999 }}>
-                                Jouw review
+                                Your review
                               </span>
                             )}
                           </div>
@@ -252,7 +251,7 @@ export default async function ResortDetailPage({ params }: { params: Promise<{ i
             {/* WRITE A REVIEW */}
             <div style={{ marginBottom: 20 }}>
               <h3 style={{ marginBottom: 12 }}>
-                {myReview ? "Jouw beoordeling" : "Schrijf een beoordeling"}
+                {myReview ? "Your review" : "Write a review"}
               </h3>
               {currentUser ? (
                 <ReviewForm
@@ -271,56 +270,56 @@ export default async function ResortDetailPage({ params }: { params: Promise<{ i
               ) : (
                 <div style={{ border: "2px dashed var(--border)", borderRadius: "var(--r-lg)", padding: 28, textAlign: "center" }}>
                   <div style={{ fontSize: 28, marginBottom: 10 }}>⭐</div>
-                  <div style={{ fontSize: 15, fontWeight: 600, marginBottom: 6 }}>Help andere skiërs met jouw mening</div>
+                  <div style={{ fontSize: 15, fontWeight: 600, marginBottom: 6 }}>Help other skiers with your opinion</div>
                   <div style={{ fontSize: 13, color: "var(--ink3)", marginBottom: 18 }}>
-                    Log in of maak een gratis account aan om een review achter te laten voor {r.name}.
+                    Log in or create a free account to leave a review for {r.name}.
                   </div>
                   <div style={{ display: "flex", gap: 10, justifyContent: "center" }}>
-                    <Link href="/login" className="btn btn-primary">Inloggen →</Link>
-                    <Link href="/register" className="btn btn-outline">Gratis registreren</Link>
+                    <Link href="/login" className="btn btn-primary">Log in →</Link>
+                    <Link href="/register" className="btn btn-outline">Register for free</Link>
                   </div>
                 </div>
               )}
             </div>
 
-            {/* PEAKFLOW INSPECTIERAPPORT */}
+            {/* PEAKFLOW INSPECTION REPORT */}
             {r.snowflakeInspected && r.snowflakeReport && (
               <div style={{ ...cardStyle, border: "1px solid #f59e0b", background: "linear-gradient(135deg,#fffbeb,#fef3c7)" }}>
                 <div style={{ display: "flex", alignItems: "flex-start", gap: 16, marginBottom: 20, flexWrap: "wrap" }}>
                   <div style={{ fontSize: 32, lineHeight: 1 }}>{"❄".repeat(r.snowflakes) || "○"}</div>
                   <div style={{ flex: 1 }}>
-                    <h3 style={{ marginBottom: 4, color: "#92400e" }}>PeakFlow Inspectierapport</h3>
+                    <h3 style={{ marginBottom: 4, color: "#92400e" }}>PeakFlow Inspection Report</h3>
                     <p style={{ fontSize: 13, color: "#b45309", margin: 0 }}>
-                      Persoonlijk beoordeeld door een PeakFlow inspecteur
-                      {r.snowflakeAwardedAt && ` · ${new Date(r.snowflakeAwardedAt).toLocaleDateString("nl-NL", { month: "long", year: "numeric" })}`}
+                      Personally assessed by a PeakFlow inspector
+                      {r.snowflakeAwardedAt && ` · ${new Date(r.snowflakeAwardedAt).toLocaleDateString("en-GB", { month: "long", year: "numeric" })}`}
                     </p>
                   </div>
                   <div style={{ background: "#f59e0b", color: "white", fontSize: 11, fontWeight: 700, padding: "4px 10px", borderRadius: 999, whiteSpace: "nowrap" as const }}>
-                    PeakFlow Inspectie ✓
+                    PeakFlow Inspection ✓
                   </div>
                 </div>
 
                 <div style={{ background: "rgba(255,255,255,.6)", borderRadius: 10, padding: "14px 16px", marginBottom: 16 }}>
                   <div style={{ fontSize: 12, fontWeight: 700, color: "#92400e", textTransform: "uppercase" as const, letterSpacing: "0.5px", marginBottom: 10 }}>
-                    Beoordelingscriteria
+                    Assessment criteria
                   </div>
-                  <p style={{ fontSize: 13, color: "#78350f", marginBottom: 10 }}>Dit resort is fysiek bezocht en beoordeeld op de volgende criteria:</p>
+                  <p style={{ fontSize: 13, color: "#78350f", marginBottom: 10 }}>This resort was physically visited and assessed on the following criteria:</p>
                   <ul style={{ fontSize: 13, color: "#92400e", paddingLeft: 18, lineHeight: 2 }}>
-                    <li>Pisteverzorging & sneeuwkwaliteit ter plaatse</li>
-                    <li>Wachttijden en liftkwaliteit bij druk gebruik</li>
-                    <li>Gastronomische kwaliteit op de berg</li>
-                    <li>Sfeer, authenticiteit en dorpsbeleving</li>
-                    <li>Veiligheid en service tijdens het bezoek</li>
-                    {r.snowflakes >= 2 && <li>Terreinvariatie & off-piste kwaliteit</li>}
-                    {r.snowflakes >= 2 && <li>Gastvrijheid en personalisatie</li>}
-                    {r.snowflakes >= 3 && <li>Berggastronomie op restaurantniveau</li>}
-                    {r.snowflakes >= 3 && <li>Mythische status & onvergelijkbare ervaring</li>}
+                    <li>Piste grooming & snow quality on site</li>
+                    <li>Waiting times and lift quality during busy periods</li>
+                    <li>Gastronomic quality on the mountain</li>
+                    <li>Atmosphere, authenticity and village experience</li>
+                    <li>Safety and service during the visit</li>
+                    {r.snowflakes >= 2 && <li>Terrain variety & off-piste quality</li>}
+                    {r.snowflakes >= 2 && <li>Hospitality and personalisation</li>}
+                    {r.snowflakes >= 3 && <li>Mountain gastronomy at restaurant level</li>}
+                    {r.snowflakes >= 3 && <li>Mythical status & unparalleled experience</li>}
                   </ul>
                 </div>
 
                 <div style={{ marginBottom: 16 }}>
                   <div style={{ fontSize: 12, fontWeight: 700, color: "#92400e", textTransform: "uppercase" as const, letterSpacing: "0.5px", marginBottom: 12 }}>
-                    Inspecteursoordeel
+                    Inspector&apos;s verdict
                   </div>
                   {r.snowflakeReport.split("\n\n").map((para, i) => (
                     <p key={i} style={{ fontSize: 14, color: "#1c1917", lineHeight: 1.75, marginBottom: 12 }}>{para}</p>
@@ -332,21 +331,21 @@ export default async function ResortDetailPage({ params }: { params: Promise<{ i
                     <p style={{ fontSize: 15, fontStyle: "italic", color: "#78350f", marginBottom: 6 }}>
                       &ldquo;{r.snowflakeNote}&rdquo;
                     </p>
-                    <cite style={{ fontSize: 12, color: "#b45309", fontStyle: "normal", fontWeight: 600 }}>— PeakFlow Inspecteur</cite>
+                    <cite style={{ fontSize: 12, color: "#b45309", fontStyle: "normal", fontWeight: 600 }}>— PeakFlow Inspector</cite>
                   </blockquote>
                 )}
               </div>
             )}
 
-            {/* AANBEVOLEN UITRUSTING */}
+            {/* RECOMMENDED GEAR */}
             <div style={cardStyle}>
               <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 16 }}>
-                <h3>Aanbevolen uitrusting voor {r.name}</h3>
-                <span style={{ fontSize: 11, color: "var(--ink3)" }}>Gesponsord</span>
+                <h3>Recommended gear for {r.name}</h3>
+                <span style={{ fontSize: 11, color: "var(--ink3)" }}>Sponsored</span>
               </div>
               <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
                 {[
-                  { ic: "🎿", bg: "var(--peak-light)", n: "Atomic Maverick 95", d: "Gevorderd · All-mountain", p: "€749 → Shop" },
+                  { ic: "🎿", bg: "var(--peak-light)", n: "Atomic Maverick 95", d: "Advanced · All-mountain", p: "€749 → Shop" },
                   { ic: "👟", bg: "var(--blue-light)", n: "Rossignol Speed 120", d: "Expert · Race feel", p: "€499 → Shop" },
                 ].map((g) => (
                   <div key={g.n} style={{ border: "1px solid var(--border)", borderRadius: "var(--r)", padding: 14, display: "flex", gap: 10, alignItems: "center" }}>
@@ -365,27 +364,27 @@ export default async function ResortDetailPage({ params }: { params: Promise<{ i
           {/* SIDEBAR */}
           <div>
             <div style={{ background: "white", border: "1px solid var(--border)", borderRadius: "var(--r-lg)", padding: 20, position: "sticky", top: 80 }}>
-              <div style={{ fontSize: 13, fontWeight: 600, marginBottom: 14 }}>Snelle feiten</div>
+              <div style={{ fontSize: 13, fontWeight: 600, marginBottom: 14 }}>Quick facts</div>
               <div style={{ fontSize: 13, color: "var(--ink2)" }}>
                 {[
-                  ["Land", `${countryFlag(r.Country)} ${countryNL(r.Country)}`],
-                  ["Regio", r.region ?? "—"],
-                  ["Hoogte top", `${fmtNumber(r.altitudeTop ?? 0)} m`],
-                  ["Hoogte dal", `${fmtNumber(r.altitudeBase ?? 0)} m`],
-                  ["Totaal km", `${r.pisteKm ?? "—"} km`],
-                  ["Liften", `${r.lifts ?? "—"} installaties`],
-                  ["Dagkaart volwassene", `€${r.dayPassPrice ?? "—"}`],
-                  ["Sneeuwzekerheid", `${r.snowScore?.toFixed(1) ?? "—"} / 10`],
-                  ["Snowpark", r.snowpark ? "Ja" : "Nee"],
+                  ["Country", `${countryFlag(r.Country)} ${countryNL(r.Country)}`],
+                  ["Region", r.region ?? "—"],
+                  ["Top altitude", `${fmtNumber(r.altitudeTop ?? 0)} m`],
+                  ["Base altitude", `${fmtNumber(r.altitudeBase ?? 0)} m`],
+                  ["Total km", `${r.pisteKm ?? "—"} km`],
+                  ["Lifts", `${r.lifts ?? "—"} installations`],
+                  ["Adult day pass", `€${r.dayPassPrice ?? "—"}`],
+                  ["Snow certainty", `${r.snowScore?.toFixed(1) ?? "—"} / 10`],
+                  ["Snow park", r.snowpark ? "Yes" : "No"],
                   ...(hasRating ? [["PeakFlow rating", `${fiveStar.toFixed(1)} / 5 ★`]] : []),
                 ].map(([k, v], i, arr) => (
                   <div key={k} style={{ display: "flex", justifyContent: "space-between", padding: "7px 0", borderBottom: i < arr.length - 1 ? "1px solid var(--border)" : "none" }}>
                     <span>{k}</span>
-                    <span style={{ fontWeight: 500, color: k === "Sneeuwzekerheid" || k === "PeakFlow rating" ? "var(--peak-dark)" : "var(--ink)" }}>{v}</span>
+                    <span style={{ fontWeight: 500, color: k === "Snow certainty" || k === "PeakFlow rating" ? "var(--peak-dark)" : "var(--ink)" }}>{v}</span>
                   </div>
                 ))}
               </div>
-              <button className="btn btn-primary" style={{ width: "100%", justifyContent: "center", marginTop: 16 }}>Dagkaart boeken →</button>
+              <button className="btn btn-primary" style={{ width: "100%", justifyContent: "center", marginTop: 16 }}>Book day pass →</button>
               <button className="btn btn-outline" style={{ width: "100%", justifyContent: "center", marginTop: 8 }}>+ Wishlist</button>
             </div>
           </div>

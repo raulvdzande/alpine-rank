@@ -17,17 +17,17 @@ export default function ImpersonateButton({
         window.location.href = "/company/dashboard";
       } else {
         const data = await res.json();
-        alert("Fout: " + (data.error || "Impersonatie mislukt"));
+        alert("Error: " + (data.error || "Impersonation failed"));
       }
     } catch (error) {
-      alert("Fout bij impersonatie");
+      alert("Error during impersonation");
     }
   };
 
   return (
     <button
       onClick={handleImpersonate}
-      title="Impersoneren"
+      title="Impersonate"
       style={{
         fontSize: 16,
         background: "transparent",

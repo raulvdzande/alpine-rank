@@ -243,6 +243,18 @@ enum Role {
   ADMIN
 }
 
+model PlanInterest {
+  id        String   @id @default(uuid())
+  email     String
+  plan      String
+  userId    String?
+  createdAt DateTime @default(now())
+
+  @@unique([email, plan])
+  @@index([plan])
+  @@index([createdAt])
+}
+
 enum CompanyType {
   RESORT
   BRAND

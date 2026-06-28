@@ -8,7 +8,7 @@ export default function RemoveResortButton({
   companyId: string;
 }) {
   const handleRemove = async () => {
-    if (!confirm("Weet je zeker dat je dit skigebied wilt ontkoppelen?")) {
+    if (!confirm("Are you sure you want to unlink this ski resort?")) {
       return;
     }
 
@@ -20,21 +20,21 @@ export default function RemoveResortButton({
       });
 
       if (res.ok) {
-        alert("Skigebied ontkoppeld");
+        alert("Ski resort unlinked");
         window.location.reload();
       } else {
         const data = await res.json();
-        alert("Fout: " + (data.error || "Ontkoppelen mislukt"));
+        alert("Error: " + (data.error || "Failed to unlink"));
       }
     } catch (error) {
-      alert("Fout bij ontkoppelen");
+      alert("Error unlinking resort");
     }
   };
 
   return (
     <button
       onClick={handleRemove}
-      title="Ontkoppelen"
+      title="Unlink"
       style={{
         fontSize: 16,
         background: "transparent",

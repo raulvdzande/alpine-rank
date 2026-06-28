@@ -1,97 +1,97 @@
 export const metadata = {
-  title: "Gebruiksvoorwaarden — PeakFlow",
-  description: "PeakFlow gebruiksvoorwaarden en servicebeleid",
+  title: "Terms of Service — PeakFlow",
+  description: "PeakFlow terms of service and usage policy",
 };
 
 export default function TermsPage() {
   return (
     <section className="section">
       <div className="container" style={{ maxWidth: 800 }}>
-        <h1 style={{ marginBottom: 32 }}>Gebruiksvoorwaarden</h1>
+        <h1 style={{ marginBottom: 32 }}>Terms of Service</h1>
 
         <div style={{ fontSize: 15, color: "var(--ink2)", lineHeight: 1.8 }}>
           <p style={{ marginBottom: 24 }}>
-            <strong>Effectief vanaf:</strong> 25 juni 2026
+            <strong>Effective from:</strong> 25 June 2026
           </p>
 
-          <h2 style={{ fontSize: 20, fontWeight: 700, marginTop: 32, marginBottom: 12 }}>1. Acceptatie van Voorwaarden</h2>
+          <h2 style={{ fontSize: 20, fontWeight: 700, marginTop: 32, marginBottom: 12 }}>1. Acceptance of Terms</h2>
           <p style={{ marginBottom: 24 }}>
-            Door PeakFlow te gebruiken, gaat u akkoord met deze gebruiksvoorwaarden. Wanneer u niet akkoord gaat, mag u de service niet gebruiken.
+            By using PeakFlow, you agree to these terms of service. If you do not agree, you may not use the service.
           </p>
 
-          <h2 style={{ fontSize: 20, fontWeight: 700, marginTop: 32, marginBottom: 12 }}>2. Account Registratie</h2>
+          <h2 style={{ fontSize: 20, fontWeight: 700, marginTop: 32, marginBottom: 12 }}>2. Account Registration</h2>
           <p style={{ marginBottom: 24 }}>
-            U bent verantwoordelijk voor uw account en wachtwoord. U mag:
+            You are responsible for your account and password. You may not:
           </p>
           <ul style={{ marginLeft: 20, marginBottom: 24, listStyleType: "disc" }}>
-            <li>Niet meerdere accounts per persoon registreren</li>
-            <li>Niet iemand anders&apos; inloggegevens gebruiken</li>
-            <li>Niet-menseninformatie (bots, scripts) registreren</li>
-            <li>Uw wachtwoord niet delen</li>
+            <li>Register multiple accounts per person</li>
+            <li>Use someone else&apos;s login credentials</li>
+            <li>Register non-human information (bots, scripts)</li>
+            <li>Share your password</li>
           </ul>
 
           <h2 style={{ fontSize: 20, fontWeight: 700, marginTop: 32, marginBottom: 12 }}>3. User-Generated Content</h2>
           <p style={{ marginBottom: 24 }}>
-            Door reviews, ratings of commentaren in te dienen verleent u PeakFlow het recht deze openbaar te maken. U garandeert dat uw content:
+            By submitting reviews, ratings or comments you grant PeakFlow the right to publish them. You guarantee that your content:
           </p>
           <ul style={{ marginLeft: 20, marginBottom: 24, listStyleType: "disc" }}>
-            <li>Waar en eerlijk is</li>
-            <li>Geen copyright schendt</li>
-            <li>Geen persoonlijke informatie van anderen bevat</li>
-            <li>Geen hatelijkespreken of beledigingen bevat</li>
+            <li>Is truthful and fair</li>
+            <li>Does not infringe copyright</li>
+            <li>Does not contain other people&apos;s personal information</li>
+            <li>Does not contain hate speech or insults</li>
           </ul>
 
-          <h2 style={{ fontSize: 20, fontWeight: 700, marginTop: 32, marginBottom: 12 }}>4. Subscriptions &amp; Betalingen</h2>
+          <h2 style={{ fontSize: 20, fontWeight: 700, marginTop: 32, marginBottom: 12 }}>4. Subscriptions &amp; Payments</h2>
           <p style={{ marginBottom: 24 }}>
-            <strong>Explorer Abonnementen:</strong>
+            <strong>Explorer subscriptions:</strong>
           </p>
           <ul style={{ marginLeft: 20, marginBottom: 24, listStyleType: "disc" }}>
-            <li>Maandelijks: €4,99/maand, opzegbaar op elk moment</li>
-            <li>Jaarlijks: €39/jaar, automatische verlenging</li>
-            <li>Betalingen via Stripe; u ontvangt een factuur</li>
-            <li>Geen terugbetaling na betaling tenzij wettelijk vereist</li>
+            <li>Monthly: €4.99/month, cancellable at any time</li>
+            <li>Annual: €39/year, automatic renewal</li>
+            <li>Payments via Stripe; you receive an invoice</li>
+            <li>No refunds after payment unless legally required</li>
           </ul>
 
           <h2 style={{ fontSize: 20, fontWeight: 700, marginTop: 32, marginBottom: 12 }}>5. Intellectual Property</h2>
           <p style={{ marginBottom: 24 }}>
-            PeakFlow en al zijn content (algoritmes, data, ontwerp, afbeeldingen) zijn eigendom van PeakFlow. U mag dit niet kopiëren, modificeren of hergebruiken zonder toestemming.
+            PeakFlow and all its content (algorithms, data, design, images) are owned by PeakFlow. You may not copy, modify or reuse this without permission.
           </p>
 
-          <h2 style={{ fontSize: 20, fontWeight: 700, marginTop: 32, marginBottom: 12 }}>6. Beperking van Aansprakelijkheid</h2>
+          <h2 style={{ fontSize: 20, fontWeight: 700, marginTop: 32, marginBottom: 12 }}>6. Limitation of Liability</h2>
           <p style={{ marginBottom: 24 }}>
-            PeakFlow wordt &ldquo;as-is&rdquo; aangeboden. We garanderen niet dat de service foutvrij is. We zijn niet aansprakelijk voor:
-          </p>
-          <ul style={{ marginLeft: 20, marginBottom: 24, listStyleType: "disc" }}>
-            <li>Indirect of gevolgschade</li>
-            <li>Verlies van gegevens of inkomsten</li>
-            <li>Onwaarheidigheden in reviews</li>
-          </ul>
-
-          <h2 style={{ fontSize: 20, fontWeight: 700, marginTop: 32, marginBottom: 12 }}>7. Schorsing en Beëindiging</h2>
-          <p style={{ marginBottom: 24 }}>
-            We kunnen uw account schorsen of beëindigen als u:
+            PeakFlow is provided &ldquo;as-is&rdquo;. We do not guarantee that the service is error-free. We are not liable for:
           </p>
           <ul style={{ marginLeft: 20, marginBottom: 24, listStyleType: "disc" }}>
-            <li>Deze voorwaarden schendt</li>
-            <li>Illegale activiteiten begaat</li>
-            <li>Spam, hatelijke inhoud post</li>
-            <li>Anderen lastigvalt of bedreigt</li>
+            <li>Indirect or consequential damages</li>
+            <li>Loss of data or revenue</li>
+            <li>Inaccuracies in reviews</li>
           </ul>
 
-          <h2 style={{ fontSize: 20, fontWeight: 700, marginTop: 32, marginBottom: 12 }}>8. Toepasselijk Recht</h2>
+          <h2 style={{ fontSize: 20, fontWeight: 700, marginTop: 32, marginBottom: 12 }}>7. Suspension and Termination</h2>
           <p style={{ marginBottom: 24 }}>
-            Deze voorwaarden worden geregeerd door Nederlands recht. Geschillen worden opgelost onder Nederlandse jurisdictie.
+            We may suspend or terminate your account if you:
+          </p>
+          <ul style={{ marginLeft: 20, marginBottom: 24, listStyleType: "disc" }}>
+            <li>Violate these terms</li>
+            <li>Engage in illegal activities</li>
+            <li>Post spam or hateful content</li>
+            <li>Harass or threaten others</li>
+          </ul>
+
+          <h2 style={{ fontSize: 20, fontWeight: 700, marginTop: 32, marginBottom: 12 }}>8. Governing Law</h2>
+          <p style={{ marginBottom: 24 }}>
+            These terms are governed by Dutch law. Disputes are resolved under Dutch jurisdiction.
           </p>
 
-          <h2 style={{ fontSize: 20, fontWeight: 700, marginTop: 32, marginBottom: 12 }}>9. Wijzigingen</h2>
+          <h2 style={{ fontSize: 20, fontWeight: 700, marginTop: 32, marginBottom: 12 }}>9. Changes</h2>
           <p style={{ marginBottom: 24 }}>
-            We kunnen deze voorwaarden wijzigen. U ontvangt kennisgeving van materiële wijzigingen per e-mail.
+            We may update these terms. You will receive notification of material changes by email.
           </p>
 
           <h2 style={{ fontSize: 20, fontWeight: 700, marginTop: 32, marginBottom: 12 }}>10. Contact</h2>
           <p>
-            Vragen over deze voorwaarden? <br />
-            E-mail: legal@peakflow.io
+            Questions about these terms? <br />
+            Email: legal@peakflow.io
           </p>
         </div>
       </div>

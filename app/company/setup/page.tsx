@@ -29,12 +29,12 @@ function SetupForm() {
     setError("");
 
     if (password !== confirmPassword) {
-      setError("Wachtwoorden komen niet overeen");
+      setError("Passwords do not match");
       return;
     }
 
     if (password.length < 8) {
-      setError("Wachtwoord moet minstens 8 karakters zijn");
+      setError("Password must be at least 8 characters");
       return;
     }
 
@@ -51,10 +51,10 @@ function SetupForm() {
         setSuccess(true);
       } else {
         const data = await res.json();
-        setError(data.error || "Setup mislukt");
+        setError(data.error || "Setup failed");
       }
     } catch (err) {
-      setError("Fout bij setup");
+      setError("Error during setup");
     } finally {
       setLoading(false);
     }
@@ -66,10 +66,10 @@ function SetupForm() {
         <div style={{ maxWidth: 500, margin: "0 auto" }}>
           <div style={{ fontSize: 48, marginBottom: 20 }}>✅</div>
           <h1 style={{ fontSize: 28, fontWeight: 800, marginBottom: 12, color: "var(--peak)" }}>
-            Wachtwoord ingesteld!
+            Password set!
           </h1>
           <p style={{ fontSize: 16, color: "var(--ink2)", marginBottom: 32 }}>
-            Je kunt nu inloggen met je account.
+            You can now log in with your account.
           </p>
           <a
             href="/company/login"
@@ -83,7 +83,7 @@ function SetupForm() {
               fontWeight: 600,
             }}
           >
-            Ga naar login →
+            Go to login →
           </a>
         </div>
       </section>
@@ -95,10 +95,10 @@ function SetupForm() {
       <div style={{ maxWidth: 400, margin: "0 auto", width: "100%" }}>
         <div style={{ marginBottom: 32, textAlign: "center" }}>
           <h1 style={{ fontSize: 28, fontWeight: 800, marginBottom: 8 }}>
-            Wachtwoord instellen
+            Set your password
           </h1>
           <p style={{ color: "var(--ink2)" }}>
-            Stel je wachtwoord in om toegang te krijgen
+            Set your password to gain access
           </p>
         </div>
 
@@ -119,7 +119,7 @@ function SetupForm() {
 
           <div style={{ marginBottom: 16 }}>
             <label style={{ display: "block", fontSize: 13, fontWeight: 600, marginBottom: 6 }}>
-              Wachtwoord (min. 8 karakters) *
+              Password (min. 8 characters) *
             </label>
             <input
               type="password"
@@ -139,7 +139,7 @@ function SetupForm() {
 
           <div style={{ marginBottom: 20 }}>
             <label style={{ display: "block", fontSize: 13, fontWeight: 600, marginBottom: 6 }}>
-              Herhaal wachtwoord *
+              Confirm password *
             </label>
             <input
               type="password"
@@ -173,7 +173,7 @@ function SetupForm() {
               opacity: loading ? 0.6 : 1,
             }}
           >
-            {loading ? "Bezig..." : "Wachtwoord instellen"}
+            {loading ? "Saving..." : "Set password"}
           </button>
         </form>
       </div>

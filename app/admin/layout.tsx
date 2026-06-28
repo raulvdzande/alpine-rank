@@ -13,13 +13,14 @@ async function logoutAction() {
 
 export default async function AdminLayout({ children }: { children: React.ReactNode }) {
   const user = await requireSuperAdmin();
-  if (!user) redirect("/login?error=" + encodeURIComponent("Toegang geweigerd"));
+  if (!user) redirect("/login?error=" + encodeURIComponent("Access denied"));
 
   const navItems = [
-    { href: "/admin",              label: "Overzicht", icon: "📊" },
-    { href: "/admin/companies",    label: "Bedrijven", icon: "🏢" },
-    { href: "/admin/brands",       label: "Merken", icon: "🎨" },
-    { href: "/admin/resort/nieuw", label: "Resort", icon: "⛷" },
+    { href: "/admin",                    label: "Overview",        icon: "📊" },
+    { href: "/admin/companies",          label: "Companies",       icon: "🏢" },
+    { href: "/admin/brands",             label: "Brands",          icon: "🎨" },
+    { href: "/admin/resort/nieuw",       label: "Resort",          icon: "⛷" },
+    { href: "/admin/plan-interests",     label: "Plan Interest",   icon: "❤" },
   ];
 
   return (
@@ -119,11 +120,11 @@ export default async function AdminLayout({ children }: { children: React.ReactN
           </div>
           <div style={{ display: "flex", gap: 8 }}>
             <Link href="/" className="admin-btn">
-              Pagina
+              Site
             </Link>
             <form action={logoutAction} style={{ flex: 1 }}>
               <button type="submit" className="admin-btn admin-btn-logout" style={{ width: "100%", fontWeight: 600 }}>
-                Uit
+                Log out
               </button>
             </form>
           </div>

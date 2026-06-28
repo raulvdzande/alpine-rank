@@ -2,7 +2,7 @@ import { prisma } from "@/lib/prisma";
 import { redirect } from "next/navigation";
 import Link from "next/link";
 
-export const metadata = { title: "Nieuw merk — Admin" };
+export const metadata = { title: "New brand — Admin" };
 
 export default function NewBrandPage() {
   async function createBrand(formData: FormData) {
@@ -15,13 +15,13 @@ export default function NewBrandPage() {
     const website = formData.get("website") as string;
 
     if (!name || !email || !country) {
-      redirect("/admin/brands/new?error=" + encodeURIComponent("Verplichte velden niet ingevuld"));
+      redirect("/admin/brands/new?error=" + encodeURIComponent("Required fields not filled in"));
     }
 
     // Check if email exists
     const existing = await prisma.company.findUnique({ where: { email } });
     if (existing) {
-      redirect("/admin/brands/new?error=" + encodeURIComponent("E-mailadres is al in gebruik"));
+      redirect("/admin/brands/new?error=" + encodeURIComponent("Email address is already in use"));
     }
 
     const brand = await prisma.company.create({
@@ -49,21 +49,21 @@ export default function NewBrandPage() {
   return (
     <section style={{ padding: "40px 20px", maxWidth: 600, margin: "0 auto" }}>
       <Link href="/admin/brands" style={{ fontSize: 13, color: "var(--peak)", marginBottom: 20, display: "inline-block", textDecoration: "none" }}>
-        ← Terug naar merken
+        ← Back to brands
       </Link>
 
-      <h1 style={{ fontSize: 28, fontWeight: 800, marginBottom: 32 }}>Nieuw merk aanmaken</h1>
+      <h1 style={{ fontSize: 28, fontWeight: 800, marginBottom: 32 }}>Create new brand</h1>
 
       <form action={createBrand} style={{ background: "white", border: "1px solid var(--border)", borderRadius: 12, padding: 24 }}>
         <div style={{ marginBottom: 20 }}>
           <label style={{ display: "block", fontSize: 13, fontWeight: 600, marginBottom: 6 }}>
-            Merknaam *
+            Brand name *
           </label>
           <input
             type="text"
             name="name"
             required
-            placeholder="Bijv. Atomic"
+            placeholder="e.g. Atomic"
             style={{
               width: "100%",
               padding: "10px 14px",
@@ -77,13 +77,13 @@ export default function NewBrandPage() {
 
         <div style={{ marginBottom: 20 }}>
           <label style={{ display: "block", fontSize: 13, fontWeight: 600, marginBottom: 6 }}>
-            E-mailadres *
+            Email address *
           </label>
           <input
             type="email"
             name="email"
             required
-            placeholder="contact@merk.nl"
+            placeholder="contact@brand.com"
             style={{
               width: "100%",
               padding: "10px 14px",
@@ -98,13 +98,13 @@ export default function NewBrandPage() {
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16, marginBottom: 20 }}>
           <div>
             <label style={{ display: "block", fontSize: 13, fontWeight: 600, marginBottom: 6 }}>
-              Land *
+              Country *
             </label>
             <input
               type="text"
               name="country"
               required
-              placeholder="Bijv. Netherlands"
+              placeholder="e.g. Austria"
               style={{
                 width: "100%",
                 padding: "10px 14px",
@@ -117,12 +117,12 @@ export default function NewBrandPage() {
           </div>
           <div>
             <label style={{ display: "block", fontSize: 13, fontWeight: 600, marginBottom: 6 }}>
-              Telefoonnummer
+              Phone number
             </label>
             <input
               type="tel"
               name="phone"
-              placeholder="+31 6 12345678"
+              placeholder="+43 1 234567"
               style={{
                 width: "100%",
                 padding: "10px 14px",
@@ -142,7 +142,7 @@ export default function NewBrandPage() {
           <input
             type="url"
             name="website"
-            placeholder="https://www.merk.nl"
+            placeholder="https://www.brand.com"
             style={{
               width: "100%",
               padding: "10px 14px",
@@ -156,7 +156,7 @@ export default function NewBrandPage() {
 
         <div style={{ display: "flex", gap: 12 }}>
           <Link href="/admin/brands" style={{ flex: 1, padding: "12px", border: "1px solid var(--border)", borderRadius: 8, background: "white", cursor: "pointer", fontSize: 14, fontWeight: 600, textAlign: "center", textDecoration: "none" }}>
-            Annuleren
+            Cancel
           </Link>
           <button
             type="submit"
@@ -172,7 +172,7 @@ export default function NewBrandPage() {
               fontSize: 14,
             }}
           >
-            Aanmaken
+            Create
           </button>
         </div>
       </form>

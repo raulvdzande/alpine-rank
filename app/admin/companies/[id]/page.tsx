@@ -40,13 +40,13 @@ export default async function CompanyDetailPage({ params }: { params: Promise<{ 
     notFound();
   }
 
-  const typeLabel = company.type === "RESORT" ? "🏔 Skigebied" : "🎿 Merk";
+  const typeLabel = company.type === "RESORT" ? "🏔 Ski resort" : "🎿 Brand";
 
   return (
     <section>
       <div style={{ maxWidth: 1000, margin: "0 auto" }}>
         <Link href="/admin/companies" style={{ fontSize: 13, color: "var(--peak)", marginBottom: 20, display: "inline-block" }}>
-          ← Terug naar bedrijven
+          ← Back to companies
         </Link>
 
         <div style={{ marginBottom: 32 }}>
@@ -60,7 +60,7 @@ export default async function CompanyDetailPage({ params }: { params: Promise<{ 
 
         {/* Company info */}
         <div style={{ background: "white", border: "1px solid var(--border)", borderRadius: 12, padding: 24, marginBottom: 32 }}>
-          <h2 style={{ fontSize: 16, fontWeight: 700, marginBottom: 16 }}>Bedrijfsgegevens</h2>
+          <h2 style={{ fontSize: 16, fontWeight: 700, marginBottom: 16 }}>Company details</h2>
 
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 24, fontSize: 13 }}>
             <div>
@@ -68,7 +68,7 @@ export default async function CompanyDetailPage({ params }: { params: Promise<{ 
               <div>{company.email}</div>
             </div>
             <div>
-              <div style={{ color: "var(--ink3)", marginBottom: 4, fontWeight: 600 }}>Telefoonnummer</div>
+              <div style={{ color: "var(--ink3)", marginBottom: 4, fontWeight: 600 }}>Phone number</div>
               <div>{company.phone || "—"}</div>
             </div>
             <div>
@@ -78,11 +78,11 @@ export default async function CompanyDetailPage({ params }: { params: Promise<{ 
             <div>
               <div style={{ color: "var(--ink3)", marginBottom: 4, fontWeight: 600 }}>Status</div>
               <div style={{ color: company.subscription?.status === "active" ? "#22c55e" : "#ef4444" }}>
-                {company.subscription?.status === "active" ? "✓ Actief" : "Inactief"}
+                {company.subscription?.status === "active" ? "✓ Active" : "Inactive"}
               </div>
             </div>
             <div style={{ gridColumn: "1 / -1" }}>
-              <div style={{ color: "var(--ink3)", marginBottom: 4, fontWeight: 600 }}>Adres</div>
+              <div style={{ color: "var(--ink3)", marginBottom: 4, fontWeight: 600 }}>Address</div>
               <div>
                 {company.street}, {company.city} {company.postalCode}, {company.country}
               </div>
@@ -93,7 +93,7 @@ export default async function CompanyDetailPage({ params }: { params: Promise<{ 
         {/* Employees */}
         <div style={{ background: "white", border: "1px solid var(--border)", borderRadius: 12, padding: 24, marginBottom: 32 }}>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 16 }}>
-            <h2 style={{ fontSize: 16, fontWeight: 700 }}>Teamleden ({company.employees.length})</h2>
+            <h2 style={{ fontSize: 16, fontWeight: 700 }}>Team members ({company.employees.length})</h2>
             <AddEmployeeButton companyId={company.id} />
           </div>
 
@@ -102,16 +102,16 @@ export default async function CompanyDetailPage({ params }: { params: Promise<{ 
               <thead>
                 <tr style={{ borderBottom: "2px solid var(--border)" }}>
                   <th style={{ padding: 12, textAlign: "left", fontSize: 12, fontWeight: 600, color: "var(--ink3)" }}>
-                    Naam
+                    Name
                   </th>
                   <th style={{ padding: 12, textAlign: "left", fontSize: 12, fontWeight: 600, color: "var(--ink3)" }}>
                     Email
                   </th>
                   <th style={{ padding: 12, textAlign: "left", fontSize: 12, fontWeight: 600, color: "var(--ink3)" }}>
-                    Rol
+                    Role
                   </th>
                   <th style={{ padding: 12, textAlign: "right", fontSize: 12, fontWeight: 600, color: "var(--ink3)" }}>
-                    Acties
+                    Actions
                   </th>
                 </tr>
               </thead>
@@ -156,12 +156,12 @@ export default async function CompanyDetailPage({ params }: { params: Promise<{ 
         {/* Resorts */}
         <div style={{ background: "white", border: "1px solid var(--border)", borderRadius: 12, padding: 24, marginBottom: 32 }}>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 16 }}>
-            <h2 style={{ fontSize: 16, fontWeight: 700 }}>Skigebieden ({company.resorts.length})</h2>
+            <h2 style={{ fontSize: 16, fontWeight: 700 }}>Ski resorts ({company.resorts.length})</h2>
             <AddResortButton companyId={company.id} />
           </div>
 
           {company.resorts.length === 0 ? (
-            <p style={{ color: "var(--ink3)", fontSize: 14 }}>Geen skigebieden gekoppeld</p>
+            <p style={{ color: "var(--ink3)", fontSize: 14 }}>No ski resorts linked</p>
           ) : (
             <div style={{ display: "grid", gap: 12 }}>
               {company.resorts.map((resort) => (
@@ -180,12 +180,12 @@ export default async function CompanyDetailPage({ params }: { params: Promise<{ 
         {/* Brands */}
         <div style={{ background: "white", border: "1px solid var(--border)", borderRadius: 12, padding: 24, marginBottom: 32 }}>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 16 }}>
-            <h2 style={{ fontSize: 16, fontWeight: 700 }}>Merken ({company.brandAssociations.length})</h2>
+            <h2 style={{ fontSize: 16, fontWeight: 700 }}>Brands ({company.brandAssociations.length})</h2>
             <AddBrandButton companyId={company.id} />
           </div>
 
           {company.brandAssociations.length === 0 ? (
-            <p style={{ color: "var(--ink3)", fontSize: 14 }}>Geen merken gekoppeld</p>
+            <p style={{ color: "var(--ink3)", fontSize: 14 }}>No brands linked</p>
           ) : (
             <div style={{ display: "grid", gap: 12 }}>
               {company.brandAssociations.map((assoc) => (

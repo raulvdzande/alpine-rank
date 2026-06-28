@@ -41,7 +41,7 @@ export default function AddBrandButton({ companyId }: { companyId: string }) {
         body: JSON.stringify({ companyId, brandId: selectedBrandId }),
       });
       if (res.ok) {
-        alert("Merk toegevoegd");
+        alert("Brand added");
         setOpen(false);
         setSearchQuery("");
         setSelectedBrandId("");
@@ -49,7 +49,7 @@ export default function AddBrandButton({ companyId }: { companyId: string }) {
         window.location.reload();
       } else {
         const data = await res.json();
-        alert("Fout: " + (data.error || "Toevoegen mislukt"));
+        alert("Error: " + (data.error || "Failed to add"));
       }
     } finally {
       setLoading(false);
@@ -71,7 +71,7 @@ export default function AddBrandButton({ companyId }: { companyId: string }) {
           fontSize: 13,
         }}
       >
-        + Merk toevoegen
+        + Add brand
       </button>
     );
   }
@@ -95,12 +95,12 @@ export default function AddBrandButton({ companyId }: { companyId: string }) {
         margin: 20,
       }}>
         <h2 style={{ marginBottom: 20, fontSize: 18, fontWeight: 700 }}>
-          Merk toevoegen
+          Add brand
         </h2>
 
         <div style={{ marginBottom: 16 }}>
           <label style={{ display: "block", fontSize: 13, fontWeight: 600, marginBottom: 6 }}>
-            Zoek merk
+            Search brand
           </label>
           <div style={{ display: "flex", gap: 8 }}>
             <input
@@ -108,7 +108,7 @@ export default function AddBrandButton({ companyId }: { companyId: string }) {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               onKeyPress={(e) => e.key === "Enter" && handleSearch()}
-              placeholder="Bijv. Atomic, Salomon..."
+              placeholder="e.g. Atomic, Salomon..."
               style={{
                 flex: 1,
                 padding: "10px 14px",
@@ -133,7 +133,7 @@ export default function AddBrandButton({ companyId }: { companyId: string }) {
                 opacity: loading ? 0.6 : 1,
               }}
             >
-              Zoeken
+              Search
             </button>
           </div>
         </div>
@@ -141,7 +141,7 @@ export default function AddBrandButton({ companyId }: { companyId: string }) {
         {searched && brands.length > 0 && (
           <div style={{ marginBottom: 16 }}>
             <label style={{ display: "block", fontSize: 13, fontWeight: 600, marginBottom: 6 }}>
-              Selecteer merk
+              Select brand
             </label>
             <select
               value={selectedBrandId}
@@ -155,7 +155,7 @@ export default function AddBrandButton({ companyId }: { companyId: string }) {
                 boxSizing: "border-box",
               }}
             >
-              <option value="">— Kies een merk —</option>
+              <option value="">— Choose a brand —</option>
               {brands.map((brand) => (
                 <option key={brand.id} value={brand.id}>
                   {brand.name}
@@ -166,7 +166,7 @@ export default function AddBrandButton({ companyId }: { companyId: string }) {
         )}
 
         {searched && brands.length === 0 && (
-          <p style={{ fontSize: 13, color: "var(--ink3)", marginBottom: 16 }}>Geen merken gevonden</p>
+          <p style={{ fontSize: 13, color: "var(--ink3)", marginBottom: 16 }}>No brands found</p>
         )}
 
         <div style={{ display: "flex", gap: 12 }}>
@@ -185,7 +185,7 @@ export default function AddBrandButton({ companyId }: { companyId: string }) {
               fontWeight: 600,
             }}
           >
-            Annuleren
+            Cancel
           </button>
           <button
             onClick={handleAdd}
@@ -203,7 +203,7 @@ export default function AddBrandButton({ companyId }: { companyId: string }) {
               opacity: loading || !selectedBrandId ? 0.6 : 1,
             }}
           >
-            {loading ? "Bezig..." : "Toevoegen"}
+            {loading ? "Saving..." : "Add"}
           </button>
         </div>
       </div>

@@ -25,7 +25,7 @@ export default function ResortSearch({ current }: { current: string }) {
         <input
           ref={ref}
           defaultValue={current}
-          placeholder="Zoek resort op naam..."
+          placeholder="Search resort by name..."
           style={{
             background: "#1e293b",
             border: "1px solid #334155",
@@ -59,7 +59,7 @@ export default function ResortSearch({ current }: { current: string }) {
           fontWeight: 600, cursor: "pointer",
         }}
       >
-        Zoeken
+        Search
       </button>
     </form>
   );

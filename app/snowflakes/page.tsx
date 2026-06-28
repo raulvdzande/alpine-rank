@@ -6,76 +6,76 @@ export const dynamic = "force-dynamic";
 
 const PACKAGES = [
   {
-    id: "basis",
-    name: "Basis",
-    days: "2 dagen",
-    stay: "Budget t/m mid-range",
+    id: "basic",
+    name: "Basic",
+    days: "2 days",
+    stay: "Budget to mid-range",
     price: 1190,
     sf: 1,
     color: "#94a3b8",
     highlight: false,
     badge: null as string | null,
-    items: ["2 volledige inspectiedagen", "Verblijf in het resort (inbegrepen)", "Skipas + bergrestaurant getest", "Alle basiscategorieën beoordeeld", "Rapport + ❄ badge indien toegekend"],
+    items: ["2 full inspection days", "Resort accommodation (included)", "Day pass + mountain restaurant tested", "All basic categories assessed", "Report + ❄ badge if awarded"],
   },
   {
-    id: "inspecteur",
-    name: "Inspecteur",
-    days: "2 dagen intensief",
-    stay: "Mid-range t/m upper",
+    id: "inspector",
+    name: "Inspector",
+    days: "2 intensive days",
+    stay: "Mid-range to upper",
     price: 1390,
     sf: 1,
     color: "#94a3b8",
     highlight: false,
     badge: null as string | null,
-    items: ["2 x ochtend vroeg tot sluitingstijd", "Verblijf + diner getest", "Alle 7 categorieën", "Anonieme gastronomietest", "Rapport + foto's + ❄ badge"],
+    items: ["2 × early morning until closing", "Accommodation + dinner tested", "All 7 categories", "Anonymous gastronomy test", "Report + photos + ❄ badge"],
   },
   {
     id: "senior",
     name: "Senior",
-    days: "3 dagen",
-    stay: "Upper t/m luxe",
+    days: "3 days",
+    stay: "Upper to luxury",
     price: 2190,
     sf: 2,
     color: "#f59e0b",
     highlight: true,
-    badge: "POPULAIR" as string | null,
-    items: ["3 dagen incognito", "Luxe verblijf + fine dining getest", "Alle 9 categorieën", "60 min. directiegesprek", "❄❄ badge + prioriteit vermelding", "Socialmedia bij toekenning"],
+    badge: "POPULAR" as string | null,
+    items: ["3 days incognito", "Luxury accommodation + fine dining tested", "All 9 categories", "60 min. management interview", "❄❄ badge + priority listing", "Social media on award"],
   },
   {
-    id: "hoofd",
-    name: "Hoofd",
-    days: "3 dagen uitgebreid",
-    stay: "Luxe t/m premium",
+    id: "senior-pro",
+    name: "Senior Pro",
+    days: "3 extended days",
+    stay: "Luxury to premium",
     price: 2990,
     sf: 2,
     color: "#f59e0b",
     highlight: false,
     badge: null as string | null,
-    items: ["3 dagen, opening t/m avond", "Premium verblijf op kosten inspectie", "Anonieme restaurant + après tests", "32+ pagina rapport", "2 terugkoppelgesprekken", "❄❄ badge + eigen sectie + 3 posts"],
+    items: ["3 days, opening to evening", "Premium accommodation at inspection cost", "Anonymous restaurant + après tests", "32+ page report", "2 debrief sessions", "❄❄ badge + own section + 3 posts"],
   },
   {
     id: "grand",
     name: "Grand",
-    days: "4 dagen",
-    stay: "Premium t/m 5-sterren luxe",
+    days: "4 days",
+    stay: "Premium to 5-star luxury",
     price: 4190,
     sf: 3,
     color: "#fbbf24",
     highlight: false,
-    badge: "EXCLUSIEF" as string | null,
-    items: ["4 dagen + avond- & nachtinspectie", "5-sterren verblijf volledig inbegrepen", "Nachtleven, service & gastronomie", "48+ pagina rapport + perskit", "❄❄❄ gouden badge + glow vermelding", "Persverklaring + 6 posts"],
+    badge: "EXCLUSIVE" as string | null,
+    items: ["4 days + evening & night inspection", "5-star accommodation fully included", "Nightlife, service & gastronomy", "48+ page report + press kit", "❄❄❄ gold badge + glow listing", "Press release + 6 posts"],
   },
   {
-    id: "meester",
-    name: "Meester",
-    days: "5 dagen",
-    stay: "Ultra-luxe, elk resort",
+    id: "master",
+    name: "Master",
+    days: "5 days",
+    stay: "Ultra-luxury, any resort",
     price: 6490,
     sf: 3,
     color: "#fbbf24",
     highlight: false,
-    badge: "ULTIEM" as string | null,
-    items: ["5 dagen, 2 onafhankelijke inspecteurs", "Ultra-luxe verblijf (elk resort) inbegrepen", "Meerdere accommodatiecategorieën getest", "64+ pagina rapport NL + EN", "Directiebriefing + implementatieplan", "❄❄❄ badge + permanente topvermelding", "Jaarlijkse herbeoordeling inbegrepen"],
+    badge: "ULTIMATE" as string | null,
+    items: ["5 days, 2 independent inspectors", "Ultra-luxury accommodation (any resort) included", "Multiple accommodation categories tested", "64+ page report EN", "Management briefing + implementation plan", "❄❄❄ badge + permanent top listing", "Annual re-assessment included"],
   },
 ];
 
@@ -172,7 +172,7 @@ export default async function SnowflakesPage() {
                 PeakFlow Snowflakes
               </h1>
               <p style={{ fontSize: 15, color: "rgba(255,255,255,.75)", lineHeight: 1.7, margin: 0 }}>
-                De hoogste onderscheiding voor skiresorts. Uitgereikt na een persoonlijk inspectiebezoek — niet op basis van statistieken.
+                The highest distinction for ski resorts. Awarded after a personal inspection visit — not based on statistics.
               </p>
             </div>
             <div className="sf-hero-counts">
@@ -191,15 +191,15 @@ export default async function SnowflakesPage() {
         </div>
       </div>
 
-      {/* PAKKETTEN */}
+      {/* PACKAGES */}
       <div className="sf-pkg-section">
         <div className="container">
           <div className="sf-pkg-header">
             <div>
-              <div style={{ fontSize: 11, fontWeight: 700, color: "#f59e0b", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 6 }}>Inspectiepakketten</div>
-              <h2 style={{ fontSize: 21, fontWeight: 800, color: "white", margin: 0 }}>Kies jouw pakket</h2>
+              <div style={{ fontSize: 11, fontWeight: 700, color: "#f59e0b", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 6 }}>Inspection packages</div>
+              <h2 style={{ fontSize: 21, fontWeight: 800, color: "white", margin: 0 }}>Choose your package</h2>
             </div>
-            <div style={{ fontSize: 11, color: "#475569" }}>+ 15% reiskosten · excl. BTW · herbeoordeling zelfde tarief</div>
+            <div style={{ fontSize: 11, color: "#475569" }}>+ 15% travel costs · excl. VAT · re-assessment same rate</div>
           </div>
 
           <div className="sf-pkg-grid">
@@ -228,14 +228,14 @@ export default async function SnowflakesPage() {
                   </div>
 
                   <div style={{ marginBottom: 12 }}>
-                    <span style={{ fontSize: 26, fontWeight: 800, color: p.color }}>€ {p.price.toLocaleString("nl-NL")}</span>
-                    <div style={{ fontSize: 10, color: "#475569", marginTop: 2 }}>+ € {travel} reiskosten</div>
+                    <span style={{ fontSize: 26, fontWeight: 800, color: p.color }}>€ {p.price.toLocaleString("en-GB")}</span>
+                    <div style={{ fontSize: 10, color: "#475569", marginTop: 2 }}>+ € {travel} travel costs</div>
                   </div>
 
                   <div style={{ fontSize: 11, color: p.color, letterSpacing: 2, marginBottom: 12, display: "flex", alignItems: "center", gap: 6, flexWrap: "wrap" }}>
                     {"❄".repeat(p.sf)}
                     <span style={{ color: "#475569", letterSpacing: 0, fontSize: 10 }}>
-                      {["basis","inspecteur"].includes(p.id) ? "min. voor ❄" : ["senior","hoofd"].includes(p.id) ? "min. voor ❄❄" : "min. voor ❄❄❄"}
+                      {["basic","inspector"].includes(p.id) ? "min. for ❄" : ["senior","senior-pro"].includes(p.id) ? "min. for ❄❄" : "min. for ❄❄❄"}
                     </span>
                   </div>
 
@@ -262,33 +262,33 @@ export default async function SnowflakesPage() {
                     border: `1px solid ${p.highlight ? "#f59e0b" : p.color}`,
                     padding: "9px 0", borderRadius: 7, fontSize: 12, fontWeight: 700, textDecoration: "none",
                   }}>
-                    Aanvragen →
+                    Request →
                   </a>
                 </div>
               );
             })}
           </div>
 
-          {/* Min vereiste balk */}
+          {/* Minimum tier bar */}
           <div className="sf-tier-bar">
             {[
-              { sf: "❄", color: "#94a3b8", pkg: "Basis", from: "€ 1.190" },
-              { sf: "❄❄", color: "#f59e0b", pkg: "Senior", from: "€ 2.190" },
-              { sf: "❄❄❄", color: "#fbbf24", pkg: "Grand", from: "€ 4.190" },
+              { sf: "❄", color: "#94a3b8", pkg: "Basic", from: "€ 1,190" },
+              { sf: "❄❄", color: "#f59e0b", pkg: "Senior", from: "€ 2,190" },
+              { sf: "❄❄❄", color: "#fbbf24", pkg: "Grand", from: "€ 4,190" },
             ].map(x => (
               <div key={x.sf} style={{ background: "#1e293b", borderLeft: `3px solid ${x.color}`, borderRadius: 8, padding: "12px 14px", display: "flex", alignItems: "center", justifyContent: "space-between", gap: 8 }}>
                 <div>
-                  <div style={{ fontSize: 10, color: "#475569", marginBottom: 2 }}>Minimum voor {x.sf}</div>
+                  <div style={{ fontSize: 10, color: "#475569", marginBottom: 2 }}>Minimum for {x.sf}</div>
                   <div style={{ fontSize: 13, fontWeight: 700, color: "white" }}>{x.pkg}</div>
                 </div>
-                <div style={{ fontSize: 13, fontWeight: 800, color: x.color, whiteSpace: "nowrap" }}>v.a. {x.from}</div>
+                <div style={{ fontSize: 13, fontWeight: 800, color: x.color, whiteSpace: "nowrap" }}>from {x.from}</div>
               </div>
             ))}
           </div>
         </div>
       </div>
 
-      {/* GECERTIFICEERDE RESORTS */}
+      {/* CERTIFIED RESORTS */}
       <div className="container">
         <div className="sf-bottom">
           <div>
@@ -296,8 +296,8 @@ export default async function SnowflakesPage() {
               <section style={{ marginBottom: 36 }}>
                 <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 14, flexWrap: "wrap" }}>
                   <span style={{ fontSize: 20, letterSpacing: 4, color: "#d97706" }}>❄❄❄</span>
-                  <h2 style={{ fontSize: 17, fontWeight: 700, margin: 0 }}>Drie Snowflakes</h2>
-                  <span style={{ fontSize: 12, color: "var(--ink3)" }}>— onvergelijkbaar</span>
+                  <h2 style={{ fontSize: 17, fontWeight: 700, margin: 0 }}>Three Snowflakes</h2>
+                  <span style={{ fontSize: 12, color: "var(--ink3)" }}>— unparalleled</span>
                 </div>
                 {sf3.map(r => <ResortCard key={r.id} r={r} tier={3} />)}
               </section>
@@ -306,8 +306,8 @@ export default async function SnowflakesPage() {
               <section style={{ marginBottom: 36 }}>
                 <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 14, flexWrap: "wrap" }}>
                   <span style={{ fontSize: 18, letterSpacing: 4, color: "#d97706" }}>❄❄</span>
-                  <h2 style={{ fontSize: 17, fontWeight: 700, margin: 0 }}>Twee Snowflakes</h2>
-                  <span style={{ fontSize: 12, color: "var(--ink3)" }}>— speciaal de reis waard</span>
+                  <h2 style={{ fontSize: 17, fontWeight: 700, margin: 0 }}>Two Snowflakes</h2>
+                  <span style={{ fontSize: 12, color: "var(--ink3)" }}>— specially worth the trip</span>
                 </div>
                 {sf2.map(r => <ResortCard key={r.id} r={r} tier={2} />)}
               </section>
@@ -316,8 +316,8 @@ export default async function SnowflakesPage() {
               <section style={{ marginBottom: 36 }}>
                 <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 14, flexWrap: "wrap" }}>
                   <span style={{ fontSize: 16, color: "#64748b" }}>❄</span>
-                  <h2 style={{ fontSize: 17, fontWeight: 700, margin: 0 }}>Één Snowflake</h2>
-                  <span style={{ fontSize: 12, color: "var(--ink3)" }}>— uitstekend in categorie</span>
+                  <h2 style={{ fontSize: 17, fontWeight: 700, margin: 0 }}>One Snowflake</h2>
+                  <span style={{ fontSize: 12, color: "var(--ink3)" }}>— outstanding in category</span>
                 </div>
                 {sf1.map(r => <ResortCard key={r.id} r={r} tier={1} />)}
               </section>
@@ -325,7 +325,7 @@ export default async function SnowflakesPage() {
             {resorts.length === 0 && (
               <div style={{ textAlign: "center", padding: "60px 0", color: "var(--ink3)" }}>
                 <div style={{ fontSize: 40, marginBottom: 12 }}>❄</div>
-                <p>Nog geen gecertificeerde resorts.</p>
+                <p>No certified resorts yet.</p>
               </div>
             )}
           </div>
@@ -333,12 +333,12 @@ export default async function SnowflakesPage() {
           {/* SIDEBAR */}
           <div className="sf-sidebar">
             <div style={{ background: "#0f172a", border: "1px solid #1e293b", borderRadius: 12, padding: 20, marginBottom: 14 }}>
-              <div style={{ fontSize: 13, fontWeight: 700, color: "white", marginBottom: 14 }}>Hoe werkt het?</div>
+              <div style={{ fontSize: 13, fontWeight: 700, color: "white", marginBottom: 14 }}>How does it work?</div>
               {[
-                { n: "1", t: "Kies een pakket en vraag aan" },
-                { n: "2", t: "Betaal de inspectiefee" },
-                { n: "3", t: "Inspecteur bezoekt jouw resort" },
-                { n: "4", t: "Ontvang rapport + eventueel Snowflake" },
+                { n: "1", t: "Choose a package and request" },
+                { n: "2", t: "Pay the inspection fee" },
+                { n: "3", t: "Inspector visits your resort" },
+                { n: "4", t: "Receive report + Snowflake if awarded" },
               ].map(s => (
                 <div key={s.n} style={{ display: "flex", gap: 10, marginBottom: 10, alignItems: "flex-start" }}>
                   <div style={{ width: 20, height: 20, background: "#f59e0b", borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 10, fontWeight: 700, color: "white", flexShrink: 0, marginTop: 1 }}>{s.n}</div>
@@ -346,16 +346,16 @@ export default async function SnowflakesPage() {
                 </div>
               ))}
               <a href="mailto:inspectie@peakflow.ski" style={{ display: "block", textAlign: "center", background: "linear-gradient(135deg,#d97706,#f59e0b)", color: "white", padding: "10px", borderRadius: 8, fontSize: 13, fontWeight: 700, textDecoration: "none", marginTop: 6 }}>
-                Inspectie aanvragen →
+                Request inspection →
               </a>
             </div>
 
             <div style={{ background: "white", border: "1px solid var(--border)", borderRadius: 12, padding: 20 }}>
-              <div style={{ fontSize: 13, fontWeight: 700, marginBottom: 14 }}>Wat is een Snowflake?</div>
+              <div style={{ fontSize: 13, fontWeight: 700, marginBottom: 14 }}>What is a Snowflake?</div>
               {[
-                { sf: "❄", title: "Uitzonderlijk", desc: "Overtreft de standaard in zijn categorie." },
-                { sf: "❄❄", title: "Uitstekend", desc: "Geen zwakke punten. De reis speciaal waard." },
-                { sf: "❄❄❄", title: "Onvergelijkbaar", desc: "Een van de beste skiresorts op aarde." },
+                { sf: "❄", title: "Exceptional", desc: "Exceeds the standard in its category." },
+                { sf: "❄❄", title: "Excellent", desc: "No weak points. The trip specially worth it." },
+                { sf: "❄❄❄", title: "Unparalleled", desc: "One of the best ski resorts on earth." },
               ].map((x, i, arr) => (
                 <div key={x.sf} style={{ display: "flex", gap: 12, paddingBottom: i < arr.length - 1 ? 12 : 0, marginBottom: i < arr.length - 1 ? 12 : 0, borderBottom: i < arr.length - 1 ? "1px solid var(--border)" : "none" }}>
                   <div style={{ fontSize: 16, flexShrink: 0, width: 44 }}>{x.sf}</div>
@@ -366,7 +366,7 @@ export default async function SnowflakesPage() {
                 </div>
               ))}
               <div style={{ fontSize: 11, color: "var(--ink3)", marginTop: 14, paddingTop: 12, borderTop: "1px solid var(--border)" }}>
-                Een Snowflake is nooit gekocht — alleen verdiend. Het oordeel van de inspecteur is altijd onafhankelijk.
+                A Snowflake is never bought — only earned. The inspector&apos;s verdict is always independent.
               </div>
             </div>
           </div>

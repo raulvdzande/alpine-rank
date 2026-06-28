@@ -10,9 +10,9 @@ interface Props {
 }
 
 const NAV_LINKS = [
-  { href: "/resorts", label: "Skigebieden" },
+  { href: "/resorts", label: "Resorts" },
   { href: "/snowflakes", label: "❄ Snowflakes", amber: true },
-  { href: "/pricing", label: "Prijzen" },
+  { href: "/pricing", label: "Pricing" },
 ];
 
 export default function NavShell({ user, logoutAction }: Props) {
@@ -99,7 +99,7 @@ export default function NavShell({ user, logoutAction }: Props) {
               )}
               {isAdmin && (
                 <Link href="/admin" className={`nav-link admin-link${isActive("/admin") ? " active" : ""}`}>
-                  ⚙ Beheer
+                  ⚙ Admin
                 </Link>
               )}
             </div>
@@ -115,13 +115,13 @@ export default function NavShell({ user, logoutAction }: Props) {
                     <span>{user.name.split(" ")[0]}</span>
                   </div>
                   <form action={logoutAction}>
-                    <button type="submit" className="nav-logout">Uitloggen</button>
+                    <button type="submit" className="nav-logout">Log out</button>
                   </form>
                 </>
               ) : (
                 <>
-                  <Link href="/login" className="btn btn-ghost" style={{ fontSize: 13, padding: "7px 14px" }}>Inloggen</Link>
-                  <Link href="/register" className="btn btn-primary" style={{ fontSize: 13, padding: "7px 16px" }}>Gratis starten →</Link>
+                  <Link href="/login" className="btn btn-ghost" style={{ fontSize: 13, padding: "7px 14px" }}>Log in</Link>
+                  <Link href="/register" className="btn btn-primary" style={{ fontSize: 13, padding: "7px 16px" }}>Get started →</Link>
                 </>
               )}
             </div>
@@ -154,7 +154,7 @@ export default function NavShell({ user, logoutAction }: Props) {
             )}
             {isAdmin && (
               <Link href="/admin" className={`nav-link admin-link${isActive("/admin") ? " active" : ""}`}>
-                ⚙ Beheer
+                ⚙ Admin
               </Link>
             )}
             <div className="nav-drawer-sep" />
@@ -162,13 +162,13 @@ export default function NavShell({ user, logoutAction }: Props) {
               {user ? (
                 <form action={logoutAction}>
                   <button type="submit" className="btn btn-outline" style={{ width: "100%", justifyContent: "center", fontSize: 14 }}>
-                    Uitloggen ({user.name.split(" ")[0]})
+                    Log out ({user.name.split(" ")[0]})
                   </button>
                 </form>
               ) : (
                 <>
-                  <Link href="/login" className="btn btn-outline" style={{ justifyContent: "center" }}>Inloggen</Link>
-                  <Link href="/register" className="btn btn-primary" style={{ justifyContent: "center" }}>Gratis starten →</Link>
+                  <Link href="/login" className="btn btn-outline" style={{ justifyContent: "center" }}>Log in</Link>
+                  <Link href="/register" className="btn btn-primary" style={{ justifyContent: "center" }}>Get started →</Link>
                 </>
               )}
             </div>

@@ -2,7 +2,7 @@ import { prisma } from "@/lib/prisma";
 import { redirect, notFound } from "next/navigation";
 import Link from "next/link";
 
-export const metadata = { title: "Merk wijzigen — Admin" };
+export const metadata = { title: "Edit brand — Admin" };
 
 export default async function EditBrandPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
@@ -25,7 +25,7 @@ export default async function EditBrandPage({ params }: { params: Promise<{ id: 
     const website = formData.get("website") as string;
 
     if (!name || !email || !country) {
-      redirect(`/admin/brands/${id}/edit?error=${encodeURIComponent("Verplichte velden niet ingevuld")}`);
+      redirect(`/admin/brands/${id}/edit?error=${encodeURIComponent("Required fields not filled in")}`);
     }
 
     await prisma.company.update({
@@ -39,16 +39,16 @@ export default async function EditBrandPage({ params }: { params: Promise<{ id: 
       },
     });
 
-    redirect("/admin/brands?success=" + encodeURIComponent("Merk bijgewerkt"));
+    redirect("/admin/brands?success=" + encodeURIComponent("Brand updated"));
   }
 
   return (
     <section style={{ padding: "40px 20px", maxWidth: 600, margin: "0 auto" }}>
       <Link href="/admin/brands" style={{ fontSize: 13, color: "var(--peak)", marginBottom: 20, display: "inline-block", textDecoration: "none" }}>
-        ← Terug naar merken
+        ← Back to brands
       </Link>
 
-      <h1 style={{ fontSize: 28, fontWeight: 800, marginBottom: 32 }}>Merk wijzigen</h1>
+      <h1 style={{ fontSize: 28, fontWeight: 800, marginBottom: 32 }}>Edit brand</h1>
 
       <div style={{ background: "white", border: "1px solid var(--border)", borderRadius: 12, padding: 24, marginBottom: 24 }}>
         <h2 style={{ fontSize: 16, fontWeight: 700, marginBottom: 16 }}>Logo</h2>
@@ -88,7 +88,7 @@ export default async function EditBrandPage({ params }: { params: Promise<{ id: 
       <form action={updateBrand} style={{ background: "white", border: "1px solid var(--border)", borderRadius: 12, padding: 24 }}>
         <div style={{ marginBottom: 20 }}>
           <label style={{ display: "block", fontSize: 13, fontWeight: 600, marginBottom: 6 }}>
-            Merknaam *
+            Brand name *
           </label>
           <input
             type="text"
@@ -108,7 +108,7 @@ export default async function EditBrandPage({ params }: { params: Promise<{ id: 
 
         <div style={{ marginBottom: 20 }}>
           <label style={{ display: "block", fontSize: 13, fontWeight: 600, marginBottom: 6 }}>
-            E-mailadres *
+            Email address *
           </label>
           <input
             type="email"
@@ -129,7 +129,7 @@ export default async function EditBrandPage({ params }: { params: Promise<{ id: 
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16, marginBottom: 20 }}>
           <div>
             <label style={{ display: "block", fontSize: 13, fontWeight: 600, marginBottom: 6 }}>
-              Land *
+              Country *
             </label>
             <input
               type="text"
@@ -148,7 +148,7 @@ export default async function EditBrandPage({ params }: { params: Promise<{ id: 
           </div>
           <div>
             <label style={{ display: "block", fontSize: 13, fontWeight: 600, marginBottom: 6 }}>
-              Telefoonnummer
+              Phone number
             </label>
             <input
               type="tel"
@@ -187,7 +187,7 @@ export default async function EditBrandPage({ params }: { params: Promise<{ id: 
 
         <div style={{ display: "flex", gap: 12 }}>
           <Link href="/admin/brands" style={{ flex: 1, padding: "12px", border: "1px solid var(--border)", borderRadius: 8, background: "white", cursor: "pointer", fontSize: 14, fontWeight: 600, textAlign: "center", textDecoration: "none" }}>
-            Annuleren
+            Cancel
           </Link>
           <button
             type="submit"
@@ -203,7 +203,7 @@ export default async function EditBrandPage({ params }: { params: Promise<{ id: 
               fontSize: 14,
             }}
           >
-            Opslaan
+            Save
           </button>
         </div>
       </form>

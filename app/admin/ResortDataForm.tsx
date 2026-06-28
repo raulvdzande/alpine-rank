@@ -18,7 +18,7 @@ const COUNTRIES = [
 ];
 
 const CATEGORIES = [
-  "Alpin", "Nordisch", "Freestyle", "Freeride", "Familie", "Recreatief",
+  "Alpine", "Nordic", "Freestyle", "Freeride", "Family", "Recreational",
 ];
 
 const inputStyle: React.CSSProperties = {
@@ -109,7 +109,7 @@ export default function ResortDataForm({ initial = {}, onSubmit, submitLabel, on
     try {
       await onSubmit(form);
     } catch (err: unknown) {
-      setError(err instanceof Error ? err.message : "Onbekende fout");
+      setError(err instanceof Error ? err.message : "Unknown error");
       setLoading(false);
     }
   }
@@ -120,7 +120,7 @@ export default function ResortDataForm({ initial = {}, onSubmit, submitLabel, on
     try {
       await onDelete();
     } catch (err: unknown) {
-      setError(err instanceof Error ? err.message : "Fout bij verwijderen");
+      setError(err instanceof Error ? err.message : "Error deleting");
       setDeleting(false);
     }
   }
@@ -129,14 +129,14 @@ export default function ResortDataForm({ initial = {}, onSubmit, submitLabel, on
     <form onSubmit={handleSubmit}>
       {/* Basis */}
       <div style={sectionStyle}>
-        <div style={sectionTitle}>Basisinformatie</div>
+        <div style={sectionTitle}>Basic information</div>
         <div style={{ ...gridTwo, marginBottom: 14 }}>
           <div>
-            <label style={labelStyle}>Naam *</label>
-            <input style={inputStyle} value={form.name} onChange={e => set("name", e.target.value)} required placeholder="bijv. Kitzbühel" />
+            <label style={labelStyle}>Name *</label>
+            <input style={inputStyle} value={form.name} onChange={e => set("name", e.target.value)} required placeholder="e.g. Kitzbühel" />
           </div>
           <div>
-            <label style={labelStyle}>Land *</label>
+            <label style={labelStyle}>Country *</label>
             <select style={{ ...inputStyle, cursor: "pointer" }} value={form.Country} onChange={e => set("Country", e.target.value)}>
               {COUNTRIES.map(c => <option key={c} value={c}>{c}</option>)}
             </select>
@@ -144,30 +144,30 @@ export default function ResortDataForm({ initial = {}, onSubmit, submitLabel, on
         </div>
         <div style={gridTwo}>
           <div>
-            <label style={labelStyle}>Regio / Skigebied</label>
-            <input style={inputStyle} value={form.region} onChange={e => set("region", e.target.value)} placeholder="bijv. Tirol" />
+            <label style={labelStyle}>Region / Resort area</label>
+            <input style={inputStyle} value={form.region} onChange={e => set("region", e.target.value)} placeholder="e.g. Tyrol" />
           </div>
           <div>
-            <label style={labelStyle}>Categorie</label>
+            <label style={labelStyle}>Category</label>
             <select style={{ ...inputStyle, cursor: "pointer" }} value={form.category} onChange={e => set("category", e.target.value)}>
-              <option value="">— kies categorie —</option>
+              <option value="">— choose category —</option>
               {CATEGORIES.map(c => <option key={c} value={c}>{c}</option>)}
             </select>
           </div>
         </div>
       </div>
 
-      {/* Hoogte */}
+      {/* Altitude */}
       <div style={sectionStyle}>
-        <div style={sectionTitle}>Hoogte (meter boven zeeniveau)</div>
+        <div style={sectionTitle}>Altitude (metres above sea level)</div>
         <div style={gridTwo}>
           <div>
-            <label style={labelStyle}>Bergtop (m)</label>
-            <input style={inputStyle} type="number" value={form.altitudeTop} onChange={e => set("altitudeTop", e.target.value)} placeholder="bijv. 2800" min="100" max="5000" />
+            <label style={labelStyle}>Summit (m)</label>
+            <input style={inputStyle} type="number" value={form.altitudeTop} onChange={e => set("altitudeTop", e.target.value)} placeholder="e.g. 2800" min="100" max="5000" />
           </div>
           <div>
-            <label style={labelStyle}>Basisstation (m)</label>
-            <input style={inputStyle} type="number" value={form.altitudeBase} onChange={e => set("altitudeBase", e.target.value)} placeholder="bijv. 800" min="0" max="4000" />
+            <label style={labelStyle}>Base station (m)</label>
+            <input style={inputStyle} type="number" value={form.altitudeBase} onChange={e => set("altitudeBase", e.target.value)} placeholder="e.g. 800" min="0" max="4000" />
           </div>
         </div>
       </div>
@@ -176,46 +176,46 @@ export default function ResortDataForm({ initial = {}, onSubmit, submitLabel, on
       <div style={sectionStyle}>
         <div style={sectionTitle}>Pistes</div>
         <div style={{ marginBottom: 14 }}>
-          <label style={labelStyle}>Totale pistekm</label>
-          <input style={{ ...inputStyle, maxWidth: 200 }} type="number" value={form.pisteKm} onChange={e => set("pisteKm", e.target.value)} placeholder="bijv. 170" min="0" />
+          <label style={labelStyle}>Total piste km</label>
+          <input style={{ ...inputStyle, maxWidth: 200 }} type="number" value={form.pisteKm} onChange={e => set("pisteKm", e.target.value)} placeholder="e.g. 170" min="0" />
         </div>
         <div style={gridThree}>
           <div>
-            <label style={labelStyle}>🔵 Blauw (km)</label>
-            <input style={inputStyle} type="number" value={form.pisteBlue} onChange={e => set("pisteBlue", e.target.value)} placeholder="bijv. 60" min="0" />
+            <label style={labelStyle}>🔵 Blue (km)</label>
+            <input style={inputStyle} type="number" value={form.pisteBlue} onChange={e => set("pisteBlue", e.target.value)} placeholder="e.g. 60" min="0" />
           </div>
           <div>
-            <label style={labelStyle}>🔴 Rood (km)</label>
-            <input style={inputStyle} type="number" value={form.pisteRed} onChange={e => set("pisteRed", e.target.value)} placeholder="bijv. 80" min="0" />
+            <label style={labelStyle}>🔴 Red (km)</label>
+            <input style={inputStyle} type="number" value={form.pisteRed} onChange={e => set("pisteRed", e.target.value)} placeholder="e.g. 80" min="0" />
           </div>
           <div>
-            <label style={labelStyle}>⚫ Zwart (km)</label>
-            <input style={inputStyle} type="number" value={form.pisteBlack} onChange={e => set("pisteBlack", e.target.value)} placeholder="bijv. 30" min="0" />
+            <label style={labelStyle}>⚫ Black (km)</label>
+            <input style={inputStyle} type="number" value={form.pisteBlack} onChange={e => set("pisteBlack", e.target.value)} placeholder="e.g. 30" min="0" />
           </div>
         </div>
         <div style={{ marginTop: 14 }}>
-          <label style={labelStyle}>🟢 Groen (km)</label>
-          <input style={{ ...inputStyle, maxWidth: 200 }} type="number" value={form.pisteGreen} onChange={e => set("pisteGreen", e.target.value)} placeholder="bijv. 10" min="0" />
+          <label style={labelStyle}>🟢 Green (km)</label>
+          <input style={{ ...inputStyle, maxWidth: 200 }} type="number" value={form.pisteGreen} onChange={e => set("pisteGreen", e.target.value)} placeholder="e.g. 10" min="0" />
         </div>
       </div>
 
-      {/* Faciliteiten */}
+      {/* Facilities */}
       <div style={sectionStyle}>
-        <div style={sectionTitle}>Faciliteiten en prijs</div>
+        <div style={sectionTitle}>Facilities and price</div>
         <div style={gridThree}>
           <div>
-            <label style={labelStyle}>Aantal liften</label>
-            <input style={inputStyle} type="number" value={form.lifts} onChange={e => set("lifts", e.target.value)} placeholder="bijv. 45" min="0" />
+            <label style={labelStyle}>Number of lifts</label>
+            <input style={inputStyle} type="number" value={form.lifts} onChange={e => set("lifts", e.target.value)} placeholder="e.g. 45" min="0" />
           </div>
           <div>
-            <label style={labelStyle}>Dagkaart volwassene (€)</label>
-            <input style={inputStyle} type="number" value={form.dayPassPrice} onChange={e => set("dayPassPrice", e.target.value)} placeholder="bijv. 58" min="0" />
+            <label style={labelStyle}>Adult day pass (€)</label>
+            <input style={inputStyle} type="number" value={form.dayPassPrice} onChange={e => set("dayPassPrice", e.target.value)} placeholder="e.g. 58" min="0" />
           </div>
           <div>
-            <label style={labelStyle}>Snowpark</label>
+            <label style={labelStyle}>Snow park</label>
             <select style={{ ...inputStyle, cursor: "pointer" }} value={form.snowpark} onChange={e => set("snowpark", e.target.value)}>
-              <option value="false">Nee</option>
-              <option value="true">Ja</option>
+              <option value="false">No</option>
+              <option value="true">Yes</option>
             </select>
           </div>
         </div>
@@ -227,22 +227,22 @@ export default function ResortDataForm({ initial = {}, onSubmit, submitLabel, on
 
       {/* GPS */}
       <div style={sectionStyle}>
-        <div style={sectionTitle}>GPS-coördinaten (voor sneeuwscore en kaart)</div>
+        <div style={sectionTitle}>GPS coordinates (for snow score and map)</div>
         <p style={{ fontSize: 12, color: "#64748b", marginBottom: 14, marginTop: -8 }}>
-          Zoek het resort op <strong style={{ color: "#94a3b8" }}>openstreetmap.org</strong>, klik op de locatie en kopieer de coördinaten. Of gebruik Google Maps: rechtsklik → coördinaten.
+          Find the resort on <strong style={{ color: "#94a3b8" }}>openstreetmap.org</strong>, click the location and copy the coordinates. Or use Google Maps: right-click → coordinates.
         </p>
         <div style={gridTwo}>
           <div>
-            <label style={labelStyle}>Breedtegraad (lat)</label>
-            <input style={inputStyle} type="number" step="0.000001" value={form.lat} onChange={e => set("lat", e.target.value)} placeholder="bijv. 47.4444" min="-90" max="90" />
+            <label style={labelStyle}>Latitude (lat)</label>
+            <input style={inputStyle} type="number" step="0.000001" value={form.lat} onChange={e => set("lat", e.target.value)} placeholder="e.g. 47.4444" min="-90" max="90" />
           </div>
           <div>
-            <label style={labelStyle}>Lengtegraad (lon)</label>
-            <input style={inputStyle} type="number" step="0.000001" value={form.lon} onChange={e => set("lon", e.target.value)} placeholder="bijv. 12.3911" min="-180" max="180" />
+            <label style={labelStyle}>Longitude (lon)</label>
+            <input style={inputStyle} type="number" step="0.000001" value={form.lon} onChange={e => set("lon", e.target.value)} placeholder="e.g. 12.3911" min="-180" max="180" />
           </div>
         </div>
         <div style={{ marginTop: 12, padding: "10px 14px", background: "rgba(96,165,250,.07)", border: "1px solid rgba(96,165,250,.15)", borderRadius: 8, fontSize: 12, color: "#93c5fd" }}>
-          ℹ️ De sneeuwzekerheids-score wordt automatisch berekend na opslaan. Met coördinaten worden 10 jaar Open-Meteo historische data meegenomen (sterkere score).
+          ℹ️ The snow certainty score is calculated automatically after saving. With coordinates, 10 years of Open-Meteo historical data are included (stronger score).
         </div>
       </div>
 
@@ -258,7 +258,7 @@ export default function ResortDataForm({ initial = {}, onSubmit, submitLabel, on
           disabled={loading}
           style={{ background: loading ? "#1e293b" : "#0f6e50", color: loading ? "#64748b" : "white", border: "none", borderRadius: 8, padding: "11px 28px", fontSize: 14, fontWeight: 700, cursor: loading ? "not-allowed" : "pointer" }}
         >
-          {loading ? "Bezig..." : submitLabel}
+          {loading ? "Saving..." : submitLabel}
         </button>
 
         {onDelete && !confirmDelete && (
@@ -267,27 +267,27 @@ export default function ResortDataForm({ initial = {}, onSubmit, submitLabel, on
             onClick={() => setConfirmDelete(true)}
             style={{ background: "transparent", color: "#f87171", border: "1px solid rgba(248,113,113,.3)", borderRadius: 8, padding: "10px 18px", fontSize: 13, fontWeight: 600, cursor: "pointer" }}
           >
-            Resort verwijderen
+            Delete resort
           </button>
         )}
 
         {onDelete && confirmDelete && (
           <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
-            <span style={{ fontSize: 13, color: "#f87171" }}>Weet je het zeker?</span>
+            <span style={{ fontSize: 13, color: "#f87171" }}>Are you sure?</span>
             <button
               type="button"
               onClick={handleDelete}
               disabled={deleting}
               style={{ background: "#7f1d1d", color: "white", border: "none", borderRadius: 8, padding: "8px 16px", fontSize: 13, fontWeight: 700, cursor: "pointer" }}
             >
-              {deleting ? "Verwijderen..." : "Ja, verwijder"}
+              {deleting ? "Deleting..." : "Yes, delete"}
             </button>
             <button
               type="button"
               onClick={() => setConfirmDelete(false)}
               style={{ background: "#1e293b", color: "#94a3b8", border: "1px solid #334155", borderRadius: 8, padding: "8px 14px", fontSize: 13, cursor: "pointer" }}
             >
-              Annuleer
+              Cancel
             </button>
           </div>
         )}

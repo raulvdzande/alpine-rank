@@ -9,13 +9,13 @@ export default function ResortDedupButton() {
   const [result, setResult] = useState("");
 
   async function handleClick() {
-    if (!confirm("Alle dubbele resorts verwijderen? De versie met de meeste data (reviews, snowflakes) blijft bewaard.")) return;
+    if (!confirm("Remove all duplicate resorts? The version with the most data (reviews, snowflakes) will be kept.")) return;
     setStatus("running");
     try {
       const res = await fetch("/api/admin/resort-dedup", { method: "POST" });
       const json = await res.json();
       if (!res.ok) {
-        setResult(json.error ?? "Onbekende fout");
+        setResult(json.error ?? "Unknown error");
         setStatus("error");
         return;
       }
@@ -23,7 +23,7 @@ export default function ResortDedupButton() {
       setStatus("done");
       if (json.deleted > 0) setTimeout(() => window.location.reload(), 1500);
     } catch (err) {
-      setResult(err instanceof Error ? err.message : "Onbekende fout");
+      setResult(err instanceof Error ? err.message : "Unknown error");
       setStatus("error");
     }
   }
@@ -54,7 +54,7 @@ export default function ResortDedupButton() {
         whiteSpace: "nowrap",
       }}
     >
-      {status === "running" ? "⏳ Verwijderen..." : status === "done" ? `✓ ${result}` : status === "error" ? `✕ ${result}` : "⚡ Duplicaten verwijderen"}
+      {status === "running" ? "⏳ Removing..." : status === "done" ? `✓ ${result}` : status === "error" ? `✕ ${result}` : "⚡ Remove duplicates"}
     </button>
   );
 }

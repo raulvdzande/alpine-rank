@@ -8,7 +8,7 @@ export default function RemoveBrandButton({
   companyId: string;
 }) {
   const handleRemove = async () => {
-    if (!confirm("Weet je zeker dat je dit merk wilt ontkoppelen?")) {
+    if (!confirm("Are you sure you want to unlink this brand?")) {
       return;
     }
 
@@ -20,21 +20,21 @@ export default function RemoveBrandButton({
       });
 
       if (res.ok) {
-        alert("Merk ontkoppeld");
+        alert("Brand unlinked");
         window.location.reload();
       } else {
         const data = await res.json();
-        alert("Fout: " + (data.error || "Ontkoppelen mislukt"));
+        alert("Error: " + (data.error || "Failed to unlink"));
       }
     } catch (error) {
-      alert("Fout bij ontkoppelen");
+      alert("Error unlinking brand");
     }
   };
 
   return (
     <button
       onClick={handleRemove}
-      title="Ontkoppelen"
+      title="Unlink"
       style={{
         fontSize: 16,
         background: "transparent",

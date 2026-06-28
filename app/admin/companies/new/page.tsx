@@ -39,14 +39,14 @@ export default function NewCompanyPage() {
 
       if (res.ok) {
         const data = await res.json();
-        alert(`Bedrijf aangemaakt! Admin email: ${formData.adminEmail}`);
+        alert(`Company created! Admin email: ${formData.adminEmail}`);
         window.location.href = `/admin/companies/${data.companyId}`;
       } else {
         const data = await res.json();
-        alert("Fout: " + (data.error || "Bedrijf aanmaken mislukt"));
+        alert("Error: " + (data.error || "Failed to create company"));
       }
     } catch (error) {
-      alert("Fout bij bedrijf aanmaken");
+      alert("Error creating company");
     } finally {
       setLoading(false);
     }
@@ -56,14 +56,14 @@ export default function NewCompanyPage() {
     <section style={{ padding: "40px 20px" }}>
       <div style={{ maxWidth: 600, margin: "0 auto" }}>
         <Link href="/admin/companies" style={{ fontSize: 13, color: "var(--peak)", marginBottom: 20, display: "inline-block" }}>
-          ← Terug naar bedrijven
+          ← Back to companies
         </Link>
 
         <h1 style={{ fontSize: 28, fontWeight: 800, marginBottom: 8 }}>
-          Nieuw bedrijf aanmaken
+          Create new company
         </h1>
         <p style={{ color: "var(--ink2)", marginBottom: 32 }}>
-          Maak een bedrijfsaccount aan en voeg een admin toe
+          Create a company account and add an admin
         </p>
 
         <form onSubmit={handleSubmit}>
@@ -83,7 +83,7 @@ export default function NewCompanyPage() {
                   fontSize: 14,
                 }}
               >
-                🏔 Skigebied
+                🏔 Ski resort
               </button>
               <button
                 type="button"
@@ -98,17 +98,17 @@ export default function NewCompanyPage() {
                   fontSize: 14,
                 }}
               >
-                🎿 Merk
+                🎿 Brand
               </button>
             </div>
           </div>
 
           <div style={{ marginBottom: 20, paddingBottom: 20, borderBottom: "1px solid var(--border)" }}>
-            <h3 style={{ marginBottom: 12 }}>Bedrijfsgegevens</h3>
+            <h3 style={{ marginBottom: 12 }}>Company details</h3>
 
             <div style={{ marginBottom: 16 }}>
               <label style={{ display: "block", fontSize: 13, fontWeight: 600, marginBottom: 6 }}>
-                Bedrijfsnaam *
+                Company name *
               </label>
               <input
                 type="text"
@@ -150,7 +150,7 @@ export default function NewCompanyPage() {
 
             <div style={{ marginBottom: 16 }}>
               <label style={{ display: "block", fontSize: 13, fontWeight: 600, marginBottom: 6 }}>
-                Telefoonnummer
+                Phone number
               </label>
               <input
                 type="tel"
@@ -190,7 +190,7 @@ export default function NewCompanyPage() {
 
             <div style={{ marginBottom: 16 }}>
               <label style={{ display: "block", fontSize: 13, fontWeight: 600, marginBottom: 6 }}>
-                BTW-nummer
+                VAT number
               </label>
               <input
                 type="text"
@@ -210,11 +210,11 @@ export default function NewCompanyPage() {
           </div>
 
           <div style={{ marginBottom: 20, paddingBottom: 20, borderBottom: "1px solid var(--border)" }}>
-            <h3 style={{ marginBottom: 12 }}>Adres</h3>
+            <h3 style={{ marginBottom: 12 }}>Address</h3>
 
             <div style={{ marginBottom: 16 }}>
               <label style={{ display: "block", fontSize: 13, fontWeight: 600, marginBottom: 6 }}>
-                Straat & huisnummer *
+                Street & number *
               </label>
               <input
                 type="text"
@@ -235,7 +235,7 @@ export default function NewCompanyPage() {
 
             <div style={{ marginBottom: 16 }}>
               <label style={{ display: "block", fontSize: 13, fontWeight: 600, marginBottom: 6 }}>
-                Stad *
+                City *
               </label>
               <input
                 type="text"
@@ -256,7 +256,7 @@ export default function NewCompanyPage() {
 
             <div style={{ marginBottom: 16 }}>
               <label style={{ display: "block", fontSize: 13, fontWeight: 600, marginBottom: 6 }}>
-                Postcode *
+                Postal code *
               </label>
               <input
                 type="text"
@@ -277,7 +277,7 @@ export default function NewCompanyPage() {
 
             <div style={{ marginBottom: 16 }}>
               <label style={{ display: "block", fontSize: 13, fontWeight: 600, marginBottom: 6 }}>
-                Land *
+                Country *
               </label>
               <input
                 type="text"
@@ -298,11 +298,11 @@ export default function NewCompanyPage() {
           </div>
 
           <div style={{ marginBottom: 20 }}>
-            <h3 style={{ marginBottom: 12 }}>Eerste Admin Account</h3>
+            <h3 style={{ marginBottom: 12 }}>First Admin Account</h3>
 
             <div style={{ marginBottom: 16 }}>
               <label style={{ display: "block", fontSize: 13, fontWeight: 600, marginBottom: 6 }}>
-                Naam *
+                Name *
               </label>
               <input
                 type="text"
@@ -344,7 +344,7 @@ export default function NewCompanyPage() {
 
             <div style={{ marginBottom: 16 }}>
               <label style={{ display: "block", fontSize: 13, fontWeight: 600, marginBottom: 6 }}>
-                Wachtwoord *
+                Password *
               </label>
               <input
                 type="password"
@@ -380,7 +380,7 @@ export default function NewCompanyPage() {
               opacity: loading ? 0.6 : 1,
             }}
           >
-            {loading ? "Bezig..." : "Bedrijf aanmaken"}
+            {loading ? "Saving..." : "Create company"}
           </button>
         </form>
       </div>

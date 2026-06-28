@@ -10,11 +10,10 @@ const SUPER_ADMIN_EMAIL = "raulvdzande740@gmail.com";
 
 export default async function DashboardPage() {
   const user = await getCurrentUser();
-  if (!user) redirect("/login?error=" + encodeURIComponent("Log in om je dashboard te bekijken"));
+  if (!user) redirect("/login?error=" + encodeURIComponent("Log in to view your dashboard"));
 
   const isAdmin = user.role === "ADMIN";
 
-  // User's own reviews
   const myReviews = await prisma.review.findMany({
     where: { userId: user.id },
     include: { resort: { select: { id: true, name: true, Country: true, snowScore: true, category: true } } },
@@ -22,7 +21,6 @@ export default async function DashboardPage() {
     take: 10,
   });
 
-  // Top resorts to recommend (not already reviewed)
   const reviewedIds = myReviews.map(r => r.resortId);
   const recommended = await prisma.resort.findMany({
     where: { id: { notIn: reviewedIds }, snowScore: { gt: 7 } },
@@ -31,7 +29,6 @@ export default async function DashboardPage() {
     select: { id: true, name: true, Country: true, snowScore: true, pisteKm: true, category: true, averageOverallRating: true },
   });
 
-  // Admin-only data
   let adminStats = null;
   let lastRated: { id: string; name: string; Country: string; averageOverallRating: number | null }[] = [];
   if (isAdmin) {
@@ -57,28 +54,26 @@ export default async function DashboardPage() {
     <section className="section" style={{ background: "var(--snow)", minHeight: "calc(100vh - 60px)" }}>
       <div className="container">
 
-        {/* WELCOME HEADER */}
         <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", marginBottom: 32, flexWrap: "wrap", gap: 16 }}>
           <div>
-            <span className="label">Persoonlijk dashboard</span>
-            <h2 style={{ marginBottom: 4 }}>Welkom, {user.name} 👋</h2>
+            <span className="label">Personal dashboard</span>
+            <h2 style={{ marginBottom: 4 }}>Welcome, {user.name} 👋</h2>
             <p style={{ color: "var(--ink3)", marginTop: 0 }}>
               {isAdmin
-                ? "Je bent ingelogd als super admin — je hebt toegang tot alle beheer tools."
-                : "Beheer je reviews, wishlist en vind jouw perfecte skigebied."}
+                ? "You are logged in as super admin — you have access to all management tools."
+                : "Manage your reviews, wishlist and find your perfect ski resort."}
             </p>
           </div>
           <div style={{ display: "flex", gap: 10 }}>
             {isAdmin && (
               <Link href="/admin" className="btn btn-primary">
-                ⚙️ Resort beheer →
+                ⚙️ Resort management →
               </Link>
             )}
-            <Link href="/resorts" className="btn btn-outline">Resorts bekijken</Link>
+            <Link href="/resorts" className="btn btn-outline">Browse resorts</Link>
           </div>
         </div>
 
-        {/* ADMIN PANEL — only for admin */}
         {isAdmin && adminStats && (
           <div style={{
             background: "linear-gradient(135deg, #0f2a45, #1a3a5c)",
@@ -90,20 +85,19 @@ export default async function DashboardPage() {
             <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 20 }}>
               <span style={{ fontSize: 20 }}>⛰</span>
               <div>
-                <div style={{ fontSize: 14, fontWeight: 700, color: "white" }}>Super Admin Beheer</div>
-                <div style={{ fontSize: 12, color: "rgba(255,255,255,.5)" }}>Alleen zichtbaar voor jou</div>
+                <div style={{ fontSize: 14, fontWeight: 700, color: "white" }}>Super Admin Panel</div>
+                <div style={{ fontSize: 12, color: "rgba(255,255,255,.5)" }}>Only visible to you</div>
               </div>
               <Link href="/admin" style={{ marginLeft: "auto", fontSize: 12, color: "#6ee7b7", fontWeight: 600, textDecoration: "none", border: "1px solid rgba(110,231,183,.3)", padding: "5px 12px", borderRadius: 6 }}>
-                Open beheer →
+                Open admin →
               </Link>
             </div>
 
-            {/* Admin stats */}
             <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 16, marginBottom: 20 }}>
               {[
-                { label: "Totaal resorts", val: adminStats.totalResorts, color: "#60a5fa" },
-                { label: "Beoordeeld", val: adminStats.rated, color: "#34d399" },
-                { label: "Nog te doen", val: adminStats.unrated, color: "#f87171" },
+                { label: "Total resorts", val: adminStats.totalResorts, color: "#60a5fa" },
+                { label: "Rated", val: adminStats.rated, color: "#34d399" },
+                { label: "Pending", val: adminStats.unrated, color: "#f87171" },
               ].map(s => (
                 <div key={s.label} style={{ background: "rgba(255,255,255,.05)", borderRadius: 10, padding: "14px 18px", border: "1px solid rgba(255,255,255,.08)" }}>
                   <div style={{ fontSize: 24, fontWeight: 700, color: s.color }}>{s.val}</div>
@@ -112,10 +106,9 @@ export default async function DashboardPage() {
               ))}
             </div>
 
-            {/* Progress bar */}
             <div style={{ marginBottom: adminStats.rated > 0 ? 20 : 0 }}>
               <div style={{ display: "flex", justifyContent: "space-between", fontSize: 11, color: "rgba(255,255,255,.4)", marginBottom: 6 }}>
-                <span>Beoordelingsvoortgang</span>
+                <span>Rating progress</span>
                 <span>{Math.round((adminStats.rated / adminStats.totalResorts) * 100)}%</span>
               </div>
               <div style={{ height: 6, background: "rgba(255,255,255,.1)", borderRadius: 3 }}>
@@ -123,11 +116,10 @@ export default async function DashboardPage() {
               </div>
             </div>
 
-            {/* Recently rated resorts */}
             {lastRated.length > 0 && (
               <div>
                 <div style={{ fontSize: 11, color: "rgba(255,255,255,.4)", fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.5px", marginBottom: 10 }}>
-                  Recent beoordeeld
+                  Recently rated
                 </div>
                 <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
                   {lastRated.map(r => (
@@ -137,7 +129,7 @@ export default async function DashboardPage() {
                     </Link>
                   ))}
                   <Link href="/admin" style={{ fontSize: 12, color: "#6ee7b7", background: "transparent", border: "1px dashed rgba(110,231,183,.3)", padding: "4px 10px", borderRadius: 999, textDecoration: "none" }}>
-                    Alle resorts →
+                    All resorts →
                   </Link>
                 </div>
               </div>
@@ -145,33 +137,32 @@ export default async function DashboardPage() {
           </div>
         )}
 
-        {/* USER STATS */}
         <div style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 16, marginBottom: 28 }}>
           {[
             {
-              label: "Mijn reviews",
+              label: "My reviews",
               val: myReviews.length,
               icon: "⭐",
-              sub: myReviews.length > 0 ? `Gem. ${avgUserRating.toFixed(1)} / 5 ★` : "Schrijf je eerste review",
+              sub: myReviews.length > 0 ? `Avg. ${avgUserRating.toFixed(1)} / 5 ★` : "Write your first review",
               color: "#f59e0b",
             },
             {
               label: "Wishlist",
               val: 0,
               icon: "❤️",
-              sub: "Sla favoriete resorts op",
+              sub: "Save favourite resorts",
               color: "#ef4444",
             },
             {
-              label: "Bekeken resorts",
+              label: "Viewed resorts",
               val: 0,
               icon: "👁",
-              sub: "Binnenkort beschikbaar",
+              sub: "Coming soon",
               color: "#3b82f6",
             },
             {
-              label: "Profiel",
-              val: myReviews.length > 0 ? "Actief" : "Nieuw",
+              label: "Profile",
+              val: myReviews.length > 0 ? "Active" : "New",
               icon: "👤",
               sub: user.email,
               color: "#8b5cf6",
@@ -188,10 +179,9 @@ export default async function DashboardPage() {
 
         <div style={{ display: "grid", gridTemplateColumns: "2fr 1fr", gap: 24, alignItems: "start" }}>
           <div>
-            {/* MY REVIEWS */}
             <div style={{ background: "white", border: "1px solid var(--border)", borderRadius: "var(--r-lg)", padding: 24, marginBottom: 20 }}>
               <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 18 }}>
-                <h3 style={{ margin: 0 }}>Mijn beoordelingen</h3>
+                <h3 style={{ margin: 0 }}>My reviews</h3>
                 {myReviews.length > 0 && (
                   <span style={{ fontSize: 12, color: "var(--ink3)" }}>{myReviews.length} reviews</span>
                 )}
@@ -200,11 +190,11 @@ export default async function DashboardPage() {
               {myReviews.length === 0 ? (
                 <div style={{ textAlign: "center", padding: "28px 0" }}>
                   <div style={{ fontSize: 36, marginBottom: 10 }}>⭐</div>
-                  <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 6 }}>Nog geen reviews geschreven</div>
+                  <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 6 }}>No reviews written yet</div>
                   <p style={{ fontSize: 13, color: "var(--ink3)", marginBottom: 16 }}>
-                    Bezoek een resort-pagina en deel jouw ervaringen. Je helpt andere skiërs!
+                    Visit a resort page and share your experiences. Help other skiers!
                   </p>
-                  <Link href="/resorts" className="btn btn-primary">Kies een resort →</Link>
+                  <Link href="/resorts" className="btn btn-primary">Choose a resort →</Link>
                 </div>
               ) : (
                 <div>
@@ -233,7 +223,7 @@ export default async function DashboardPage() {
                           </div>
                           <div style={{ display: "flex", gap: 6, flexShrink: 0 }}>
                             <Link href={`/resort/${rv.resort.id}`} style={{ fontSize: 11, color: "var(--peak)", fontWeight: 600, textDecoration: "none" }}>
-                              Bewerken →
+                              Edit →
                             </Link>
                           </div>
                         </div>
@@ -242,7 +232,7 @@ export default async function DashboardPage() {
                   })}
                   <div style={{ marginTop: 16, paddingTop: 16, borderTop: "1px solid var(--border)", textAlign: "center" }}>
                     <Link href="/resorts" className="btn btn-outline" style={{ fontSize: 13 }}>
-                      Meer resorts beoordelen →
+                      Rate more resorts →
                     </Link>
                   </div>
                 </div>
@@ -250,9 +240,7 @@ export default async function DashboardPage() {
             </div>
           </div>
 
-          {/* SIDEBAR */}
           <div>
-            {/* PROFILE CARD */}
             <div style={{ background: "white", border: "1px solid var(--border)", borderRadius: "var(--r-lg)", padding: 20, marginBottom: 16 }}>
               <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 16 }}>
                 <div style={{ width: 44, height: 44, background: isAdmin ? "var(--peak-light)" : "#eff6ff", borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 20 }}>
@@ -265,9 +253,9 @@ export default async function DashboardPage() {
               </div>
               <div style={{ fontSize: 12, color: "var(--ink2)" }}>
                 {[
-                  ["Rol", isAdmin ? "⚙️ Super Admin" : "👤 Gebruiker"],
-                  ["Reviews", `${myReviews.length} geschreven`],
-                  ["Account", "Actief"],
+                  ["Role", isAdmin ? "⚙️ Super Admin" : "👤 User"],
+                  ["Reviews", `${myReviews.length} written`],
+                  ["Account", "Active"],
                 ].map(([k, v], i, arr) => (
                   <div key={k} style={{ display: "flex", justifyContent: "space-between", padding: "6px 0", borderBottom: i < arr.length - 1 ? "1px solid var(--border)" : "none" }}>
                     <span style={{ color: "var(--ink3)" }}>{k}</span>
@@ -277,18 +265,17 @@ export default async function DashboardPage() {
               </div>
               {isAdmin && (
                 <Link href="/admin" className="btn btn-primary" style={{ width: "100%", justifyContent: "center", marginTop: 14, fontSize: 13 }}>
-                  ⚙️ Open admin beheer
+                  ⚙️ Open admin panel
                 </Link>
               )}
             </div>
 
-            {/* RECOMMENDED RESORTS */}
             <div style={{ background: "white", border: "1px solid var(--border)", borderRadius: "var(--r-lg)", padding: 20 }}>
               <div style={{ fontSize: 13, fontWeight: 700, marginBottom: 14 }}>
-                {myReviews.length > 0 ? "Nog niet beoordeeld" : "Aanbevolen om te bekijken"}
+                {myReviews.length > 0 ? "Not yet rated" : "Recommended to explore"}
               </div>
               {recommended.length === 0 ? (
-                <p style={{ fontSize: 12, color: "var(--ink3)" }}>Je hebt al alle topresorts beoordeeld. Goed gedaan!</p>
+                <p style={{ fontSize: 12, color: "var(--ink3)" }}>You&apos;ve already rated all top resorts. Well done!</p>
               ) : (
                 recommended.map((r, idx) => (
                   <Link key={r.id} href={`/resort/${r.id}`} style={{ display: "flex", alignItems: "center", gap: 10, textDecoration: "none", padding: "8px 0", borderBottom: idx < recommended.length - 1 ? "1px solid var(--border)" : "none" }}>
@@ -307,7 +294,7 @@ export default async function DashboardPage() {
                 ))
               )}
               <Link href="/resorts" className="btn btn-ghost" style={{ width: "100%", justifyContent: "center", marginTop: 12, fontSize: 12 }}>
-                Alle resorts bekijken →
+                View all resorts →
               </Link>
             </div>
           </div>

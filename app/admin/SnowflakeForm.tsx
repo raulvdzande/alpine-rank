@@ -14,120 +14,120 @@ interface Props {
 
 const RUBRIC = {
   1: {
-    title: "❄ Één Snowflake",
-    subtitle: "Een uitzonderlijk resort dat opvalt in zijn categorie.",
+    title: "❄ One Snowflake",
+    subtitle: "An exceptional resort that stands out in its category.",
     sections: [
       {
-        label: "Piste & sneeuw (op de berg)",
+        label: "Piste & snow (on the mountain)",
         items: [
-          "Pisteverzorging: Worden pistes dagelijks geprepareerd? Geen kale plekken of randen?",
-          "Sneeuwdekking: Is de laag overal dik genoeg voor veilig skiën (min. 40 cm)?",
-          "Sneeuwkwaliteit: Consistent, niet ijs-achtig, aangenaam te skiën?",
-          "Markering: Alle pistes duidelijk gemarkeerd, ook in slechte zicht?",
+          "Piste grooming: Are pistes groomed daily? No bare patches or exposed edges?",
+          "Snow coverage: Is the layer thick enough everywhere for safe skiing (min. 40 cm)?",
+          "Snow quality: Consistent, not icy, pleasant to ski?",
+          "Marking: All pistes clearly marked, also in poor visibility?",
         ],
       },
       {
-        label: "Liften (ter plaatse getest)",
+        label: "Lifts (tested on-site)",
         items: [
-          "Wachttijden: Acceptabel (<20 min) ook tijdens drukke periodes?",
-          "Liftstaat: Gondels/stoeltjes schoon, onderhouden en functioneel?",
-          "Flow: Beweging door het skigebied soepel, zonder overbodige omwegen?",
+          "Wait times: Acceptable (<20 min) also during busy periods?",
+          "Lift condition: Gondolas/chairs clean, maintained and functional?",
+          "Flow: Movement through the ski area smooth, without unnecessary detours?",
         ],
       },
       {
-        label: "Gastronomie op de berg",
+        label: "Mountain gastronomy",
         items: [
-          "Kwaliteit: Minstens één berghut/restaurant dat de verwachtingen overtreft?",
-          "Bediening: Personeel attent en vriendelijk?",
+          "Quality: At least one mountain hut/restaurant that exceeds expectations?",
+          "Service: Staff attentive and friendly?",
         ],
       },
       {
-        label: "Sfeer & beleving",
+        label: "Atmosphere & experience",
         items: [
-          "Authenticiteit: Eigen, herkenbare sfeer — niet generiek/standaard?",
-          "Veiligheid: Bergpersoneel patrouillet regelmatig? EHBO aanwezig en zichtbaar?",
-          "Après-ski: Is er een goede après-ski mogelijkheid met sfeer?",
+          "Authenticity: Own, recognisable atmosphere — not generic/standard?",
+          "Safety: Mountain staff patrolling regularly? First aid present and visible?",
+          "Après-ski: Is there a good après-ski option with atmosphere?",
         ],
       },
     ],
   },
   2: {
-    title: "❄❄ Twee Snowflakes",
-    subtitle: "De reis speciaal naar dit resort waard. Elk aspect uitstekend.",
+    title: "❄❄ Two Snowflakes",
+    subtitle: "Worth a special trip to this resort. Every aspect excellent.",
     sections: [
       {
-        label: "Piste & sneeuw (op de berg) — bovenop ❄ vereisten",
+        label: "Piste & snow (on the mountain) — on top of ❄ requirements",
         items: [
-          "Dagelijkse verzorging: Pistes elke nacht opnieuw geprepareerd, ook bij weinig sneeuw?",
-          "Off-piste kwaliteit: Aantrekkelijk en toegankelijk terrein buiten de piste?",
-          "Sneeuwzekerheid: Kanonnen aanwezig en effectief ingezet bij tekort?",
-          "Terreinvariatie: Divers aanbod (groen/blauw/rood/zwart) elk uitstekend onderhouden?",
+          "Daily grooming: Pistes freshly prepared every night, even with little snow?",
+          "Off-piste quality: Attractive and accessible terrain outside the pistes?",
+          "Snow reliability: Snowmakers present and effectively deployed when needed?",
+          "Terrain variety: Diverse range (green/blue/red/black) all excellently maintained?",
         ],
       },
       {
-        label: "Liften (ter plaatse getest) — bovenop ❄ vereisten",
+        label: "Lifts (tested on-site) — on top of ❄ requirements",
         items: [
-          "Minimale wacht: Op drukke dagen max 10 minuten bij de hoofdliften?",
-          "Moderniteit: Liften nieuw/recent en comfortabel (cabineverwarming, windschermen)?",
-          "Verbinding: Intern goed verbonden — geen taxi/bus nodig om van piste naar piste?",
+          "Minimal wait: On busy days max 10 minutes at main lifts?",
+          "Modernity: Lifts new/recent and comfortable (heated cabins, wind shields)?",
+          "Connectivity: Well connected internally — no taxi/bus needed to move between pistes?",
         ],
       },
       {
-        label: "Gastronomie op de berg — bovenop ❄ vereisten",
+        label: "Mountain gastronomy — on top of ❄ requirements",
         items: [
-          "Meerdere kwaliteitsrestaurants: Minimaal 2-3 met onderscheidende keuken?",
-          "Uitzicht & inrichting: Minstens één met spectaculair uitzicht én bijzondere inrichting?",
-          "Prijsniveau: Kwaliteit de prijs waard — gasten bereid terug te keren puur voor het eten?",
+          "Multiple quality restaurants: At least 2-3 with distinctive cuisine?",
+          "View & decor: At least one with spectacular views and distinctive interior?",
+          "Value: Quality worth the price — guests willing to return purely for the food?",
         ],
       },
       {
-        label: "Sfeer & beleving — bovenop ❄ vereisten",
+        label: "Atmosphere & experience — on top of ❄ requirements",
         items: [
-          "Uniek kenmerk: Iets wat dit resort uniek maakt — nergens anders bestaat?",
-          "Dorpsbeleving: Dorpscentrum 's avonds levendig en de moeite waard om door te lopen?",
-          "Après-ski: Levendig, authentiek eigen karakter — niet generiek?",
-          "Gastvrijheid: Onthouden medewerkers namen? Gast proactief geholpen?",
+          "Unique feature: Something that makes this resort unique — doesn't exist anywhere else?",
+          "Village experience: Village centre lively in the evening and worth walking through?",
+          "Après-ski: Lively, authentically its own character — not generic?",
+          "Hospitality: Do staff remember names? Guest proactively helped?",
         ],
       },
     ],
   },
   3: {
-    title: "❄❄❄ Drie Snowflakes",
-    subtitle: "Een unieke, onvergelijkbare skiervaring. Een reis op zichzelf waard.",
+    title: "❄❄❄ Three Snowflakes",
+    subtitle: "A unique, unparalleled ski experience. A journey worth taking on its own.",
     sections: [
       {
-        label: "Piste & sneeuw (op de berg) — bovenop ❄❄ vereisten",
+        label: "Piste & snow (on the mountain) — on top of ❄❄ requirements",
         items: [
-          "Makeloos: Pistes elke ochtend alsof er vers is gevallen — ook zonder sneeuw?",
-          "Extreme off-piste: Freeride van wereldniveau, gidsen beschikbaar, veilig en spectaculair?",
-          "Seizoenzekerheid: Consistent uitzonderlijke omstandigheden het merendeel van het seizoen?",
-          "Exclusief terrein: Pistes of ervaringen die nergens anders ter wereld bestaan?",
+          "Immaculate: Pistes every morning as if fresh snow has fallen — even without new snow?",
+          "Extreme off-piste: World-class freeride, guides available, safe and spectacular?",
+          "Season reliability: Consistently exceptional conditions for the majority of the season?",
+          "Exclusive terrain: Pistes or experiences that don't exist anywhere else in the world?",
         ],
       },
       {
-        label: "Liften (ter plaatse getest) — bovenop ❄❄ vereisten",
+        label: "Lifts (tested on-site) — on top of ❄❄ requirements",
         items: [
-          "Vrijwel geen wacht: Zelfs op piekdagen <5 min bij alle hoofdliften?",
-          "Wereldklasse technologie: Behoort tot de meest moderne ter wereld (heated seats, wifi)?",
-          "Perfecte coverage: Geen enkel deel lastig bereikbaar of slecht verbonden?",
+          "Virtually no wait: Even on peak days <5 min at all main lifts?",
+          "World-class technology: Among the most modern in the world (heated seats, wifi)?",
+          "Perfect coverage: No part difficult to reach or poorly connected?",
         ],
       },
       {
-        label: "Gastronomie op de berg — bovenop ❄❄ vereisten",
+        label: "Mountain gastronomy — on top of ❄❄ requirements",
         items: [
-          "Restaurantniveau: Minstens één restaurant dat concurreert met sterrenzaken qua keuken, wijnkaart en service?",
-          "Totaalervaring eten: Lunchen op de berg is zelf een reden om naar dit resort te gaan?",
-          "Consistentie: Elke bergeetgelegenheid heeft kwaliteit — geen enkele teleurstelling?",
+          "Restaurant level: At least one restaurant competing with Michelin-starred venues in cuisine, wine list and service?",
+          "Total dining experience: Lunch on the mountain is itself a reason to visit this resort?",
+          "Consistency: Every mountain dining option has quality — not a single disappointment?",
         ],
       },
       {
-        label: "Sfeer & beleving — bovenop ❄❄ vereisten",
+        label: "Atmosphere & experience — on top of ❄❄ requirements",
         items: [
-          "Mythische status: Dit resort heeft een aura — voelt bijzonder vanaf het moment van aankomst?",
-          "Onvergelijkbare ervaring: Iets op dit resort dat je nergens anders ter wereld kunt vinden?",
-          "Personalisatie: Gasten behandeld als individuen — niet als nummers?",
-          "Après-ski van wereldniveau: Behoort tot de beste die je ooit hebt meegemaakt?",
-          "Totaalconcept: Van aankomst tot vertrek elk aspect doordacht en uitzonderlijk?",
+          "Mythical status: This resort has an aura — feels special from the moment of arrival?",
+          "Unparalleled experience: Something at this resort you cannot find anywhere else in the world?",
+          "Personalisation: Guests treated as individuals — not as numbers?",
+          "World-class après-ski: Among the best you have ever experienced?",
+          "Total concept: From arrival to departure every aspect considered and exceptional?",
         ],
       },
     ],
@@ -161,7 +161,7 @@ export default function SnowflakeForm({ resortId, resortName, currentSnowflakes,
       try {
         await setSnowflakes(resortId, selected, note, report);
       } catch (e) {
-        setError(e instanceof Error ? e.message : "Er ging iets mis");
+        setError(e instanceof Error ? e.message : "Something went wrong");
       }
     });
   }
@@ -190,16 +190,16 @@ export default function SnowflakeForm({ resortId, resortName, currentSnowflakes,
   return (
     <div>
       <div style={{ marginBottom: 20 }}>
-        <h2 style={{ fontSize: 16, fontWeight: 700, color: "white", marginBottom: 4 }}>PeakFlow Snowflakes toewijzen</h2>
+        <h2 style={{ fontSize: 16, fontWeight: 700, color: "white", marginBottom: 4 }}>Award PeakFlow Snowflakes</h2>
         <p style={{ fontSize: 13, color: "#64748b" }}>
-          Ken Snowflakes toe op basis van jouw fysieke bezoek aan {resortName}. De inspectierubriek hieronder helpt je bepalen welk niveau van toepassing is.
+          Award Snowflakes based on your physical visit to {resortName}. The inspection rubric below helps you determine which level applies.
         </p>
       </div>
 
       {/* Worldwide distribution */}
       <div style={{ background: "#1e293b", border: "1px solid #334155", borderRadius: 10, padding: "14px 18px", marginBottom: 20 }}>
         <div style={{ fontSize: 11, color: "#64748b", marginBottom: 8, textTransform: "uppercase" as const, letterSpacing: "0.5px" }}>
-          Mondiale Snowflake distributie ({worldCounts.total} resorts)
+          Global Snowflake distribution ({worldCounts.total} resorts)
         </div>
         <div style={{ display: "flex", gap: 20, flexWrap: "wrap" }}>
           {[
@@ -215,9 +215,9 @@ export default function SnowflakeForm({ resortId, resortName, currentSnowflakes,
         </div>
       </div>
 
-      {/* Inspectie-rubriek accordeon */}
+      {/* Inspection rubric accordion */}
       <div style={{ marginBottom: 20 }}>
-        <div style={{ fontSize: 13, color: "#94a3b8", fontWeight: 600, marginBottom: 10 }}>Inspectiecriteria (ter plaatse te beoordelen)</div>
+        <div style={{ fontSize: 13, color: "#94a3b8", fontWeight: 600, marginBottom: 10 }}>Inspection criteria (to be assessed on-site)</div>
         {([1, 2, 3] as const).map(n => (
           <div key={n} style={{ marginBottom: 6, border: "1px solid #334155", borderRadius: 8, overflow: "hidden" }}>
             <button
@@ -246,19 +246,19 @@ export default function SnowflakeForm({ resortId, resortName, currentSnowflakes,
         ))}
       </div>
 
-      {/* Tier-selector */}
+      {/* Tier selector */}
       <div style={{ marginBottom: 20 }}>
-        <div style={{ fontSize: 13, color: "#94a3b8", fontWeight: 600, marginBottom: 10 }}>Toe te kennen niveau</div>
+        <div style={{ fontSize: 13, color: "#94a3b8", fontWeight: 600, marginBottom: 10 }}>Level to award</div>
         <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
           {[
-            { n: 0, label: "Geen", sub: "Geen Snowflake" },
-            { n: 1, label: "❄", sub: "Één Snowflake" },
-            { n: 2, label: "❄❄", sub: "Twee Snowflakes" },
-            { n: 3, label: "❄❄❄", sub: "Drie Snowflakes" },
+            { n: 0, label: "None", sub: "No Snowflake" },
+            { n: 1, label: "❄", sub: "One Snowflake" },
+            { n: 2, label: "❄❄", sub: "Two Snowflakes" },
+            { n: 3, label: "❄❄❄", sub: "Three Snowflakes" },
           ].map(({ n, label, sub }) => {
             const isDisabled = (n === 2 && currentSnowflakes < 1) || (n === 3 && currentSnowflakes < 2);
-            const tooltip = n === 2 && currentSnowflakes < 1 ? "Vereist: resort heeft al ❄ nodig" :
-                           n === 3 && currentSnowflakes < 2 ? "Vereist: resort heeft al ❄❄ nodig" : undefined;
+            const tooltip = n === 2 && currentSnowflakes < 1 ? "Requires: resort must already have ❄" :
+                           n === 3 && currentSnowflakes < 2 ? "Requires: resort must already have ❄❄" : undefined;
             return (
               <button
                 key={n}
@@ -271,7 +271,7 @@ export default function SnowflakeForm({ resortId, resortName, currentSnowflakes,
                 <div style={{ fontSize: 11 }}>{sub}</div>
                 {n > 0 && currentSnowflakes < n && (
                   <div style={{ fontSize: 10, marginTop: 4, opacity: 0.6 }}>
-                    {n === 2 ? "Vereist ❄ eerst" : "Vereist ❄❄ eerst"}
+                    {n === 2 ? "Requires ❄ first" : "Requires ❄❄ first"}
                   </div>
                 )}
               </button>
@@ -286,45 +286,45 @@ export default function SnowflakeForm({ resortId, resortName, currentSnowflakes,
           {/* Citation */}
           <div style={{ marginBottom: 16 }}>
             <label style={{ display: "block", fontSize: 13, fontWeight: 600, color: "#94a3b8", marginBottom: 6 }}>
-              Publieke citation <span style={{ color: "#64748b", fontWeight: 400 }}>(zichtbaar in banner op resort-pagina)</span>
+              Public citation <span style={{ color: "#64748b", fontWeight: 400 }}>(visible in banner on resort page)</span>
             </label>
             <input
               type="text"
               value={note}
               onChange={e => setNote(e.target.value)}
               maxLength={150}
-              placeholder="Één krachtige zin die de essentie van de inspectie samenvat..."
+              placeholder="One powerful sentence that captures the essence of the inspection..."
               style={{ width: "100%", background: "#1e293b", border: `1px solid ${noteLen < 40 && noteLen > 0 ? "#ef4444" : "#334155"}`, borderRadius: 8, color: "white", padding: "10px 14px", fontSize: 13 }}
             />
             <div style={{ fontSize: 11, color: noteLen < 40 ? "#f87171" : "#64748b", marginTop: 4, textAlign: "right" }}>
-              {noteLen} / 40 minimaal (max 150)
+              {noteLen} / 40 minimum (max 150)
             </div>
           </div>
 
-          {/* Volledig rapport */}
+          {/* Full report */}
           <div>
             <label style={{ display: "block", fontSize: 13, fontWeight: 600, color: "#94a3b8", marginBottom: 6 }}>
-              Volledig inspectierapport <span style={{ color: "#64748b", fontWeight: 400 }}>(zichtbaar voor resort en alle bezoekers)</span>
+              Full inspection report <span style={{ color: "#64748b", fontWeight: 400 }}>(visible to resort and all visitors)</span>
             </label>
             <textarea
               value={report}
               onChange={e => setReport(e.target.value)}
-              placeholder="Schrijf een uitgebreid rapport van je bezoek. Beschrijf wat je hebt ervaren per categorie: piste & sneeuw, liften, gastronomie, sfeer. Geef aan wat uitstekend was, wat het resort onderscheidde, en waarom je dit niveau toekent (of nog niet). Dit rapport is volledig zichtbaar voor het resort en alle bezoekers."
+              placeholder="Write a comprehensive report of your visit. Describe what you experienced per category: piste & snow, lifts, gastronomy, atmosphere. State what was excellent, what set this resort apart, and why you award this level (or not yet). This report is fully visible to the resort and all visitors."
               rows={10}
               style={{ width: "100%", background: "#1e293b", border: `1px solid ${reportLen < 300 && reportLen > 0 ? "#ef4444" : "#334155"}`, borderRadius: 8, color: "white", padding: "12px 14px", fontSize: 13, resize: "vertical", minHeight: 220 }}
             />
             <div style={{ fontSize: 11, color: reportLen < 300 ? "#f87171" : "#64748b", marginTop: 4, textAlign: "right" }}>
-              {reportLen} / 300 minimaal vereist
+              {reportLen} / 300 minimum required
             </div>
           </div>
         </div>
       )}
 
-      {/* Verlaging bevestiging */}
+      {/* Downgrade confirmation */}
       {isLowering && (
         <div style={{ background: "rgba(239,68,68,.1)", border: "1px solid rgba(239,68,68,.3)", borderRadius: 10, padding: "16px 18px", marginBottom: 16 }}>
           <div style={{ fontSize: 13, fontWeight: 600, color: "#f87171", marginBottom: 10 }}>
-            ⚠ Je verlaagt dit resort van {currentSnowflakes} naar {selected} Snowflake(s). Typ de naam van het resort ter bevestiging:
+            ⚠ You are lowering this resort from {currentSnowflakes} to {selected} Snowflake(s). Type the name of the resort to confirm:
           </div>
           <input
             type="text"
@@ -336,21 +336,21 @@ export default function SnowflakeForm({ resortId, resortName, currentSnowflakes,
         </div>
       )}
 
-      {/* 3-Snowflake extra bevestiging */}
+      {/* 3-Snowflake extra confirmation */}
       {isThree && !isLowering && (
         <div style={{ background: "rgba(245,158,11,.08)", border: "1px solid rgba(245,158,11,.3)", borderRadius: 10, padding: "16px 18px", marginBottom: 16 }}>
           <div style={{ fontSize: 13, fontWeight: 600, color: "#fbbf24", marginBottom: 12 }}>
-            ❄❄❄ Drie Snowflakes is de hoogste onderscheiding. Bevestig je oordeel:
+            ❄❄❄ Three Snowflakes is the highest distinction. Confirm your verdict:
           </div>
           <label style={{ display: "flex", gap: 10, alignItems: "flex-start", marginBottom: 10, cursor: "pointer", fontSize: 13, color: "#94a3b8" }}>
             <input type="checkbox" checked={confirmCheck1} onChange={e => setConfirmCheck1(e.target.checked)} style={{ marginTop: 2 }} />
-            Ik bevestig dat dit resort in alle categorieën uitstekend scoort en nul zwakke punten heeft
+            I confirm that this resort scores excellent in all categories and has zero weak points
           </label>
           <label style={{ display: "flex", gap: 10, alignItems: "flex-start", marginBottom: 12, cursor: "pointer", fontSize: 13, color: "#94a3b8" }}>
             <input type="checkbox" checked={confirmCheck2} onChange={e => setConfirmCheck2(e.target.checked)} style={{ marginTop: 2 }} />
-            Ik bevestig dat dit resort een onvergelijkbare ervaring biedt die nergens anders ter wereld bestaat
+            I confirm that this resort offers an unparalleled experience that exists nowhere else in the world
           </label>
-          <div style={{ fontSize: 12, color: "#64748b", marginBottom: 8 }}>Typ de naam van het resort ter bevestiging:</div>
+          <div style={{ fontSize: 12, color: "#64748b", marginBottom: 8 }}>Type the name of the resort to confirm:</div>
           <input
             type="text"
             value={confirmName}
@@ -384,12 +384,12 @@ export default function SnowflakeForm({ resortId, resortName, currentSnowflakes,
           letterSpacing: "0.3px",
         }}
       >
-        {saving ? "⏳ Opslaan..." : selected === 0 ? "Snowflakes verwijderen" : `❄${"❄".repeat(selected - 1)} ${selected} Snowflake${selected > 1 ? "s" : ""} toekennen`}
+        {saving ? "⏳ Saving..." : selected === 0 ? "Remove snowflakes" : `❄${"❄".repeat(selected - 1)} Award ${selected} Snowflake${selected > 1 ? "s" : ""}`}
       </button>
 
       {currentSnowflakes > 0 && (
         <div style={{ marginTop: 12, fontSize: 12, color: "#64748b", textAlign: "center" }}>
-          Huidige status: {currentSnowflakes} Snowflake{currentSnowflakes > 1 ? "s" : ""} · Toegekend op {new Date().toLocaleDateString("nl-NL")}
+          Current status: {currentSnowflakes} Snowflake{currentSnowflakes > 1 ? "s" : ""} · Awarded on {new Date().toLocaleDateString("en-GB")}
         </div>
       )}
     </div>

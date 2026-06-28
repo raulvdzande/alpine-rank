@@ -4,9 +4,9 @@ import Nav from "./components/Nav";
 import Footer from "./components/Footer";
 
 export const metadata: Metadata = {
-  title: "PeakFlow — De rankings die skiërs vertrouwen",
+  title: "PeakFlow — The rankings skiers trust",
   description:
-    "Vergelijk 2.000+ skigebieden op sneeuwkwaliteit, pistekm, niveau en prijs. Vind het perfecte resort met AI — in 10 seconden.",
+    "Compare 2,000+ ski resorts on snow quality, piste km, level and price. Find your perfect resort with AI — in 10 seconds.",
 };
 
 export default function RootLayout({
@@ -15,7 +15,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="nl">
+    <html lang="en">
       <body suppressHydrationWarning>
         <Nav />
         {children}

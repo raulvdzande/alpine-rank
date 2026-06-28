@@ -4,16 +4,16 @@ import { countryNL, countryFlag, toFiveStars, stars, gradientFor, emojiFor } fro
 
 export const metadata = {
   title: "Rankings — PeakFlow",
-  description: "Skigebieden gerankt op sneeuwzekerheid, niveau, prijs en meer",
+  description: "Ski resorts ranked by snow certainty, level, price and more",
 };
 
 const CATEGORIES = [
-  { slug: "alpen", label: "🏔 Alpen", desc: "Top skigebieden in de Alpen" },
-  { slug: "beginners", label: "🟢 Beginners", desc: "Perfect voor beginnende skiërs" },
-  { slug: "familie", label: "👨‍👩‍👧 Familie", desc: "Ideaal voor families met kinderen" },
-  { slug: "expert", label: "⚫ Expert", desc: "Uitdagende terreinen voor experts" },
-  { slug: "budget", label: "💰 Budget", desc: "Beste prijs-kwaliteit verhouding" },
-  { slug: "sneeuw", label: "❄ Sneeuw", desc: "Hoogste sneeuwzekerheid" },
+  { slug: "alpen", label: "🏔 Alps", desc: "Top ski resorts in the Alps" },
+  { slug: "beginners", label: "🟢 Beginners", desc: "Perfect for beginner skiers" },
+  { slug: "familie", label: "👨‍👩‍👧 Family", desc: "Ideal for families with children" },
+  { slug: "expert", label: "⚫ Expert", desc: "Challenging terrain for experts" },
+  { slug: "budget", label: "💰 Budget", desc: "Best value for money" },
+  { slug: "sneeuw", label: "❄ Snow", desc: "Highest snow certainty" },
 ];
 
 export default async function RankingsPage() {
@@ -27,9 +27,9 @@ export default async function RankingsPage() {
     <section className="section">
       <div className="container">
         <span className="label">Rankings</span>
-        <h2>Gerankt door PeakFlow</h2>
+        <h2>Ranked by PeakFlow</h2>
         <p style={{ fontSize: 16, color: "var(--ink2)", marginBottom: 48 }}>
-          Verkend onze curated rankings op sneeuwzekerheid, niveau, familie-vriendelijkheid en meer
+          Explore our curated rankings by snow certainty, level, family-friendliness and more
         </p>
 
         <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 24, marginBottom: 60 }} className="responsive-grid">
@@ -62,7 +62,7 @@ export default async function RankingsPage() {
               </div>
               <div style={{ fontSize: 13, color: "var(--ink3)" }}>{cat.desc}</div>
               <div style={{ fontSize: 13, color: "var(--peak)", fontWeight: 600, marginTop: 16 }}>
-                Bekijk ranking →
+                View ranking →
               </div>
             </Link>
           ))}
@@ -71,7 +71,7 @@ export default async function RankingsPage() {
         {topSnow.length > 0 && (
           <>
             <div style={{ marginBottom: 32 }}>
-              <h3 style={{ marginBottom: 20 }}>🌟 Sneeuwzekerheid Top 3</h3>
+              <h3 style={{ marginBottom: 20 }}>🌟 Snow certainty top 3</h3>
               <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 20 }} className="responsive-grid">
                 {topSnow.map((r, i) => (
                   <Link
@@ -110,7 +110,7 @@ export default async function RankingsPage() {
                     </div>
                     <div style={{ padding: 20 }}>
                       <div style={{ fontSize: 12, fontWeight: 700, color: "var(--peak)", marginBottom: 6 }}>
-                        #{i + 1} SNEEUW
+                        #{i + 1} SNOW
                       </div>
                       <div style={{ fontSize: 16, fontWeight: 700, marginBottom: 8, color: "var(--ink)" }}>
                         {r.name}

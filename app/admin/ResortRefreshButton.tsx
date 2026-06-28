@@ -41,7 +41,7 @@ export default function ResortRefreshButton() {
       }
 
       const reader = res.body?.getReader();
-      if (!reader) { setStatus("error"); setErrorMsg("Geen response body"); return; }
+      if (!reader) { setStatus("error"); setErrorMsg("No response body"); return; }
 
       const decoder = new TextDecoder();
       let buffer = "";
@@ -68,7 +68,7 @@ export default function ResortRefreshButton() {
 
       setStatus("done");
     } catch (err) {
-      setErrorMsg(err instanceof Error ? err.message : "Onbekende fout");
+      setErrorMsg(err instanceof Error ? err.message : "Unknown error");
       setStatus("error");
     }
   }
@@ -96,14 +96,14 @@ export default function ResortRefreshButton() {
             gap: 8,
           }}
         >
-          ↻ Data vernieuwen
+          ↻ Refresh data
         </button>
       )}
 
       {status === "running" && (
         <div style={{ background: "#1e293b", border: "1px solid #334155", borderRadius: 10, padding: "14px 18px", minWidth: 320 }}>
           <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 8 }}>
-            <span style={{ fontSize: 13, color: "#94a3b8", fontWeight: 600 }}>Data vernieuwen...</span>
+            <span style={{ fontSize: 13, color: "#94a3b8", fontWeight: 600 }}>Refreshing data...</span>
             <span style={{ fontSize: 13, color: "#60a5fa", fontWeight: 700 }}>{pct}%</span>
           </div>
           <div style={{ background: "#0f172a", borderRadius: 6, height: 8, overflow: "hidden" }}>
@@ -117,13 +117,13 @@ export default function ResortRefreshButton() {
                 <>
                   {progress.processed} / {progress.total}
                   {" · "}
-                  <span style={{ color: "#a78bfa" }}>+{progress.added ?? 0} nieuw</span>
+                  <span style={{ color: "#a78bfa" }}>+{progress.added ?? 0} new</span>
                   {" · "}
                   <span style={{ color: "#34d399" }}>⛷ {progress.statsUpdated ?? 0}</span>
                   {" · "}
                   <span style={{ color: "#60a5fa" }}>❄ {progress.conditionsUpdated ?? 0}</span>
                   {(progress.errors ?? 0) > 0 && (
-                    <>{" · "}<span style={{ color: "#f87171" }}>{progress.errors} fouten</span></>
+                    <>{" · "}<span style={{ color: "#f87171" }}>{progress.errors} errors</span></>
                   )}
                 </>
               )}
@@ -136,15 +136,15 @@ export default function ResortRefreshButton() {
         <div style={{ background: "#064e3b", border: "1px solid #065f46", borderRadius: 10, padding: "14px 18px", display: "flex", alignItems: "center", gap: 16 }}>
           <span style={{ fontSize: 18 }}>✓</span>
           <div style={{ fontSize: 13, color: "#6ee7b7" }}>
-            <strong>Klaar!</strong>{" "}
-            +{progress.added ?? 0} nieuw · ⛷ {progress.statsUpdated ?? 0} stats · ❄ {progress.conditionsUpdated ?? 0} sneeuw
-            {(progress.errors ?? 0) > 0 && <> · <span style={{ color: "#fca5a5" }}>{progress.errors} fouten</span></>}
+            <strong>Done!</strong>{" "}
+            +{progress.added ?? 0} new · ⛷ {progress.statsUpdated ?? 0} stats · ❄ {progress.conditionsUpdated ?? 0} snow
+            {(progress.errors ?? 0) > 0 && <> · <span style={{ color: "#fca5a5" }}>{progress.errors} errors</span></>}
           </div>
           <button
             onClick={() => window.location.reload()}
             style={{ background: "#059669", color: "white", border: "none", borderRadius: 7, padding: "7px 14px", fontSize: 12, fontWeight: 600, cursor: "pointer", marginLeft: "auto" }}
           >
-            Pagina herladen
+            Reload page
           </button>
         </div>
       )}
@@ -153,14 +153,14 @@ export default function ResortRefreshButton() {
         <div style={{ background: "#450a0a", border: "1px solid #7f1d1d", borderRadius: 10, padding: "14px 18px", display: "flex", alignItems: "center", gap: 12 }}>
           <span style={{ fontSize: 18 }}>✕</span>
           <div>
-            <div style={{ fontSize: 13, color: "#fca5a5", fontWeight: 600 }}>Fout bij vernieuwen</div>
+            <div style={{ fontSize: 13, color: "#fca5a5", fontWeight: 600 }}>Error refreshing data</div>
             <div style={{ fontSize: 12, color: "#f87171", marginTop: 2 }}>{errorMsg}</div>
           </div>
           <button
             onClick={() => setStatus("idle")}
             style={{ background: "#7f1d1d", color: "#fca5a5", border: "none", borderRadius: 7, padding: "7px 14px", fontSize: 12, fontWeight: 600, cursor: "pointer", marginLeft: "auto" }}
           >
-            Opnieuw
+            Try again
           </button>
         </div>
       )}

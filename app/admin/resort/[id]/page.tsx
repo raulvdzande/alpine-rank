@@ -36,13 +36,13 @@ export default async function AdminResortPage({ params }: { params: Promise<{ id
       {/* Breadcrumb */}
       <div style={{ marginBottom: 24, display: "flex", alignItems: "center", gap: 16 }}>
         <Link href="/admin" style={{ fontSize: 13, color: "#64748b", textDecoration: "none" }}>
-          ← Terug naar overzicht
+          ← Back to overview
         </Link>
         <Link
           href={`/admin/resort/${id}/data`}
           style={{ fontSize: 13, color: "#93c5fd", textDecoration: "none", background: "rgba(96,165,250,.1)", border: "1px solid rgba(96,165,250,.2)", borderRadius: 6, padding: "5px 12px" }}
         >
-          ✏️ Data bewerken
+          ✏️ Edit data
         </Link>
       </div>
 
@@ -65,9 +65,9 @@ export default async function AdminResortPage({ params }: { params: Promise<{ id
           <div style={{ display: "flex", gap: 16, flexWrap: "wrap" }}>
             {[
               { v: resort.pisteKm ? `${resort.pisteKm} km` : "—", l: "piste" },
-              { v: resort.lifts ? `${resort.lifts}` : "—", l: "liften" },
-              { v: resort.snowScore ? `${resort.snowScore.toFixed(1)}/10` : "—", l: "sneeuwscore" },
-              { v: resort.dayPassPrice ? `€${resort.dayPassPrice}` : "—", l: "dagkaart" },
+              { v: resort.lifts ? `${resort.lifts}` : "—", l: "lifts" },
+              { v: resort.snowScore ? `${resort.snowScore.toFixed(1)}/10` : "—", l: "snow score" },
+              { v: resort.dayPassPrice ? `€${resort.dayPassPrice}` : "—", l: "day pass" },
             ].map(s => (
               <div key={s.l} style={{ fontSize: 13, color: "rgba(255,255,255,.6)" }}>
                 <span style={{ fontWeight: 600, color: "white" }}>{s.v}</span> {s.l}
@@ -78,15 +78,15 @@ export default async function AdminResortPage({ params }: { params: Promise<{ id
         <div style={{ textAlign: "right" }}>
           {hasRating ? (
             <div>
-              <div style={{ fontSize: 11, color: "rgba(255,255,255,.4)", marginBottom: 4 }}>Huidige beoordeling</div>
+              <div style={{ fontSize: 11, color: "rgba(255,255,255,.4)", marginBottom: 4 }}>Current rating</div>
               <div style={{ fontSize: 28, fontWeight: 700, color: "#fbbf24" }}>
                 ★ {toFiveStars(resort.averageOverallRating).toFixed(2)}
               </div>
-              <div style={{ fontSize: 11, color: "#34d399", marginTop: 4 }}>✓ Beoordeeld</div>
+              <div style={{ fontSize: 11, color: "#34d399", marginTop: 4 }}>✓ Rated</div>
             </div>
           ) : (
             <div>
-              <div style={{ fontSize: 11, color: "#f87171", marginBottom: 4 }}>○ Nog geen beoordeling</div>
+              <div style={{ fontSize: 11, color: "#f87171", marginBottom: 4 }}>○ Not yet rated</div>
             </div>
           )}
         </div>
@@ -96,10 +96,10 @@ export default async function AdminResortPage({ params }: { params: Promise<{ id
       <div style={{ maxWidth: 700 }}>
         <div style={{ marginBottom: 20 }}>
           <h2 style={{ fontSize: 16, fontWeight: 700, color: "white", margin: 0, marginBottom: 4 }}>
-            {hasRating ? "Beoordeling bewerken" : "Beoordeling instellen"}
+            {hasRating ? "Edit rating" : "Set rating"}
           </h2>
           <p style={{ fontSize: 13, color: "#64748b", margin: 0 }}>
-            Scoor elk aspect van dit skigebied van 0 tot 10. De totale PeakFlow-score wordt automatisch berekend.
+            Score each aspect of this ski resort from 0 to 10. The total PeakFlow score is calculated automatically.
           </p>
         </div>
 

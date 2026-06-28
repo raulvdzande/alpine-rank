@@ -18,7 +18,6 @@ export default function MatcherPage() {
     setState("loading");
     startTransition(async () => {
       const r = await findMatches({ level, budgetPerDay, tripDays, preference });
-      // small delay so the "Analyseren..." state is visible
       setTimeout(() => {
         setResults(r);
         setState("done");
@@ -31,23 +30,23 @@ export default function MatcherPage() {
       <div className="container" style={{ width: "100%" }}>
         <div style={{ maxWidth: 680, margin: "0 auto" }}>
           <span className="label" style={{ textAlign: "center", display: "block" }}>AI Resort Matcher</span>
-          <h2 style={{ textAlign: "center", marginBottom: 8 }}>Vertel ons wat je zoekt</h2>
-          <p style={{ textAlign: "center", marginBottom: 0 }}>Wij vinden jouw perfecte skigebied in 10 seconden.</p>
+          <h2 style={{ textAlign: "center", marginBottom: 8 }}>Tell us what you&apos;re looking for</h2>
+          <p style={{ textAlign: "center", marginBottom: 0 }}>We&apos;ll find your perfect ski resort in 10 seconds.</p>
           <div className="ai-widget">
             <span className="ai-label">✨ PeakFlow AI — Powered by Claude</span>
-            <div className="ai-title">Wat zoek jij dit seizoen?</div>
+            <div className="ai-title">What are you looking for this season?</div>
             <div className="ai-inputs">
               <div className="ai-input-group">
-                <label>Jouw ski-niveau</label>
+                <label>Your ski level</label>
                 <select value={level} onChange={(e) => setLevel(e.target.value)}>
-                  <option value="beginner">🟢 Beginner (1-2 jaar)</option>
-                  <option value="gevorderd">🔵 Gevorderd (3-6 jaar)</option>
-                  <option value="expert">🔴 Expert (7+ jaar)</option>
+                  <option value="beginner">🟢 Beginner (1-2 years)</option>
+                  <option value="gevorderd">🔵 Intermediate (3-6 years)</option>
+                  <option value="expert">🔴 Expert (7+ years)</option>
                   <option value="freeride">⚫ Freeride / off-piste</option>
                 </select>
               </div>
               <div className="ai-input-group">
-                <label>Budget per dag (dagkaart)</label>
+                <label>Budget per day (day pass)</label>
                 <input
                   type="range"
                   min="20"
@@ -57,26 +56,26 @@ export default function MatcherPage() {
                   style={{ width: "100%", cursor: "pointer" }}
                 />
                 <div style={{ textAlign: "center", marginTop: 8, fontSize: 13, color: "var(--ink3)" }}>
-                  €{budgetPerDay} per dag
+                  €{budgetPerDay} per day
                 </div>
               </div>
               <div className="ai-input-group">
-                <label>Trip duur</label>
+                <label>Trip duration</label>
                 <select value={tripDays} onChange={(e) => setTripDays(parseInt(e.target.value))}>
-                  <option value={1}>1 dag</option>
-                  <option value={3}>Weekend (3 dagen)</option>
-                  <option value={7}>Week (7 dagen)</option>
-                  <option value={14}>2 weken</option>
+                  <option value={1}>1 day</option>
+                  <option value={3}>Weekend (3 days)</option>
+                  <option value={7}>Week (7 days)</option>
+                  <option value={14}>2 weeks</option>
                 </select>
               </div>
               <div className="ai-input-group">
-                <label>Prioriteit</label>
+                <label>Priority</label>
                 <select value={preference} onChange={(e) => setPreference(e.target.value)}>
-                  <option value="pistes">Pistekm</option>
-                  <option value="powder">Poeder/sneeuw</option>
-                  <option value="park">Snowpark</option>
-                  <option value="apres">Apres-ski</option>
-                  <option value="family">Familie-vriendelijk</option>
+                  <option value="pistes">Piste km</option>
+                  <option value="powder">Powder / snow</option>
+                  <option value="park">Snow park</option>
+                  <option value="apres">Après-ski</option>
+                  <option value="family">Family-friendly</option>
                 </select>
               </div>
             </div>
@@ -86,19 +85,19 @@ export default function MatcherPage() {
               onClick={runMatcher}
               disabled={state === "loading"}
             >
-              {state === "idle" && "🤖 Vind mijn perfecte resort →"}
-              {state === "loading" && "🤖 Analyseren..."}
-              {state === "done" && "✓ Klaar — zie jouw top 5 resorts"}
+              {state === "idle" && "🤖 Find my perfect resort →"}
+              {state === "loading" && "🤖 Analysing..."}
+              {state === "done" && "✓ Done — see your top 5 resorts"}
             </button>
 
             {state === "done" && (
               <div className="ai-results">
                 <div className="ai-result-label">
                   <span>✓</span>
-                  <span>Top aanbevelingen voor jou</span>
+                  <span>Top recommendations for you</span>
                 </div>
                 {results.length === 0 && (
-                  <p style={{ fontSize: 13, color: "rgba(255,255,255,.6)", padding: "8px 0" }}>Geen resorts gevonden — probeer een ander filter.</p>
+                  <p style={{ fontSize: 13, color: "rgba(255,255,255,.6)", padding: "8px 0" }}>No resorts found — try a different filter.</p>
                 )}
                 {results.map((res) => (
                   <Link href={res.slug ? `/resorts/${res.slug}` : `/resort/${res.id}`} className="ai-result-row" key={res.id} style={{ color: "inherit" }}>
@@ -111,13 +110,13 @@ export default function MatcherPage() {
                   </Link>
                 ))}
                 <div style={{ marginTop: 16, textAlign: "center" }}>
-                  <span style={{ fontSize: 12, color: "rgba(255,255,255,.5)" }}>Maak een gratis account aan voor alle details, sneeuwscores en vergelijker →</span>
+                  <span style={{ fontSize: 12, color: "rgba(255,255,255,.5)" }}>Create a free account for full details, snow scores and comparisons →</span>
                 </div>
               </div>
             )}
           </div>
           <div style={{ textAlign: "center", marginTop: 16 }}>
-            <Link href="/" className="btn btn-ghost">← Terug naar home</Link>
+            <Link href="/" className="btn btn-ghost">← Back to home</Link>
           </div>
         </div>
       </div>

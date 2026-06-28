@@ -3,8 +3,8 @@ import { prisma } from "@/lib/prisma";
 import { countryNL, countryFlag, toFiveStars, stars, fmtNumber } from "@/lib/display";
 
 export const metadata = {
-  title: "Resort Vergelijker — PeakFlow",
-  description: "Vergelijk tot 4 skigebieden naast elkaar op alle criteria",
+  title: "Resort Comparator — PeakFlow",
+  description: "Compare up to 4 ski resorts side by side on all criteria",
 };
 
 interface CompareParams {
@@ -25,19 +25,19 @@ export default async function ComparePage({ searchParams }: { searchParams?: Pro
   const sortedResorts = ids.map(id => resorts.find(r => r.id === id)).filter(Boolean);
 
   const criteria = [
-    { key: "country", label: "Land", format: (r: any) => `${countryFlag(r.Country)} ${countryNL(r.Country)}` },
-    { key: "region", label: "Regio", format: (r: any) => r.region ?? "—" },
-    { key: "altitudeTop", label: "Hoogte top", format: (r: any) => `${fmtNumber(r.altitudeTop ?? 0)} m` },
-    { key: "altitudeBase", label: "Hoogte basis", format: (r: any) => `${fmtNumber(r.altitudeBase ?? 0)} m` },
-    { key: "pisteKm", label: "Totaal km", format: (r: any) => `${r.pisteKm ?? "—"} km` },
-    { key: "pisteGreen", label: "Groen %", format: (r: any) => `${r.pisteGreen ?? "—"}%` },
-    { key: "pisteBlue", label: "Blauw %", format: (r: any) => `${r.pisteBlue ?? "—"}%` },
-    { key: "pisteRed", label: "Rood %", format: (r: any) => `${r.pisteRed ?? "—"}%` },
-    { key: "pisteBlack", label: "Zwart %", format: (r: any) => `${r.pisteBlack ?? "—"}%` },
-    { key: "lifts", label: "Liften", format: (r: any) => `${r.lifts ?? "—"} installaties` },
-    { key: "dayPassPrice", label: "Dagkaart volwassene", format: (r: any) => `€${r.dayPassPrice ?? "—"}` },
-    { key: "snowpark", label: "Snowpark", format: (r: any) => r.snowpark ? "Ja" : "Nee" },
-    { key: "snowScore", label: "Sneeuwscore", format: (r: any) => `${r.snowScore?.toFixed(1) ?? "—"} / 10` },
+    { key: "country", label: "Country", format: (r: any) => `${countryFlag(r.Country)} ${countryNL(r.Country)}` },
+    { key: "region", label: "Region", format: (r: any) => r.region ?? "—" },
+    { key: "altitudeTop", label: "Top altitude", format: (r: any) => `${fmtNumber(r.altitudeTop ?? 0)} m` },
+    { key: "altitudeBase", label: "Base altitude", format: (r: any) => `${fmtNumber(r.altitudeBase ?? 0)} m` },
+    { key: "pisteKm", label: "Total km", format: (r: any) => `${r.pisteKm ?? "—"} km` },
+    { key: "pisteGreen", label: "Green %", format: (r: any) => `${r.pisteGreen ?? "—"}%` },
+    { key: "pisteBlue", label: "Blue %", format: (r: any) => `${r.pisteBlue ?? "—"}%` },
+    { key: "pisteRed", label: "Red %", format: (r: any) => `${r.pisteRed ?? "—"}%` },
+    { key: "pisteBlack", label: "Black %", format: (r: any) => `${r.pisteBlack ?? "—"}%` },
+    { key: "lifts", label: "Lifts", format: (r: any) => `${r.lifts ?? "—"} installations` },
+    { key: "dayPassPrice", label: "Adult day pass", format: (r: any) => `€${r.dayPassPrice ?? "—"}` },
+    { key: "snowpark", label: "Snow park", format: (r: any) => r.snowpark ? "Yes" : "No" },
+    { key: "snowScore", label: "Snow score", format: (r: any) => `${r.snowScore?.toFixed(1) ?? "—"} / 10` },
     { key: "snowflakes", label: "Snowflakes", format: (r: any) => "❄".repeat(r.snowflakes) || "—" },
     { key: "rating", label: "Rating", format: (r: any) => (r.averageOverallRating ?? 0) > 0 ? `${toFiveStars(r.averageOverallRating).toFixed(1)} ⭐` : "—" },
   ];
@@ -46,21 +46,21 @@ export default async function ComparePage({ searchParams }: { searchParams?: Pro
     <section className="section">
       <div className="container">
         <div style={{ marginBottom: 40 }}>
-          <span className="label">Vergelijker</span>
-          <h2 style={{ marginBottom: 12 }}>Vergelijk skigebieden</h2>
+          <span className="label">Comparator</span>
+          <h2 style={{ marginBottom: 12 }}>Compare ski resorts</h2>
           <p style={{ color: "var(--ink2)", fontSize: 16, marginBottom: 24 }}>
-            Selecteer tot 4 resorts om ze naast elkaar te vergelijken op alle criteria
+            Select up to 4 resorts to compare them side by side on all criteria
           </p>
         </div>
 
         {ids.length === 0 ? (
           <div style={{ textAlign: "center", padding: "60px 0" }}>
             <div style={{ fontSize: 48, marginBottom: 16 }}>🔍</div>
-            <h3 style={{ marginBottom: 10 }}>Geen resorts geselecteerd</h3>
+            <h3 style={{ marginBottom: 10 }}>No resorts selected</h3>
             <p style={{ color: "var(--ink3)", marginBottom: 24 }}>
-              Ga naar de <Link href="/resorts" style={{ color: "var(--peak)", textDecoration: "underline" }}>resort listing</Link> en selecteer resorts om te vergelijken
+              Go to the <Link href="/resorts" style={{ color: "var(--peak)", textDecoration: "underline" }}>resort listing</Link> and select resorts to compare
             </p>
-            <Link href="/resorts" className="btn btn-primary btn-lg">Ga naar resorts →</Link>
+            <Link href="/resorts" className="btn btn-primary btn-lg">Go to resorts →</Link>
           </div>
         ) : (
           <>
@@ -73,7 +73,7 @@ export default async function ComparePage({ searchParams }: { searchParams?: Pro
               }}>
                 <thead>
                   <tr style={{ borderBottom: "2px solid var(--border)" }}>
-                    <th style={{ textAlign: "left", padding: "16px 0", fontWeight: 700, minWidth: 160 }}>Criterium</th>
+                    <th style={{ textAlign: "left", padding: "16px 0", fontWeight: 700, minWidth: 160 }}>Criterion</th>
                     {sortedResorts.map(r => (
                       <th key={r!.id} style={{ padding: "16px 12px", textAlign: "center", minWidth: 200 }}>
                         <Link href={r!.slug ? `/resorts/${r!.slug}` : `/resort/${r!.id}`} style={{ fontWeight: 700, color: "var(--peak)", textDecoration: "underline" }}>
@@ -99,7 +99,7 @@ export default async function ComparePage({ searchParams }: { searchParams?: Pro
             </div>
 
             <div style={{ textAlign: "center" }}>
-              <Link href="/resorts" className="btn btn-primary btn-lg">← Terug naar resorts</Link>
+              <Link href="/resorts" className="btn btn-primary btn-lg">← Back to resorts</Link>
             </div>
           </>
         )}

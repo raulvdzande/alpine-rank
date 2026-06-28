@@ -34,23 +34,23 @@ export default async function SubscriptionsPage() {
     <section style={{ padding: "40px 20px" }}>
       <div style={{ maxWidth: 1200, margin: "0 auto" }}>
         <Link href="/admin" style={{ fontSize: 13, color: "var(--peak)", marginBottom: 20, display: "inline-block" }}>
-          ← Terug naar Admin
+          ← Back to Admin
         </Link>
 
         <h1 style={{ marginBottom: 8 }}>Subscriptions</h1>
         <p style={{ color: "var(--ink2)", marginBottom: 32 }}>
-          {subscriptions.length} betalingen ontvangen
+          {subscriptions.length} payments received
         </p>
 
         {/* Stats */}
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))", gap: 16, marginBottom: 40 }}>
           <div style={{ background: "white", border: "1px solid var(--border)", borderRadius: 8, padding: 16 }}>
             <div style={{ fontSize: 24, fontWeight: 800, color: "var(--peak)" }}>{stats.total}</div>
-            <div style={{ fontSize: 12, color: "var(--ink3)" }}>Totaal</div>
+            <div style={{ fontSize: 12, color: "var(--ink3)" }}>Total</div>
           </div>
           <div style={{ background: "#dcfce7", border: "1px solid #86efac", borderRadius: 8, padding: 16 }}>
             <div style={{ fontSize: 24, fontWeight: 800, color: "#166534" }}>{stats.active}</div>
-            <div style={{ fontSize: 12, color: "#4d7c0f" }}>Actief</div>
+            <div style={{ fontSize: 12, color: "#4d7c0f" }}>Active</div>
           </div>
           <div style={{ background: "#fef3c7", border: "1px solid #fcd34d", borderRadius: 8, padding: 16 }}>
             <div style={{ fontSize: 24, fontWeight: 800, color: "#b45309" }}>{stats.trialing}</div>
@@ -71,7 +71,7 @@ export default async function SubscriptionsPage() {
                   Email
                 </th>
                 <th style={{ padding: 12, textAlign: "left", fontSize: 12, fontWeight: 600, color: "var(--ink3)" }}>
-                  Naam
+                  Name
                 </th>
                 <th style={{ padding: 12, textAlign: "left", fontSize: 12, fontWeight: 600, color: "var(--ink3)" }}>
                   Plan
@@ -80,10 +80,10 @@ export default async function SubscriptionsPage() {
                   Status
                 </th>
                 <th style={{ padding: 12, textAlign: "left", fontSize: 12, fontWeight: 600, color: "var(--ink3)" }}>
-                  Volgende betaling
+                  Next payment
                 </th>
                 <th style={{ padding: 12, textAlign: "left", fontSize: 12, fontWeight: 600, color: "var(--ink3)" }}>
-                  Aangemeld
+                  Registered
                 </th>
               </tr>
             </thead>
@@ -130,11 +130,11 @@ export default async function SubscriptionsPage() {
                     </td>
                     <td style={{ padding: 12, fontSize: 13, color: "var(--ink2)" }}>
                       {sub.currentPeriodEnd
-                        ? new Date(sub.currentPeriodEnd).toLocaleDateString("nl-NL")
+                        ? new Date(sub.currentPeriodEnd).toLocaleDateString("en-GB")
                         : "—"}
                     </td>
                     <td style={{ padding: 12, fontSize: 13, color: "var(--ink3)" }}>
-                      {new Date(sub.createdAt).toLocaleDateString("nl-NL", {
+                      {new Date(sub.createdAt).toLocaleDateString("en-GB", {
                         year: "numeric",
                         month: "short",
                         day: "numeric",
@@ -149,7 +149,7 @@ export default async function SubscriptionsPage() {
 
         {subscriptions.length === 0 && (
           <div style={{ textAlign: "center", padding: "40px 20px", color: "var(--ink3)" }}>
-            Nog geen betalingen ontvangen
+            No payments received yet
           </div>
         )}
       </div>

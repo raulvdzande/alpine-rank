@@ -2,7 +2,7 @@ import { prisma } from "@/lib/prisma";
 import Link from "next/link";
 
 export const metadata = {
-  title: "Bedrijven — Admin",
+  title: "Companies — Admin",
 };
 
 export default async function CompaniesPage() {
@@ -30,9 +30,9 @@ export default async function CompaniesPage() {
       <div style={{ maxWidth: 1400, margin: "0 auto" }}>
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 32 }}>
           <div>
-            <h1 style={{ marginBottom: 8 }}>Bedrijven Beheer</h1>
+            <h1 style={{ marginBottom: 8 }}>Companies Management</h1>
             <p style={{ color: "var(--ink2)" }}>
-              {stats.total} bedrijven
+              {stats.total} companies
             </p>
           </div>
           <Link
@@ -47,7 +47,7 @@ export default async function CompaniesPage() {
               fontSize: 13,
             }}
           >
-            + Nieuw bedrijf
+            + New company
           </Link>
         </div>
 
@@ -55,19 +55,19 @@ export default async function CompaniesPage() {
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(140px, 1fr))", gap: 12, marginBottom: 32 }}>
           <div style={{ background: "white", border: "1px solid var(--border)", borderRadius: 8, padding: 16 }}>
             <div style={{ fontSize: 20, fontWeight: 800, color: "var(--peak)" }}>{stats.total}</div>
-            <div style={{ fontSize: 12, color: "var(--ink3)" }}>Totaal</div>
+            <div style={{ fontSize: 12, color: "var(--ink3)" }}>Total</div>
           </div>
           <div style={{ background: "white", border: "1px solid var(--border)", borderRadius: 8, padding: 16 }}>
             <div style={{ fontSize: 20, fontWeight: 800, color: "#0891b2" }}>{stats.resorts}</div>
-            <div style={{ fontSize: 12, color: "var(--ink3)" }}>Skigebieden</div>
+            <div style={{ fontSize: 12, color: "var(--ink3)" }}>Ski resorts</div>
           </div>
           <div style={{ background: "white", border: "1px solid var(--border)", borderRadius: 8, padding: 16 }}>
             <div style={{ fontSize: 20, fontWeight: 800, color: "#8b5cf6" }}>{stats.brands}</div>
-            <div style={{ fontSize: 12, color: "var(--ink3)" }}>Merken</div>
+            <div style={{ fontSize: 12, color: "var(--ink3)" }}>Brands</div>
           </div>
           <div style={{ background: "white", border: "1px solid var(--border)", borderRadius: 8, padding: 16 }}>
             <div style={{ fontSize: 20, fontWeight: 800, color: "#22c55e" }}>{stats.active}</div>
-            <div style={{ fontSize: 12, color: "var(--ink3)" }}>Actief</div>
+            <div style={{ fontSize: 12, color: "var(--ink3)" }}>Active</div>
           </div>
         </div>
 
@@ -77,7 +77,7 @@ export default async function CompaniesPage() {
             <thead>
               <tr style={{ borderBottom: "2px solid var(--border)" }}>
                 <th style={{ padding: 12, textAlign: "left", fontSize: 12, fontWeight: 600, color: "var(--ink3)" }}>
-                  Bedrijf
+                  Company
                 </th>
                 <th style={{ padding: 12, textAlign: "left", fontSize: 12, fontWeight: 600, color: "var(--ink3)" }}>
                   Type
@@ -86,7 +86,7 @@ export default async function CompaniesPage() {
                   Email
                 </th>
                 <th style={{ padding: 12, textAlign: "left", fontSize: 12, fontWeight: 600, color: "var(--ink3)" }}>
-                  Adres
+                  Address
                 </th>
                 <th style={{ padding: 12, textAlign: "left", fontSize: 12, fontWeight: 600, color: "var(--ink3)" }}>
                   Status
@@ -95,7 +95,7 @@ export default async function CompaniesPage() {
                   Team
                 </th>
                 <th style={{ padding: 12, textAlign: "left", fontSize: 12, fontWeight: 600, color: "var(--ink3)" }}>
-                  Acties
+                  Actions
                 </th>
               </tr>
             </thead>
@@ -113,7 +113,7 @@ export default async function CompaniesPage() {
                       borderRadius: 4,
                       fontWeight: 600,
                     }}>
-                      {company.type === "RESORT" ? "🏔 Skigebied" : "🎿 Merk"}
+                      {company.type === "RESORT" ? "🏔 Ski resort" : "🎿 Brand"}
                     </span>
                   </td>
                   <td style={{ padding: 12, fontSize: 13 }}>
@@ -133,11 +133,11 @@ export default async function CompaniesPage() {
                       padding: "4px 8px",
                       borderRadius: 4,
                     }}>
-                      {company.subscription?.status === "active" ? "Actief" : "Inactief"}
+                      {company.subscription?.status === "active" ? "Active" : "Inactive"}
                     </span>
                   </td>
                   <td style={{ padding: 12, fontSize: 13 }}>
-                    {company.employees.length} leden
+                    {company.employees.length} members
                   </td>
                   <td style={{ padding: 12, fontSize: 12 }}>
                     <Link href={`/admin/companies/${company.id}`} style={{
@@ -156,7 +156,7 @@ export default async function CompaniesPage() {
 
         {companies.length === 0 && (
           <div style={{ textAlign: "center", padding: "40px 20px", color: "var(--ink3)" }}>
-            Nog geen bedrijven geregistreerd
+            No companies registered yet
           </div>
         )}
       </div>

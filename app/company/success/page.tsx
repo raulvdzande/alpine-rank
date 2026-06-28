@@ -5,21 +5,21 @@ export default function CompanySuccessPage() {
         <div style={{ fontSize: 64, marginBottom: 24 }}>✅</div>
 
         <h1 style={{ fontSize: 32, fontWeight: 800, marginBottom: 12, color: "var(--peak)" }}>
-          Betaling ontvangen!
+          Payment received!
         </h1>
 
         <p style={{ fontSize: 16, color: "var(--ink2)", marginBottom: 32, lineHeight: 1.6 }}>
-          Bedankt! Je bedrijfsaccount is nu actief. Je ontvangt zo meteen een email met je login gegevens en wachtwoord.
+          Thank you! Your company account is now active. You will receive an email shortly with your login credentials and password.
         </p>
 
         <div style={{ background: "var(--snow)", borderRadius: 12, padding: 24, marginBottom: 32 }}>
-          <h3 style={{ marginBottom: 16 }}>Volgende stappen:</h3>
+          <h3 style={{ marginBottom: 16 }}>Next steps:</h3>
           <ol style={{ textAlign: "left", display: "inline-block", lineHeight: 2 }}>
-            <li>Check je email voor login gegevens</li>
-            <li>Log in met je manager account</li>
-            <li>Verander je wachtwoord</li>
-            <li>Voeg teamleden toe (optioneel)</li>
-            <li>Vul je bedrijfsprofiel aan</li>
+            <li>Check your email for login credentials</li>
+            <li>Log in with your manager account</li>
+            <li>Change your password</li>
+            <li>Add team members (optional)</li>
+            <li>Complete your company profile</li>
           </ol>
         </div>
 
@@ -36,11 +36,11 @@ export default function CompanySuccessPage() {
             fontSize: 16,
           }}
         >
-          Ga naar je dashboard →
+          Go to your dashboard →
         </a>
 
         <p style={{ marginTop: 24, color: "var(--ink3)", fontSize: 13 }}>
-          Vragen? Contact ons op support@peakflow.io
+          Questions? Contact us at support@peakflow.io
         </p>
       </div>
     </section>

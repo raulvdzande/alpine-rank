@@ -4,7 +4,7 @@ import { getCurrentUser } from "@/lib/auth";
 
 export const metadata = {
   title: "Account — PeakFlow",
-  description: "Jouw PeakFlow account instellingen",
+  description: "Your PeakFlow account settings",
 };
 
 export default async function AccountPage() {
@@ -15,7 +15,7 @@ export default async function AccountPage() {
     <section className="section">
       <div className="container" style={{ maxWidth: 600 }}>
         <span className="label">Account</span>
-        <h2>Mijn profiel</h2>
+        <h2>My profile</h2>
 
         <div style={{
           background: "white",
@@ -46,12 +46,12 @@ export default async function AccountPage() {
           </div>
 
           <div style={{ borderTop: "1px solid var(--border)", paddingTop: 24 }}>
-            <h3 style={{ fontSize: 16, marginBottom: 20 }}>Jouw informatie</h3>
+            <h3 style={{ fontSize: 16, marginBottom: 20 }}>Your information</h3>
 
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16, marginBottom: 24 }}>
               <div>
                 <label style={{ fontSize: 12, fontWeight: 600, color: "var(--ink3)", textTransform: "uppercase", display: "block", marginBottom: 8 }}>
-                  Naam
+                  Name
                 </label>
                 <div style={{ padding: "10px 12px", background: "var(--snow)", borderRadius: "var(--r)", color: "var(--ink2)" }}>
                   {user.name}
@@ -59,7 +59,7 @@ export default async function AccountPage() {
               </div>
               <div>
                 <label style={{ fontSize: 12, fontWeight: 600, color: "var(--ink3)", textTransform: "uppercase", display: "block", marginBottom: 8 }}>
-                  E-mailadres
+                  Email address
                 </label>
                 <div style={{ padding: "10px 12px", background: "var(--snow)", borderRadius: "var(--r)", color: "var(--ink2)" }}>
                   {user.email}
@@ -69,20 +69,20 @@ export default async function AccountPage() {
 
             <div style={{ padding: 16, background: "var(--peak-light)", borderRadius: "var(--r-lg)", borderLeft: "3px solid var(--peak)", marginBottom: 24 }}>
               <div style={{ fontSize: 12, fontWeight: 700, color: "var(--peak-dark)", marginBottom: 6, textTransform: "uppercase" }}>
-                ✓ Account bevestigd
+                ✓ Account confirmed
               </div>
               <div style={{ fontSize: 13, color: "var(--peak-dark)" }}>
-                Jouw account is volledig ingesteld en klaar te gebruiken
+                Your account is fully set up and ready to use
               </div>
             </div>
           </div>
 
           <div style={{ display: "flex", gap: 12, marginTop: 32 }}>
             <Link href="/account/wishlist" className="btn btn-primary" style={{ flex: 1, justifyContent: "center" }}>
-              ❤ Mijn wishlist
+              ❤ My wishlist
             </Link>
             <Link href="/account/settings" className="btn btn-ghost" style={{ flex: 1, justifyContent: "center" }}>
-              Instellingen
+              Settings
             </Link>
           </div>
         </div>

@@ -47,7 +47,7 @@ async function getCompanyData() {
 export default async function CompanyDashboardPage() {
   const { company, employee } = await getCompanyData();
 
-  const typeLabel = company.type === "RESORT" ? "🏔 Skigebied" : "🎿 Merk";
+  const typeLabel = company.type === "RESORT" ? "🏔 Ski resort" : "🎿 Brand";
 
   return (
     <div style={{ minHeight: "100vh", background: "var(--snow)", padding: "32px 20px" }}>
@@ -59,7 +59,7 @@ export default async function CompanyDashboardPage() {
               {company.name}
             </h1>
             <p style={{ fontSize: 14, color: "var(--ink3)" }}>
-              {typeLabel} • Welkom {employee.name}
+              {typeLabel} • Welcome {employee.name}
             </p>
           </div>
 
@@ -76,7 +76,7 @@ export default async function CompanyDashboardPage() {
                 fontWeight: 600,
               }}
             >
-              Uitloggen
+              Log out
             </Link>
           </div>
         </div>
@@ -84,7 +84,7 @@ export default async function CompanyDashboardPage() {
         {/* Stats */}
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: 16, marginBottom: 40 }}>
           <div style={{ background: "white", padding: 20, borderRadius: 12, border: "1px solid var(--border)" }}>
-            <div style={{ fontSize: 12, color: "var(--ink3)", marginBottom: 8 }}>Bedrijfsnaam</div>
+            <div style={{ fontSize: 12, color: "var(--ink3)", marginBottom: 8 }}>Company name</div>
             <div style={{ fontSize: 18, fontWeight: 700 }}>{company.name}</div>
           </div>
 
@@ -96,36 +96,36 @@ export default async function CompanyDashboardPage() {
           <div style={{ background: "white", padding: 20, borderRadius: 12, border: "1px solid var(--border)" }}>
             <div style={{ fontSize: 12, color: "var(--ink3)", marginBottom: 8 }}>Status</div>
             <div style={{ fontSize: 18, fontWeight: 700, color: "#22c55e" }}>
-              {company.subscription?.status === "active" ? "Actief" : "Inactief"}
+              {company.subscription?.status === "active" ? "Active" : "Inactive"}
             </div>
           </div>
 
           <div style={{ background: "white", padding: 20, borderRadius: 12, border: "1px solid var(--border)" }}>
             <div style={{ fontSize: 12, color: "var(--ink3)", marginBottom: 8 }}>Team</div>
-            <div style={{ fontSize: 18, fontWeight: 700 }}>{company.employees.length} leden</div>
+            <div style={{ fontSize: 18, fontWeight: 700 }}>{company.employees.length} members</div>
           </div>
         </div>
 
         {/* Main content */}
         <div style={{ background: "white", padding: 32, borderRadius: 12, border: "1px solid var(--border)" }}>
           <h2 style={{ marginBottom: 24, fontSize: 20, fontWeight: 700 }}>
-            Welkom bij PeakFlow
+            Welcome to PeakFlow
           </h2>
 
           <div style={{ marginBottom: 32, padding: 20, background: "var(--snow)", borderRadius: 8 }}>
             <h3 style={{ marginBottom: 12, fontSize: 16, fontWeight: 600 }}>
-              {company.type === "RESORT" ? "Skigebied Dashboard" : "Merk Dashboard"}
+              {company.type === "RESORT" ? "Ski Resort Dashboard" : "Brand Dashboard"}
             </h3>
             <p style={{ color: "var(--ink2)", lineHeight: 1.6 }}>
               {company.type === "RESORT"
-                ? "Beheer je skigebiedprofiel, volg reviews en analytics van je pagina."
-                : "Beheer je merkprofiel en volg hoe je resorts presteren op PeakFlow."}
+                ? "Manage your ski resort profile, track reviews and page analytics."
+                : "Manage your brand profile and track how your resorts perform on PeakFlow."}
             </p>
           </div>
 
           <div style={{ marginBottom: 32 }}>
             <h3 style={{ marginBottom: 16, fontSize: 16, fontWeight: 600 }}>
-              Bedrijfsgegevens
+              Company details
             </h3>
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16, fontSize: 13 }}>
               <div>
@@ -133,17 +133,17 @@ export default async function CompanyDashboardPage() {
                 <div style={{ fontWeight: 600 }}>{company.email}</div>
               </div>
               <div>
-                <div style={{ color: "var(--ink3)", marginBottom: 4 }}>Telefoonnummer</div>
+                <div style={{ color: "var(--ink3)", marginBottom: 4 }}>Phone number</div>
                 <div style={{ fontWeight: 600 }}>{company.phone || "—"}</div>
               </div>
               <div>
-                <div style={{ color: "var(--ink3)", marginBottom: 4 }}>Adres</div>
+                <div style={{ color: "var(--ink3)", marginBottom: 4 }}>Address</div>
                 <div style={{ fontWeight: 600 }}>
                   {company.street}, {company.city} {company.postalCode}
                 </div>
               </div>
               <div>
-                <div style={{ color: "var(--ink3)", marginBottom: 4 }}>Land</div>
+                <div style={{ color: "var(--ink3)", marginBottom: 4 }}>Country</div>
                 <div style={{ fontWeight: 600 }}>{company.country}</div>
               </div>
             </div>
@@ -151,20 +151,20 @@ export default async function CompanyDashboardPage() {
 
           <div style={{ marginBottom: 32 }}>
             <h3 style={{ marginBottom: 16, fontSize: 16, fontWeight: 600 }}>
-              Teamleden ({company.employees.length})
+              Team members ({company.employees.length})
             </h3>
             <div style={{ background: "var(--snow)", borderRadius: 8, overflow: "hidden" }}>
               <table style={{ width: "100%", borderCollapse: "collapse" }}>
                 <thead>
                   <tr style={{ borderBottom: "1px solid var(--border)" }}>
                     <th style={{ padding: 12, textAlign: "left", fontSize: 12, fontWeight: 600, color: "var(--ink3)" }}>
-                      Naam
+                      Name
                     </th>
                     <th style={{ padding: 12, textAlign: "left", fontSize: 12, fontWeight: 600, color: "var(--ink3)" }}>
                       Email
                     </th>
                     <th style={{ padding: 12, textAlign: "left", fontSize: 12, fontWeight: 600, color: "var(--ink3)" }}>
-                      Rol
+                      Role
                     </th>
                   </tr>
                 </thead>

@@ -8,37 +8,37 @@ import {
 
 const CATEGORY_MAP: Record<string, { label: string; desc: string; filter?: Prisma.ResortWhereInput; orderBy?: Prisma.ResortOrderByWithRelationInput }> = {
   alpen: {
-    label: "🏔 Alpen Rankings",
-    desc: "Top skigebieden in de Alpen",
+    label: "🏔 Alps Rankings",
+    desc: "Top ski resorts in the Alps",
     filter: { Country: { in: ["Austria", "Switzerland", "France", "Italy"] } },
     orderBy: { snowScore: "desc" },
   },
   beginners: {
     label: "🟢 Beginners Rankings",
-    desc: "Perfect voor beginnende skiërs",
+    desc: "Perfect for beginner skiers",
     filter: { category: "Beginners" },
     orderBy: { averageOverallRating: "desc" },
   },
   familie: {
-    label: "👨‍👩‍👧 Familie Rankings",
-    desc: "Ideaal voor families met kinderen",
+    label: "👨‍👩‍👧 Family Rankings",
+    desc: "Ideal for families with children",
     filter: { category: "Familie" },
     orderBy: { averageOverallRating: "desc" },
   },
   expert: {
     label: "⚫ Expert Rankings",
-    desc: "Uitdagende terreinen voor experts",
+    desc: "Challenging terrain for experts",
     filter: { category: "Expert" },
     orderBy: { pisteBlack: "desc" },
   },
   budget: {
     label: "💰 Budget Rankings",
-    desc: "Beste prijs-kwaliteit verhouding",
+    desc: "Best value for money",
     orderBy: { dayPassPrice: "asc" },
   },
   sneeuw: {
-    label: "❄ Sneeuwzekerheid Rankings",
-    desc: "Resorts met de hoogste sneeuwzekerheid",
+    label: "❄ Snow certainty Rankings",
+    desc: "Resorts with the highest snow certainty",
     filter: { snowScore: { not: null } },
     orderBy: { snowScore: "desc" },
   },
@@ -75,7 +75,7 @@ export default async function CategoryRankingPage({ params }: { params: Promise<
     <section className="section">
       <div className="container">
         <Link href="/rankings" style={{ fontSize: 13, color: "var(--peak)", marginBottom: 20, display: "inline-block" }}>
-          ← Terug naar rankings
+          ← Back to rankings
         </Link>
 
         <span className="label">Ranking</span>
@@ -119,8 +119,8 @@ export default async function CategoryRankingPage({ params }: { params: Promise<
                 <div className="resort-location">{countryFlag(r.Country)} {countryNL(r.Country)}</div>
                 <div className="resort-stats">
                   <div className="resort-stat"><span>{r.pisteKm}</span> km</div>
-                  <div className="resort-stat"><span>{r.lifts}</span> liften</div>
-                  <div className="resort-stat"><span>€{r.dayPassPrice}</span>/dag</div>
+                  <div className="resort-stat"><span>{r.lifts}</span> lifts</div>
+                  <div className="resort-stat"><span>€{r.dayPassPrice}</span>/day</div>
                 </div>
                 {(r.averageOverallRating ?? 0) > 0 && (
                   <div className="resort-rating">

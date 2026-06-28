@@ -10,7 +10,7 @@ export default function DeleteEmployeeButton({
   isLastAdmin: boolean;
 }) {
   const handleDelete = async () => {
-    if (!confirm("Weet je zeker dat je deze persoon wilt verwijderen?")) {
+    if (!confirm("Are you sure you want to remove this person?")) {
       return;
     }
 
@@ -22,20 +22,20 @@ export default function DeleteEmployeeButton({
       });
 
       if (res.ok) {
-        alert("Persoon verwijderd");
+        alert("Person removed");
         window.location.reload();
       } else {
         const data = await res.json();
-        alert("Fout: " + (data.error || "Verwijderen mislukt"));
+        alert("Error: " + (data.error || "Failed to delete"));
       }
     } catch (error) {
-      alert("Fout bij verwijderen");
+      alert("Error deleting person");
     }
   };
 
   if (isLastAdmin) {
     return (
-      <span title="Enige admin" style={{ fontSize: 16, opacity: 0.4 }}>
+      <span title="Only admin" style={{ fontSize: 16, opacity: 0.4 }}>
         🔒
       </span>
     );
@@ -44,7 +44,7 @@ export default function DeleteEmployeeButton({
   return (
     <button
       onClick={handleDelete}
-      title="Verwijderen"
+      title="Delete"
       style={{
         fontSize: 16,
         background: "transparent",

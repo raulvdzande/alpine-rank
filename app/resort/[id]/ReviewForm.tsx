@@ -10,18 +10,18 @@ interface Props {
 }
 
 const CATEGORIES: { key: keyof ReviewData; label: string; emoji: string; desc: string }[] = [
-  { key: "terrain", label: "Terrein & variatie", emoji: "🏔", desc: "Diversiteit, uitdaging, off-piste" },
-  { key: "snow", label: "Sneeuwkwaliteit", emoji: "❄", desc: "Dikte, poeder, conditie" },
-  { key: "lifts", label: "Liften & wachtrijen", emoji: "🚡", desc: "Capaciteit, snelheid, comfort" },
-  { key: "apres", label: "Après-ski", emoji: "🍺", desc: "Bars, restaurants, sfeer" },
-  { key: "family", label: "Familie-vriendelijk", emoji: "👨‍👩‍👧", desc: "Kinderpistes, kinderopvang, veiligheid" },
-  { key: "value", label: "Prijs-kwaliteit", emoji: "💰", desc: "Dagkaart, ski-verhuur, eten" },
-  { key: "scenery", label: "Uitzicht & sfeer", emoji: "🎑", desc: "Landschap, dorpssfeer, charme" },
+  { key: "terrain", label: "Terrain & variety", emoji: "🏔", desc: "Diversity, challenge, off-piste" },
+  { key: "snow", label: "Snow quality", emoji: "❄", desc: "Depth, powder, condition" },
+  { key: "lifts", label: "Lifts & queues", emoji: "🚡", desc: "Capacity, speed, comfort" },
+  { key: "apres", label: "Après-ski", emoji: "🍺", desc: "Bars, restaurants, atmosphere" },
+  { key: "family", label: "Family-friendly", emoji: "👨‍👩‍👧", desc: "Nursery slopes, childcare, safety" },
+  { key: "value", label: "Value for money", emoji: "💰", desc: "Day pass, ski hire, food" },
+  { key: "scenery", label: "Scenery & vibe", emoji: "🎑", desc: "Landscape, village feel, charm" },
 ];
 
 const DEFAULT: ReviewData = { terrain: 7, snow: 7, lifts: 7, apres: 7, family: 7, value: 7, scenery: 7 };
 
-const LABELS = ["", "Slecht", "Matig", "Redelijk", "Goed", "Goed", "Prima", "Goed", "Uitstekend", "Top", "Perfect"];
+const LABELS = ["", "Poor", "Weak", "Fair", "Good", "Good", "Great", "Good", "Excellent", "Top", "Perfect"];
 
 function getColor(val: number): string {
   if (val >= 8) return "#22c55e";
@@ -48,7 +48,7 @@ export default function ReviewForm({ resortId, resortName, existing }: Props) {
   }
 
   function handleDelete() {
-    if (!confirm("Weet je zeker dat je je review wilt verwijderen?")) return;
+    if (!confirm("Are you sure you want to delete your review?")) return;
     startDelete(async () => { await deleteReview(resortId); });
   }
 
@@ -66,24 +66,24 @@ export default function ReviewForm({ resortId, resortName, existing }: Props) {
         {existing ? (
           <>
             <div style={{ fontSize: 20, marginBottom: 8 }}>✏️</div>
-            <div style={{ fontSize: 15, fontWeight: 600, marginBottom: 4 }}>Je hebt al een review geschreven</div>
+            <div style={{ fontSize: 15, fontWeight: 600, marginBottom: 4 }}>You have already written a review</div>
             <div style={{ fontSize: 13, color: "var(--ink3)", marginBottom: 16 }}>
-              Jouw score: {(avg / 2).toFixed(1)} / 5 sterren
+              Your score: {(avg / 2).toFixed(1)} / 5 stars
             </div>
             <button onClick={() => setOpen(true)} className="btn btn-outline" style={{ fontSize: 13, marginRight: 8 }}>
-              ✏️ Bewerk review
+              ✏️ Edit review
             </button>
             <button onClick={handleDelete} disabled={deleting} style={{ fontSize: 13, color: "#ef4444", background: "transparent", border: "1px solid rgba(239,68,68,.3)", borderRadius: "var(--r)", padding: "7px 16px", cursor: "pointer" }}>
-              {deleting ? "..." : "Verwijderen"}
+              {deleting ? "..." : "Delete"}
             </button>
           </>
         ) : (
           <>
             <div style={{ fontSize: 24, marginBottom: 8 }}>⭐</div>
-            <div style={{ fontSize: 15, fontWeight: 600, marginBottom: 4 }}>Geef jouw mening over {resortName}</div>
-            <div style={{ fontSize: 13, color: "var(--ink3)", marginBottom: 16 }}>Help andere skiërs met jouw eerlijke beoordeling</div>
+            <div style={{ fontSize: 15, fontWeight: 600, marginBottom: 4 }}>Share your opinion about {resortName}</div>
+            <div style={{ fontSize: 13, color: "var(--ink3)", marginBottom: 16 }}>Help other skiers with your honest review</div>
             <button onClick={() => setOpen(true)} className="btn btn-primary">
-              Review schrijven →
+              Write a review →
             </button>
           </>
         )}
@@ -93,10 +93,9 @@ export default function ReviewForm({ resortId, resortName, existing }: Props) {
 
   return (
     <div style={{ border: "1px solid var(--border)", borderRadius: "var(--r-lg)", overflow: "hidden" }}>
-      {/* Header */}
       <div style={{ background: "linear-gradient(135deg, var(--peak-dark), #1a3a5c)", padding: "20px 24px", color: "white" }}>
         <div style={{ fontSize: 13, color: "rgba(255,255,255,.6)", marginBottom: 4 }}>
-          {existing ? "Jouw review bewerken" : "Jouw review voor"} {resortName}
+          {existing ? "Edit your review for" : "Your review for"} {resortName}
         </div>
         <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
           <div>
@@ -105,11 +104,10 @@ export default function ReviewForm({ resortId, resortName, existing }: Props) {
               {"★".repeat(s.full)}{s.half ? "½" : ""}{s.extra ? "★" : ""}{"☆".repeat(Math.max(0, s.empty))}
             </span>
           </div>
-          <div style={{ fontSize: 12, color: "rgba(255,255,255,.5)" }}>gemiddeld {avg.toFixed(1)}/10</div>
+          <div style={{ fontSize: 12, color: "rgba(255,255,255,.5)" }}>average {avg.toFixed(1)}/10</div>
         </div>
       </div>
 
-      {/* Sliders */}
       <div style={{ padding: 24, background: "white" }}>
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16, marginBottom: 24 }}>
           {CATEGORIES.map(c => (
@@ -146,10 +144,9 @@ export default function ReviewForm({ resortId, resortName, existing }: Props) {
           ))}
         </div>
 
-        {/* Score summary */}
         <div style={{ background: "var(--snow)", borderRadius: "var(--r)", padding: "14px 18px", marginBottom: 20, display: "flex", alignItems: "center", gap: 16 }}>
           <div>
-            <div style={{ fontSize: 11, color: "var(--ink3)", marginBottom: 2 }}>Jouw totaalscore</div>
+            <div style={{ fontSize: 11, color: "var(--ink3)", marginBottom: 2 }}>Your total score</div>
             <div style={{ fontSize: 24, fontWeight: 700, color: avg >= 8 ? "#22c55e" : avg >= 6 ? "var(--peak-dark)" : "#f59e0b" }}>
               {stars.toFixed(2)} / 5 ★
             </div>
@@ -164,7 +161,6 @@ export default function ReviewForm({ resortId, resortName, existing }: Props) {
           </div>
         </div>
 
-        {/* Buttons */}
         <div style={{ display: "flex", gap: 10 }}>
           <button
             onClick={handleSave}
@@ -172,14 +168,14 @@ export default function ReviewForm({ resortId, resortName, existing }: Props) {
             className="btn btn-primary btn-lg"
             style={{ flex: 1, justifyContent: "center", opacity: saving ? 0.7 : 1 }}
           >
-            {saving ? "⏳ Opslaan..." : existing ? "✓ Review bijwerken" : "✓ Review plaatsen"}
+            {saving ? "⏳ Saving..." : existing ? "✓ Update review" : "✓ Post review"}
           </button>
           <button onClick={() => setOpen(false)} className="btn btn-ghost" style={{ fontSize: 13 }}>
-            Annuleren
+            Cancel
           </button>
         </div>
         <p style={{ fontSize: 11, color: "var(--ink3)", marginTop: 12, textAlign: "center" }}>
-          Jouw review wordt gepubliceerd als officiële PeakFlow beoordeling en telt mee in de totaalscore.
+          Your review will be published as an official PeakFlow rating and counts toward the total score.
         </p>
       </div>
     </div>

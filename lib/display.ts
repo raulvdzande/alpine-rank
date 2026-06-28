@@ -34,33 +34,33 @@ export function avatarBg(seed: string): string {
   return FLOAT_BG[hash(seed) % FLOAT_BG.length];
 }
 
-const COUNTRY_NL: Record<string, { nl: string; flag: string }> = {
-  Austria: { nl: "Oostenrijk", flag: "🇦🇹" },
-  France: { nl: "Frankrijk", flag: "🇫🇷" },
-  Switzerland: { nl: "Zwitserland", flag: "🇨🇭" },
-  Italy: { nl: "Italië", flag: "🇮🇹" },
-  Germany: { nl: "Duitsland", flag: "🇩🇪" },
-  "United States": { nl: "Verenigde Staten", flag: "🇺🇸" },
-  Canada: { nl: "Canada", flag: "🇨🇦" },
-  Bulgaria: { nl: "Bulgarije", flag: "🇧🇬" },
-  Norway: { nl: "Noorwegen", flag: "🇳🇴" },
-  Sweden: { nl: "Zweden", flag: "🇸🇪" },
-  Spain: { nl: "Spanje", flag: "🇪🇸" },
-  Andorra: { nl: "Andorra", flag: "🇦🇩" },
-  Slovenia: { nl: "Slovenië", flag: "🇸🇮" },
-  Czechia: { nl: "Tsjechië", flag: "🇨🇿" },
-  "Czech Republic": { nl: "Tsjechië", flag: "🇨🇿" },
-  Poland: { nl: "Polen", flag: "🇵🇱" },
-  Finland: { nl: "Finland", flag: "🇫🇮" },
-  Japan: { nl: "Japan", flag: "🇯🇵" },
+const COUNTRY_DATA: Record<string, { en: string; flag: string }> = {
+  Austria: { en: "Austria", flag: "🇦🇹" },
+  France: { en: "France", flag: "🇫🇷" },
+  Switzerland: { en: "Switzerland", flag: "🇨🇭" },
+  Italy: { en: "Italy", flag: "🇮🇹" },
+  Germany: { en: "Germany", flag: "🇩🇪" },
+  "United States": { en: "United States", flag: "🇺🇸" },
+  Canada: { en: "Canada", flag: "🇨🇦" },
+  Bulgaria: { en: "Bulgaria", flag: "🇧🇬" },
+  Norway: { en: "Norway", flag: "🇳🇴" },
+  Sweden: { en: "Sweden", flag: "🇸🇪" },
+  Spain: { en: "Spain", flag: "🇪🇸" },
+  Andorra: { en: "Andorra", flag: "🇦🇩" },
+  Slovenia: { en: "Slovenia", flag: "🇸🇮" },
+  Czechia: { en: "Czechia", flag: "🇨🇿" },
+  "Czech Republic": { en: "Czech Republic", flag: "🇨🇿" },
+  Poland: { en: "Poland", flag: "🇵🇱" },
+  Finland: { en: "Finland", flag: "🇫🇮" },
+  Japan: { en: "Japan", flag: "🇯🇵" },
 };
 
 export function countryNL(country: string): string {
-  return COUNTRY_NL[country]?.nl ?? country;
+  return COUNTRY_DATA[country]?.en ?? country;
 }
 
 export function countryFlag(country: string): string {
-  return COUNTRY_NL[country]?.flag ?? "🏔";
+  return COUNTRY_DATA[country]?.flag ?? "🏔";
 }
 
 export function stars(rating: number): string {
@@ -80,7 +80,7 @@ export function fmtCount(n: number): string {
 }
 
 export function fmtNumber(n: number): string {
-  return n.toLocaleString("nl-NL");
+  return n.toLocaleString("en-US");
 }
 
 export function snowBar(score: number): { width: string; bar: string; color: string } {

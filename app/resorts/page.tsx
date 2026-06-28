@@ -10,15 +10,15 @@ import ResortSearch from "./ResortSearch";
 export const dynamic = "force-dynamic";
 
 const COUNTRY_FILTERS = [
-  { key: "", label: "Alle resorts" },
-  { key: "Austria", label: "🇦🇹 Oostenrijk" },
-  { key: "France", label: "🇫🇷 Frankrijk" },
-  { key: "Switzerland", label: "🇨🇭 Zwitserland" },
-  { key: "Italy", label: "🇮🇹 Italië" },
+  { key: "", label: "All resorts" },
+  { key: "Austria", label: "🇦🇹 Austria" },
+  { key: "France", label: "🇫🇷 France" },
+  { key: "Switzerland", label: "🇨🇭 Switzerland" },
+  { key: "Italy", label: "🇮🇹 Italy" },
 ];
 const CAT_FILTERS = [
   { key: "Beginners", label: "🟢 Beginners" },
-  { key: "Familie", label: "👨‍👩‍👧 Familie" },
+  { key: "Familie", label: "👨‍👩‍👧 Family" },
   { key: "Expert", label: "⚫ Expert" },
 ];
 
@@ -67,14 +67,14 @@ export default async function ResortsPage({ searchParams }: { searchParams?: Pro
     <section className="section">
       <div className="container">
         <span className="label">Rankings 2025–26</span>
-        <h2>De meest complete ski rankings van Europa</h2>
+        <h2>Europe&apos;s most complete ski rankings</h2>
         {isSuperAdmin && (
           <div style={{ marginBottom: 16, display: "flex", alignItems: "center", gap: 12 }}>
-            <span style={{ fontSize: 11, fontWeight: 700, color: "#f59e0b", textTransform: "uppercase", letterSpacing: 1 }}>Admin zoeken</span>
+            <span style={{ fontSize: 11, fontWeight: 700, color: "#f59e0b", textTransform: "uppercase", letterSpacing: 1 }}>Admin search</span>
             <ResortSearch current={q} />
             {q && (
               <span style={{ fontSize: 13, color: "#64748b" }}>
-                {resorts.length} resultaat{resorts.length !== 1 ? "en" : ""} voor &ldquo;{q}&rdquo;
+                {resorts.length} result{resorts.length !== 1 ? "s" : ""} for &ldquo;{q}&rdquo;
               </span>
             )}
           </div>
@@ -100,9 +100,9 @@ export default async function ResortsPage({ searchParams }: { searchParams?: Pro
           </Link>
           <div style={{ marginLeft: "auto", display: "flex", gap: 6 }}>
             {[
-              { k: "snow", l: "Hoogste sneeuwscore" },
-              { k: "rating", l: "Beste rating" },
-              { k: "price", l: "Laagste prijs" },
+              { k: "snow", l: "Highest snow score" },
+              { k: "rating", l: "Best rating" },
+              { k: "price", l: "Lowest price" },
             ].map((s) => (
               <Link key={s.k} href={buildQuery({ country, cat, sort: s.k })}
                 className={`btn ${sort === s.k ? "btn-outline" : "btn-ghost"}`}
@@ -114,7 +114,7 @@ export default async function ResortsPage({ searchParams }: { searchParams?: Pro
         </div>
 
         {resorts.length === 0 ? (
-          <p style={{ textAlign: "center", padding: "60px 0", color: "var(--ink3)" }}>Geen resorts gevonden voor deze filters.</p>
+          <p style={{ textAlign: "center", padding: "60px 0", color: "var(--ink3)" }}>No resorts found for these filters.</p>
         ) : (
           <div className="resort-grid">
             {resorts.map((r, i) => (
@@ -132,8 +132,8 @@ export default async function ResortsPage({ searchParams }: { searchParams?: Pro
                   <div className="resort-location">{countryFlag(r.Country)} {countryNL(r.Country)}</div>
                   <div className="resort-stats">
                     <div className="resort-stat"><span>{r.pisteKm}</span> km</div>
-                    <div className="resort-stat"><span>{r.lifts}</span> liften</div>
-                    <div className="resort-stat"><span>€{r.dayPassPrice}</span>/dag</div>
+                    <div className="resort-stat"><span>{r.lifts}</span> lifts</div>
+                    <div className="resort-stat"><span>€{r.dayPassPrice}</span>/day</div>
                   </div>
                   {(r.averageOverallRating ?? 0) > 0 && (
                     <div className="resort-rating"><span className="stars">{stars(toFiveStars(r.averageOverallRating))}</span><span className="count">{toFiveStars(r.averageOverallRating).toFixed(1)} ({fmtCount(r.reviewCount)})</span></div>
@@ -145,8 +145,8 @@ export default async function ResortsPage({ searchParams }: { searchParams?: Pro
         )}
 
         <div style={{ textAlign: "center", marginTop: 32 }}>
-          <p style={{ fontSize: 13, color: "var(--ink3)", marginBottom: 12 }}>Upgrade naar Explorer voor sneeuwzekerheids-scores en alle resorts</p>
-          <Link href="/pricing" className="btn btn-primary btn-lg">Upgrade naar Explorer →</Link>
+          <p style={{ fontSize: 13, color: "var(--ink3)", marginBottom: 12 }}>Upgrade to Explorer for snow certainty scores and all resorts</p>
+          <Link href="/pricing" className="btn btn-primary btn-lg">Upgrade to Explorer →</Link>
         </div>
       </div>
     </section>

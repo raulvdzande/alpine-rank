@@ -6,15 +6,15 @@ import ClearAllButton from "./ClearAllButton";
 export const dynamic = "force-dynamic";
 
 const COUNTRIES = [
-  { key: "", label: "Alle landen" },
-  { key: "Austria", label: "🇦🇹 Oostenrijk" },
-  { key: "France", label: "🇫🇷 Frankrijk" },
-  { key: "Switzerland", label: "🇨🇭 Zwitserland" },
-  { key: "Italy", label: "🇮🇹 Italië" },
-  { key: "Germany", label: "🇩🇪 Duitsland" },
-  { key: "Norway", label: "🇳🇴 Noorwegen" },
-  { key: "Sweden", label: "🇸🇪 Zweden" },
-  { key: "Spain", label: "🇪🇸 Spanje" },
+  { key: "", label: "All countries" },
+  { key: "Austria", label: "🇦🇹 Austria" },
+  { key: "France", label: "🇫🇷 France" },
+  { key: "Switzerland", label: "🇨🇭 Switzerland" },
+  { key: "Italy", label: "🇮🇹 Italy" },
+  { key: "Germany", label: "🇩🇪 Germany" },
+  { key: "Norway", label: "🇳🇴 Norway" },
+  { key: "Sweden", label: "🇸🇪 Sweden" },
+  { key: "Spain", label: "🇪🇸 Spain" },
   { key: "Andorra", label: "🇦🇩 Andorra" },
 ];
 
@@ -100,8 +100,8 @@ export default async function AdminPage({ searchParams }: { searchParams?: SP })
     <>
       <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", marginBottom: 28, gap: 16, flexWrap: "wrap" }}>
         <div>
-          <h1 style={{ fontSize: 22, fontWeight: 700, color: "white", marginBottom: 4 }}>Resort Ratings Beheer</h1>
-          <p style={{ fontSize: 13, color: "#64748b" }}>Stel de officiële PeakFlow beoordelingen in voor elk skigebied.</p>
+          <h1 style={{ fontSize: 22, fontWeight: 700, color: "white", marginBottom: 4 }}>Resort Ratings Management</h1>
+          <p style={{ fontSize: 13, color: "#64748b" }}>Set the official PeakFlow ratings for each ski resort.</p>
         </div>
         <div style={{ display: "flex", gap: 10, flexWrap: "wrap", justifyContent: "flex-end", alignItems: "center" }}>
           <ClearAllButton total={total} />
@@ -109,7 +109,7 @@ export default async function AdminPage({ searchParams }: { searchParams?: SP })
             href="/admin/resort/nieuw"
             style={{ background: "#0f6e50", color: "white", borderRadius: 8, padding: "8px 18px", fontSize: 13, fontWeight: 700, textDecoration: "none", display: "inline-flex", alignItems: "center", gap: 6 }}
           >
-            + Nieuw resort
+            + New resort
           </Link>
         </div>
       </div>
@@ -118,25 +118,25 @@ export default async function AdminPage({ searchParams }: { searchParams?: SP })
       <div style={{ display: "flex", gap: 14, marginBottom: 28, flexWrap: "wrap" }}>
         <div style={statCardStyle("#60a5fa")}>
           <div style={{ fontSize: 28, fontWeight: 700, color: "#60a5fa" }}>{total}</div>
-          <div style={{ fontSize: 12, color: "#94a3b8", marginTop: 2 }}>Totaal resorts</div>
+          <div style={{ fontSize: 12, color: "#94a3b8", marginTop: 2 }}>Total resorts</div>
         </div>
         <div style={statCardStyle("#34d399")}>
           <div style={{ fontSize: 28, fontWeight: 700, color: "#34d399" }}>{rated}</div>
-          <div style={{ fontSize: 12, color: "#94a3b8", marginTop: 2 }}>Beoordeeld</div>
+          <div style={{ fontSize: 12, color: "#94a3b8", marginTop: 2 }}>Rated</div>
         </div>
         <div style={statCardStyle("#f87171")}>
           <div style={{ fontSize: 28, fontWeight: 700, color: "#f87171" }}>{total - rated}</div>
-          <div style={{ fontSize: 12, color: "#94a3b8", marginTop: 2 }}>Nog te beoordelen</div>
+          <div style={{ fontSize: 12, color: "#94a3b8", marginTop: 2 }}>Still to rate</div>
         </div>
         <div style={statCardStyle("#f59e0b")}>
           <div style={{ fontSize: 28, fontWeight: 700, color: "#f59e0b" }}>❄ {withSf}</div>
-          <div style={{ fontSize: 12, color: "#94a3b8", marginTop: 2 }}>Met Snowflake</div>
+          <div style={{ fontSize: 12, color: "#94a3b8", marginTop: 2 }}>With Snowflake</div>
         </div>
         <div style={{ ...statCardStyle("#a78bfa"), marginLeft: "auto" }}>
           <div style={{ fontSize: 18, fontWeight: 700, color: "#a78bfa" }}>
             {total > 0 ? Math.round((rated / total) * 100) : 0}%
           </div>
-          <div style={{ fontSize: 12, color: "#94a3b8", marginTop: 2 }}>Voortgang</div>
+          <div style={{ fontSize: 12, color: "#94a3b8", marginTop: 2 }}>Progress</div>
           <div style={{ marginTop: 8, height: 4, background: "#334155", borderRadius: 2 }}>
             <div style={{ height: "100%", width: `${total > 0 ? (rated / total) * 100 : 0}%`, background: "#a78bfa", borderRadius: 2, transition: "width .3s" }} />
           </div>
@@ -145,23 +145,23 @@ export default async function AdminPage({ searchParams }: { searchParams?: SP })
 
       {/* Search */}
       <form method="get" style={{ display: "flex", gap: 10, marginBottom: 20, flexWrap: "wrap" }}>
-        <input name="q" defaultValue={q} placeholder="Zoek op naam..." style={{ ...inputStyle, flex: 1, minWidth: 200 }} />
+        <input name="q" defaultValue={q} placeholder="Search by name..." style={{ ...inputStyle, flex: 1, minWidth: 200 }} />
         <select name="country" defaultValue={country} style={{ ...inputStyle, cursor: "pointer" }}>
           {COUNTRIES.map(c => <option key={c.key} value={c.key}>{c.label}</option>)}
         </select>
         <button type="submit" style={{ background: "#0f6e50", color: "white", border: "none", borderRadius: 8, padding: "8px 18px", fontSize: 13, fontWeight: 600, cursor: "pointer" }}>
-          Zoeken
+          Search
         </button>
         {(q || country) && (
           <Link href="/admin" style={{ display: "flex", alignItems: "center", fontSize: 13, color: "#64748b", padding: "8px 14px", background: "#1e293b", borderRadius: 8, textDecoration: "none", border: "1px solid #334155" }}>
-            Wis filters
+            Clear filters
           </Link>
         )}
       </form>
 
       {/* Results count */}
       <div style={{ fontSize: 12, color: "#64748b", marginBottom: 12 }}>
-        {count} {count === 1 ? "resort" : "resorts"} gevonden · pagina {page} van {totalPages}
+        {count} {count === 1 ? "resort" : "resorts"} found · page {page} of {totalPages}
       </div>
 
       {/* Table */}
@@ -170,12 +170,12 @@ export default async function AdminPage({ searchParams }: { searchParams?: SP })
           <thead>
             <tr>
               <th style={thStyle}>Resort</th>
-              <th style={thStyle}>Land</th>
-              <th style={thStyle}>Categorie</th>
+              <th style={thStyle}>Country</th>
+              <th style={thStyle}>Category</th>
               <th style={thStyle}>Rating</th>
               <th style={thStyle}>❄</th>
               <th style={thStyle}>Status</th>
-              <th style={{ ...thStyle, textAlign: "right" as const }}>Actie</th>
+              <th style={{ ...thStyle, textAlign: "right" as const }}>Action</th>
             </tr>
           </thead>
           <tbody>
@@ -206,11 +206,11 @@ export default async function AdminPage({ searchParams }: { searchParams?: SP })
                   <td style={tdStyle}>
                     {hasRating ? (
                       <span style={{ display: "inline-flex", alignItems: "center", gap: 5, fontSize: 11, fontWeight: 600, color: "#34d399", background: "rgba(52,211,153,.1)", padding: "3px 8px", borderRadius: 999 }}>
-                        ✓ Beoordeeld
+                        ✓ Rated
                       </span>
                     ) : (
                       <span style={{ display: "inline-flex", alignItems: "center", gap: 5, fontSize: 11, fontWeight: 600, color: "#f87171", background: "rgba(248,113,113,.1)", padding: "3px 8px", borderRadius: 999 }}>
-                        ○ Nog niet
+                        ○ Pending
                       </span>
                     )}
                   </td>
@@ -228,7 +228,7 @@ export default async function AdminPage({ searchParams }: { searchParams?: SP })
                         border: `1px solid ${hasRating ? "rgba(96,165,250,.2)" : "rgba(52,211,153,.2)"}`,
                       }}
                     >
-                      {hasRating ? "Bewerken" : "Beoordelen"}
+                      {hasRating ? "Edit" : "Rate"}
                     </Link>
                   </td>
                 </tr>
@@ -237,7 +237,7 @@ export default async function AdminPage({ searchParams }: { searchParams?: SP })
             {resorts.length === 0 && (
               <tr>
                 <td colSpan={7} style={{ padding: "40px 14px", textAlign: "center", color: "#475569", fontSize: 13 }}>
-                  Geen resorts gevonden voor deze filters.
+                  No resorts found for these filters.
                 </td>
               </tr>
             )}
@@ -250,7 +250,7 @@ export default async function AdminPage({ searchParams }: { searchParams?: SP })
         <div style={{ display: "flex", gap: 8, marginTop: 20, justifyContent: "center", flexWrap: "wrap" }}>
           {page > 1 && (
             <Link href={queryStr({ page: String(page - 1) })} style={{ fontSize: 13, color: "#94a3b8", padding: "6px 14px", background: "#1e293b", borderRadius: 6, textDecoration: "none", border: "1px solid #334155" }}>
-              ← Vorige
+              ← Previous
             </Link>
           )}
           {Array.from({ length: Math.min(totalPages, 10) }, (_, i) => i + 1).map(p => (
@@ -260,7 +260,7 @@ export default async function AdminPage({ searchParams }: { searchParams?: SP })
           ))}
           {page < totalPages && (
             <Link href={queryStr({ page: String(page + 1) })} style={{ fontSize: 13, color: "#94a3b8", padding: "6px 14px", background: "#1e293b", borderRadius: 6, textDecoration: "none", border: "1px solid #334155" }}>
-              Volgende →
+              Next →
             </Link>
           )}
         </div>

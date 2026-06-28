@@ -28,16 +28,16 @@ export default function AddEmployeeButton({ companyId }: { companyId: string }) 
       });
 
       if (res.ok) {
-        alert(`Medewerker toegevoegd! Setup email verzonden naar ${formData.email}`);
+        alert(`Team member added! Setup email sent to ${formData.email}`);
         setFormData({ name: "", email: "", role: "employee" });
         setOpen(false);
         window.location.reload();
       } else {
         const data = await res.json();
-        alert("Fout: " + (data.error || "Medewerker toevoegen mislukt"));
+        alert("Error: " + (data.error || "Failed to add team member"));
       }
     } catch (error) {
-      alert("Fout bij toevoegen medewerker");
+      alert("Error adding team member");
     } finally {
       setLoading(false);
     }
@@ -58,7 +58,7 @@ export default function AddEmployeeButton({ companyId }: { companyId: string }) 
           fontSize: 13,
         }}
       >
-        + Lid toevoegen
+        + Add member
       </button>
     );
   }
@@ -82,13 +82,13 @@ export default function AddEmployeeButton({ companyId }: { companyId: string }) 
         margin: 20,
       }}>
         <h2 style={{ marginBottom: 20, fontSize: 18, fontWeight: 700 }}>
-          Teamlid toevoegen
+          Add team member
         </h2>
 
         <form onSubmit={handleSubmit}>
           <div style={{ marginBottom: 16 }}>
             <label style={{ display: "block", fontSize: 13, fontWeight: 600, marginBottom: 6 }}>
-              Naam *
+              Name *
             </label>
             <input
               type="text"
@@ -130,7 +130,7 @@ export default function AddEmployeeButton({ companyId }: { companyId: string }) 
 
           <div style={{ marginBottom: 20 }}>
             <label style={{ display: "block", fontSize: 13, fontWeight: 600, marginBottom: 6 }}>
-              Rol *
+              Role *
             </label>
             <select
               name="role"
@@ -166,7 +166,7 @@ export default function AddEmployeeButton({ companyId }: { companyId: string }) 
                 fontWeight: 600,
               }}
             >
-              Annuleren
+              Cancel
             </button>
             <button
               type="submit"
@@ -184,7 +184,7 @@ export default function AddEmployeeButton({ companyId }: { companyId: string }) 
                 opacity: loading ? 0.6 : 1,
               }}
             >
-              {loading ? "Bezig..." : "Toevoegen"}
+              {loading ? "Saving..." : "Add"}
             </button>
           </div>
         </form>

@@ -3,142 +3,142 @@ import { notFound } from "next/navigation";
 
 const ARTICLES: Record<string, any> = {
   "beste-skigebieden-beginners-oostenrijk": {
-    title: "Beste skigebieden voor beginners in Oostenrijk 2026",
+    title: "Best ski resorts for beginners in Austria 2026",
     date: "2026-01-15",
     readTime: "6 min",
     category: "Guides",
     content: `
-      <h2>Waarom Oostenrijk het beste is voor beginners</h2>
-      <p>Oostenrijkse skigebieden zijn beroemd om twee redenen: uitstekende blauw-piste infrastrukture en gastvrije bergen. Als je net begint met skiën of snowboarden, zijn deze 5 resorts perfect.</p>
+      <h2>Why Austria is best for beginners</h2>
+      <p>Austrian ski resorts are famous for two reasons: excellent blue-piste infrastructure and welcoming mountains. If you're just starting to ski or snowboard, these 5 resorts are perfect.</p>
 
-      <h3>1. Saalbach-Hinterglemm — Beste voor alle niveaus</h3>
-      <p>200 km pistes, waarvan 40% blauw. Saalbach is een van de beste "learn to ski" resorts in Europa. De basis ligt op 1003 m — hoog genoeg voor sneeuwzekerheid (score 8.2/10), laag genoeg dat het klimaat mild blijft.</p>
-      <p><strong>Waarom voor beginners:</strong> Veel brede blauwe pistes in het lagere gedeelte, perfect verlichte avondpistes, en drie beginner-parken. €52 dagkaart.</p>
+      <h3>1. Saalbach-Hinterglemm — Best for all levels</h3>
+      <p>200 km of pistes, 40% blue. Saalbach is one of the best "learn to ski" resorts in Europe. The base sits at 1003 m — high enough for snow reliability (score 8.2/10), low enough to keep the climate mild.</p>
+      <p><strong>Why for beginners:</strong> Plenty of wide blue pistes in the lower section, perfectly lit evening pistes, and three beginner parks. €52 day pass.</p>
 
-      <h3>2. Mayrhofen — Familie-vriendelijk</h3>
-      <p>139 km pistes, 38% blauw. Mayrhofen heeft een sterke reputatie als familie-resort. Je vindt er kinderopvang op hoogte, kinderpistes en een uitstekende skischool.</p>
-      <p><strong>Waarom voor beginners:</strong> Beginner-zones gescheiden van experts, gratis liften voor kinderen, en een sneeuwzekerheid van 7.8/10. €49 dagkaart.</p>
+      <h3>2. Mayrhofen — Family-friendly</h3>
+      <p>139 km of pistes, 38% blue. Mayrhofen has a strong reputation as a family resort. You'll find childcare at altitude, children's pistes and an excellent ski school.</p>
+      <p><strong>Why for beginners:</strong> Beginner zones separated from experts, free lifts for children, and snow reliability of 7.8/10. €49 day pass.</p>
 
-      <h3>3. Schladming — Geheim Tip</h3>
-      <p>120 km pistes, 42% blauw. Schladming is minder druk dan de grote namen, maar net zo goed. Het 4-Berge Skischaukel-systeem betekent dat je vier verschillende bergen van één resort kunt skiën.</p>
-      <p><strong>Waarom voor beginners:</strong> Veel ruimte op blauwe pistes, vriendelijke atmosfeer, sneeuwscore 7.5/10, en goedkoper: €45 dagkaart.</p>
+      <h3>3. Schladming — Hidden gem</h3>
+      <p>120 km of pistes, 42% blue. Schladming is less crowded than the big names, but equally good. The 4-Berge Skischaukel system means you can ski four different mountains from one resort.</p>
+      <p><strong>Why for beginners:</strong> Plenty of space on blue pistes, friendly atmosphere, snow score 7.5/10, and cheaper: €45 day pass.</p>
 
-      <h3>4. Nassfeld — Budget + Sneeuw</h3>
-      <p>110 km pistes, 40% blauw. In Karinthië, op de Sloveens-Oostenrijkse grens. Niet beroemd, maar betrouwbaar.</p>
-      <p><strong>Waarom voor beginners:</strong> Sneeuwzekerheid 7.9/10 (behoorlijk hoog), veel blauwe pistes, heel rustig, en slechts €42 dagkaart.</p>
+      <h3>4. Nassfeld — Budget + Snow</h3>
+      <p>110 km of pistes, 40% blue. In Carinthia, on the Slovenian-Austrian border. Not famous, but reliable.</p>
+      <p><strong>Why for beginners:</strong> Snow reliability 7.9/10 (quite high), many blue pistes, very quiet, and only €42 day pass.</p>
 
-      <h3>Praktische tips voor beginners</h3>
+      <h3>Practical tips for beginners</h3>
       <ul>
-        <li><strong>Boek in januari of maart:</strong> Voorkeur voor januari na nieuwjaar (rustig maar sneeuw) of maart voor meer zon.</li>
-        <li><strong>Skischool:</strong> Alle 5 resorts hebben topskischolen. Budget €40–€60 per halve dag.</li>
-        <li><strong>Huurequipment:</strong> Beter ter plaatse huren (€15–€25/dag) dan meenemen. Het spullen in het vliegtuig is onhandig.</li>
-        <li><strong>Apres-ski:</strong> Oostenrijkse apres-ski kan wild zijn. Saalbach en Mayrhofen zijn het liveliest; Schladming en Nassfeld zijn rustiger.</li>
+        <li><strong>Book in January or March:</strong> Prefer January after New Year (quiet but snow) or March for more sunshine.</li>
+        <li><strong>Ski school:</strong> All 5 resorts have top ski schools. Budget €40–€60 per half day.</li>
+        <li><strong>Rental equipment:</strong> Better to rent on-site (€15–€25/day) than bring your own. Luggage on the plane is inconvenient.</li>
+        <li><strong>Après-ski:</strong> Austrian après-ski can be lively. Saalbach and Mayrhofen are the liveliest; Schladming and Nassfeld are quieter.</li>
       </ul>
 
-      <h2>Conclusie</h2>
-      <p>Voor beginners zou ik <strong>Saalbach of Mayrhofen</strong> kiezen — het zijn grote genoeg resorts voor veel variatie, maar klein genoeg om je niet verloren te voelen. Sneeuwzekerheid is op beide goed (8.2 en 7.8), en beide hebben uitstekende skischolen.</p>
+      <h2>Conclusion</h2>
+      <p>For beginners I would choose <strong>Saalbach or Mayrhofen</strong> — they are large enough for plenty of variety, but small enough not to feel lost. Snow reliability is good on both (8.2 and 7.8), and both have excellent ski schools.</p>
     `,
   },
   "kitzbuhel-vs-st-anton": {
-    title: "Kitzbühel vs St. Anton — welk resort past bij jou?",
+    title: "Kitzbühel vs St. Anton — which resort suits you?",
     date: "2026-01-10",
     readTime: "8 min",
     category: "Comparison",
     content: `
-      <h2>Twee legenden, heel ander karakter</h2>
-      <p>Kitzbühel en St. Anton zijn beide wereldberoemd Oostenrijkse skigebieden. Maar ze zijn voorbijlopers van elkaar in bijna alles behalve kwaliteit.</p>
+      <h2>Two legends, very different character</h2>
+      <p>Kitzbühel and St. Anton are both world-famous Austrian ski resorts. But they are polar opposites in almost everything except quality.</p>
 
       <table style="width: 100%; margin: 20px 0; border-collapse: collapse;">
         <thead>
           <tr style="background: var(--snow); border-bottom: 2px solid var(--border);">
-            <th style="padding: 12px; text-align: left; font-weight: 600;">Criterium</th>
+            <th style="padding: 12px; text-align: left; font-weight: 600;">Criterion</th>
             <th style="padding: 12px; text-align: left; font-weight: 600;">Kitzbühel</th>
             <th style="padding: 12px; text-align: left; font-weight: 600;">St. Anton</th>
           </tr>
         </thead>
         <tbody>
           <tr style="border-bottom: 1px solid var(--border);">
-            <td style="padding: 12px;"><strong>Totaal pistes</strong></td>
+            <td style="padding: 12px;"><strong>Total pistes</strong></td>
             <td style="padding: 12px;">168 km</td>
             <td style="padding: 12px;">305 km</td>
           </tr>
           <tr style="border-bottom: 1px solid var(--border);">
-            <td style="padding: 12px;"><strong>Sneeuwscore</strong></td>
+            <td style="padding: 12px;"><strong>Snow score</strong></td>
             <td style="padding: 12px;">7.9/10</td>
             <td style="padding: 12px;">8.4/10</td>
           </tr>
           <tr style="border-bottom: 1px solid var(--border);">
-            <td style="padding: 12px;"><strong>Moeilijkheid</strong></td>
-            <td style="padding: 12px;">45% blauw, 35% rood, 20% zwart</td>
-            <td style="padding: 12px;">30% blauw, 40% rood, 30% zwart</td>
+            <td style="padding: 12px;"><strong>Difficulty</strong></td>
+            <td style="padding: 12px;">45% blue, 35% red, 20% black</td>
+            <td style="padding: 12px;">30% blue, 40% red, 30% black</td>
           </tr>
           <tr style="border-bottom: 1px solid var(--border);">
-            <td style="padding: 12px;"><strong>Dagkaart</strong></td>
+            <td style="padding: 12px;"><strong>Day pass</strong></td>
             <td style="padding: 12px;">€54</td>
             <td style="padding: 12px;">€58</td>
           </tr>
           <tr style="border-bottom: 1px solid var(--border);">
-            <td style="padding: 12px;"><strong>Atmosfeer</strong></td>
-            <td style="padding: 12px;">Klassiek, rustig, elitair</td>
-            <td style="padding: 12px;">Wild, energiek, feest</td>
+            <td style="padding: 12px;"><strong>Atmosphere</strong></td>
+            <td style="padding: 12px;">Classic, relaxed, upscale</td>
+            <td style="padding: 12px;">Wild, energetic, party</td>
           </tr>
           <tr>
-            <td style="padding: 12px;"><strong>Beste voor</strong></td>
-            <td style="padding: 12px;">Gevorderde + families</td>
-            <td style="padding: 12px;">Experts + après-skiërs</td>
+            <td style="padding: 12px;"><strong>Best for</strong></td>
+            <td style="padding: 12px;">Intermediate + families</td>
+            <td style="padding: 12px;">Experts + après-ski lovers</td>
           </tr>
         </tbody>
       </table>
 
-      <h3>Kitzbühel: De klassieke keuze</h3>
-      <p>Kitzbühel is het resort waar je wereldberoemde Hahnenkamm-racedag in januari plaatsvindt. Het dorp is ook een chic alpenstad met boutiques, restaurants en een meer elegant publiek.</p>
-      <p><strong>Geschikt voor:</strong> Gevorderde skiërs die elegantie waarderen, families die subtiele apres-ski willen, mensen die geschiedenis willen voelen (het resort bestaat sinds 1892).</p>
-      <p><strong>Niet geschikt voor:</strong> Beginners (veel rode pistes), wild feest-publiek, grote groepsreizen.</p>
+      <h3>Kitzbühel: The classic choice</h3>
+      <p>Kitzbühel is the resort where the world-famous Hahnenkamm race takes place in January. The village is also a chic Alpine town with boutiques, restaurants and a more elegant crowd.</p>
+      <p><strong>Suited for:</strong> Intermediate skiers who appreciate elegance, families wanting subtle après-ski, people who want to feel history (the resort has existed since 1892).</p>
+      <p><strong>Not suited for:</strong> Beginners (many red pistes), wild party crowds, large group trips.</p>
 
-      <h3>St. Anton: De wildcard</h3>
-      <p>St. Anton is beroemd voor twee dingen: 305 km pistes (enorm aanbod) en nachtenlang après-ski. De apres-ski hier is legendarisch — clubs als The Krazy Kangaroo zijn 's ochtends nog open.</p>
-      <p><strong>Geschikt voor:</strong> Experts en freeride-skiers (veel zwarte pistes), jongeren die willen feesten, grote vriendschapsgroepen.</p>
-      <p><strong>Niet geschikt voor:</strong> Beginners, stille romantische vakanties, gezinnen met kleine kinderen.</p>
+      <h3>St. Anton: The wildcard</h3>
+      <p>St. Anton is famous for two things: 305 km of pistes (enormous offering) and nights of après-ski. The après-ski here is legendary — clubs like The Krazy Kangaroo are still open in the morning.</p>
+      <p><strong>Suited for:</strong> Experts and freeride skiers (many black pistes), young people who want to party, large friend groups.</p>
+      <p><strong>Not suited for:</strong> Beginners, quiet romantic holidays, families with young children.</p>
 
-      <h2>Welke kies je?</h2>
-      <p><strong>Kies Kitzbühel als:</strong> Je intermediate bent, elegantie waardeert, en genoeg hebt van chaos.</p>
-      <p><strong>Kies St. Anton als:</strong> Je expert bent, houdt van grote pistekaarten, en feesten is deel van de vakantie.</p>
+      <h2>Which do you choose?</h2>
+      <p><strong>Choose Kitzbühel if:</strong> You're intermediate, appreciate elegance, and have had enough of chaos.</p>
+      <p><strong>Choose St. Anton if:</strong> You're an expert, love large piste maps, and partying is part of the holiday.</p>
     `,
   },
   "sneeuwzekerheid-alpen-welke-resorts": {
-    title: "Sneeuwzekerheid in de Alpen — welke resorts zijn het meest betrouwbaar?",
+    title: "Snow certainty in the Alps — which resorts are most reliable?",
     date: "2026-01-05",
     readTime: "10 min",
     category: "Data",
     content: `
-      <h2>Sneeuwzekerheid: meer dan hoogte alleen</h2>
-      <p>Veel skiërs denken dat sneeuwzekerheid = hoogte. Dat klopt. Maar het volledige plaatje is ingewikkelder: hoogte (50%), 10 jaar historische sneeuwdata (30%) en breedtegraad (20%).</p>
+      <h2>Snow certainty: more than altitude alone</h2>
+      <p>Many skiers think snow certainty = altitude. That's correct. But the full picture is more complex: altitude (50%), 10 years of historical snowfall data (30%) and latitude (20%).</p>
 
-      <h3>De Top 10 meest sneeuwzekere Alpenresorts</h3>
+      <h3>The Top 10 most snow-reliable Alpine resorts</h3>
       <ol>
-        <li><strong>Zermatt (Zwitserland)</strong> — 9.5/10. Boven 3000 m met gletsjer. Ganzenjaar open.</li>
-        <li><strong>La Plagne (Frankrijk)</strong> — 8.7/10. Hoogste basis van Europa (1970 m), uitstekende historische data.</li>
-        <li><strong>St. Anton (Oostenrijk)</strong> — 8.4/10. Hoogte + noordelijk klimaat = betrouwbaar.</li>
-        <li><strong>Chamonix (Frankrijk)</strong> — 8.2/10. Mont-Blanc gebied, 10 jaar sneeuwdata bewijzen het.</li>
-        <li><strong>Verbier (Zwitserland)</strong> — 8.1/10. 3330 m top, veel sneeuwval, premium ligging.</li>
-        <li><strong>Davos-Klosters (Zwitserland)</strong> — 8.0/10. Graubünden, noordelijker positie helpt.</li>
-        <li><strong>Val d'Isère (Frankrijk)</strong> — 7.9/10. 1850 m basis, dicht bij Italië (extra sneeuw soms).</li>
-        <li><strong>Kitzbühel (Oostenrijk)</strong> — 7.9/10. Oostenrijkse hoogte + klimaat.</li>
-        <li><strong>Saas-Fee (Zwitserland)</strong> — 7.8/10. 1800 m basis, glaciaal karakter.</li>
-        <li><strong>Levi (Finland)</strong> — 7.8/10. Laag (532 m top) maar EXTREEM noordelijk (67°N = langzaam seizoen, veel sneeuw).</li>
+        <li><strong>Zermatt (Switzerland)</strong> — 9.5/10. Above 3000 m with glacier. Open year-round.</li>
+        <li><strong>La Plagne (France)</strong> — 8.7/10. Highest base in Europe (1970 m), excellent historical data.</li>
+        <li><strong>St. Anton (Austria)</strong> — 8.4/10. Altitude + northern climate = reliable.</li>
+        <li><strong>Chamonix (France)</strong> — 8.2/10. Mont-Blanc area, 10 years of snowfall data prove it.</li>
+        <li><strong>Verbier (Switzerland)</strong> — 8.1/10. 3330 m summit, high snowfall, premium location.</li>
+        <li><strong>Davos-Klosters (Switzerland)</strong> — 8.0/10. Graubünden, more northerly position helps.</li>
+        <li><strong>Val d'Isère (France)</strong> — 7.9/10. 1850 m base, close to Italy (extra snow sometimes).</li>
+        <li><strong>Kitzbühel (Austria)</strong> — 7.9/10. Austrian altitude + climate.</li>
+        <li><strong>Saas-Fee (Switzerland)</strong> — 7.8/10. 1800 m base, glacial character.</li>
+        <li><strong>Levi (Finland)</strong> — 7.8/10. Low (532 m summit) but EXTREMELY northerly (67°N = long season, lots of snow).</li>
       </ol>
 
-      <h3>Verrassingen in de data</h3>
-      <p><strong>Levi slaat uit:</strong> Het ligt slechts 532 m hoog — maar omdat het zo noordelijk ligt (Lapland) is het sneeuwseizoen lang en betrouwbaar. Vanuit Winterse oogpunt is het TOP.</p>
-      <p><strong>Scandinavische resorts winnen:</strong> Trysil (Noorwegen), Åre (Zweden), Hemsedal (Noorwegen) scoren allemaal 7.5+/10. Noordelijke breedtegraad = meer kou = meer sneeuw.</p>
-      <p><strong>Frankrijk domineert grote aantallen:</strong> Alpe d'Huez, Les Deux Alpes, Serre Chevalier hebben alle sterke sneeuwzekerheid EN veel pistes.</p>
+      <h3>Surprises in the data</h3>
+      <p><strong>Levi stands out:</strong> It sits only 532 m high — but because it's so far north (Lapland) the snow season is long and reliable. From a winter perspective it's TOP.</p>
+      <p><strong>Scandinavian resorts win:</strong> Trysil (Norway), Åre (Sweden), Hemsedal (Norway) all score 7.5+/10. Northern latitude = more cold = more snow.</p>
+      <p><strong>France dominates large volumes:</strong> Alpe d'Huez, Les Deux Alpes, Serre Chevalier all have strong snow reliability AND many pistes.</p>
 
-      <h2>Praktische conclusie</h2>
-      <p>Als sneeuwzekerheid je prioriteit is, kies je:</p>
+      <h2>Practical conclusion</h2>
+      <p>If snow certainty is your priority, choose:</p>
       <ul>
-        <li><strong>Premium:</strong> Zermatt, Verbier, Chamonix (sneeuw gegarandeerd, duur)</li>
-        <li><strong>Balans:</strong> St. Anton, La Plagne, Val d'Isère (goed sneeuw + veel pistes)</li>
-        <li><strong>Budget:</strong> Levi, Trysil, Saalbach (goede sneeuwzekerheid, betaalbaar)</li>
+        <li><strong>Premium:</strong> Zermatt, Verbier, Chamonix (snow guaranteed, expensive)</li>
+        <li><strong>Balance:</strong> St. Anton, La Plagne, Val d'Isère (good snow + many pistes)</li>
+        <li><strong>Budget:</strong> Levi, Trysil, Saalbach (good snow reliability, affordable)</li>
       </ul>
     `,
   },
@@ -149,12 +149,12 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const article = ARTICLES[slug];
 
   if (!article) {
-    return { title: "Artikel niet gevonden" };
+    return { title: "Article not found" };
   }
 
   return {
     title: `${article.title} — PeakFlow Blog`,
-    description: `Lees ${article.title} op PeakFlow Blog. Data-gedreven gids voor skiërs.`,
+    description: `Read ${article.title} on PeakFlow Blog. Data-driven guide for skiers.`,
   };
 }
 
@@ -170,7 +170,7 @@ export default async function BlogArticlePage({ params }: { params: Promise<{ sl
     <section className="section">
       <div className="container" style={{ maxWidth: 700 }}>
         <Link href="/blog" style={{ fontSize: 13, color: "var(--peak)", marginBottom: 20, display: "inline-block" }}>
-          ← Terug naar blog
+          ← Back to blog
         </Link>
 
         <div style={{ marginBottom: 32 }}>
@@ -187,13 +187,13 @@ export default async function BlogArticlePage({ params }: { params: Promise<{ sl
               {article.category}
             </span>
             <span style={{ fontSize: 13, color: "var(--ink3)" }}>
-              {new Date(article.date).toLocaleDateString("nl-NL", {
+              {new Date(article.date).toLocaleDateString("en-GB", {
                 year: "numeric",
                 month: "long",
                 day: "numeric",
               })}
             </span>
-            <span style={{ fontSize: 13, color: "var(--ink3)" }}>⏱ {article.readTime} leestijd</span>
+            <span style={{ fontSize: 13, color: "var(--ink3)" }}>⏱ {article.readTime} read</span>
           </div>
 
           <h1 style={{ fontSize: 40, fontWeight: 800, lineHeight: 1.1, marginBottom: 20, color: "var(--ink)" }}>
@@ -219,9 +219,9 @@ export default async function BlogArticlePage({ params }: { params: Promise<{ sl
             textAlign: "center",
           }}
         >
-          <h3 style={{ marginBottom: 12 }}>Meer gidsen lezen?</h3>
+          <h3 style={{ marginBottom: 12 }}>Read more guides?</h3>
           <Link href="/blog" className="btn btn-primary">
-            Alle artikelen →
+            All articles →
           </Link>
         </div>
       </div>

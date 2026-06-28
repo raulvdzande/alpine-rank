@@ -1,5 +1,7 @@
 import Link from "next/link";
 import { prisma } from "@/lib/prisma";
+import { getCurrentUser } from "@/lib/auth";
+import { redirect } from "next/navigation";
 import {
   gradientFor, emojiFor, countryNL, toFiveStars, stars, fmtCount, fmtNumber, snowBar,
 } from "@/lib/display";
@@ -7,6 +9,8 @@ import {
 export const dynamic = "force-dynamic";
 
 export default async function HomePage() {
+  const user = await getCurrentUser();
+  if (!user) redirect("/wishlist");
   let totalResorts = 0, totalReviews = 0, countriesGrouped: { Country: string }[] = [];
   let topResorts: Awaited<ReturnType<typeof prisma.resort.findMany>> = [];
   let snowTop: Awaited<ReturnType<typeof prisma.resort.findMany>> = [];
@@ -39,13 +43,13 @@ export default async function HomePage() {
         <div className="container">
           <div className="hero-eyebrow">
             <span className="hero-eyebrow-dot" />
-            Nieuw: Sneeuwzekerheids-score 2025–26 is live
+            New: Snow certainty score 2025–26 is live
           </div>
-          <h1>De <span className="gradient">rankings die skiërs</span> vertrouwen</h1>
-          <p className="hero-sub">Vergelijk {fmtNumber(totalResorts)} skigebieden op sneeuwkwaliteit, pistekm, niveau en prijs. Vind het perfecte resort met AI — in 10 seconden.</p>
+          <h1>The <span className="gradient">rankings skiers</span> trust</h1>
+          <p className="hero-sub">Compare {fmtNumber(totalResorts)} ski resorts on snow quality, piste km, level and price. Find your perfect resort with AI — in 10 seconds.</p>
           <div className="hero-actions">
-            <Link href="/matcher" className="btn btn-primary btn-xl">Start AI Matcher gratis →</Link>
-            <Link href="/resorts" className="btn btn-outline btn-lg">Alle rankings bekijken</Link>
+            <Link href="/matcher" className="btn btn-primary btn-xl">Start AI Matcher for free →</Link>
+            <Link href="/resorts" className="btn btn-outline btn-lg">View all rankings</Link>
           </div>
           <div className="hero-trust">
             <div className="hero-trust-avatars">
@@ -53,7 +57,7 @@ export default async function HomePage() {
             </div>
             <div>
               <div className="hero-trust-stars">★★★★★</div>
-              <p className="hero-trust-text">Gebaseerd op {fmtNumber(totalReviews)} geverifieerde reviews</p>
+              <p className="hero-trust-text">Based on {fmtNumber(totalReviews)} verified reviews</p>
             </div>
           </div>
         </div>
@@ -90,7 +94,7 @@ export default async function HomePage() {
             {heroTop && (
               <div className="snow-badge" style={{ top: 24, right: 160 }}>
                 <span className="dot" />
-                <span style={{ fontSize: 12, fontWeight: 600 }}>Sneeuwscore: {heroTop.snowScore?.toFixed(1)}</span>
+                <span style={{ fontSize: 12, fontWeight: 600 }}>Snow score: {heroTop.snowScore?.toFixed(1)}</span>
               </div>
             )}
 
@@ -98,9 +102,9 @@ export default async function HomePage() {
               <div className="resort-card-float" style={{ bottom: 40, right: 40, maxWidth: 210 }}>
                 <div className="rci" style={{ background: "#eaf5ec" }}>⛷</div>
                 <div>
-                  <div className="rcname">#1 voor beginners</div>
+                  <div className="rcname">#1 for beginners</div>
                   <div className="rcsub">{beginnersPick.name}</div>
-                  <div className="stars-row" style={{ color: "var(--peak)" }}>✓ AI Aanbeveling</div>
+                  <div className="stars-row" style={{ color: "var(--peak)" }}>✓ AI Recommendation</div>
                 </div>
               </div>
             )}
@@ -111,7 +115,7 @@ export default async function HomePage() {
       {/* LOGOS */}
       <section className="logos">
         <div className="container">
-          <p className="logos-label">Vertrouwd door skiërs die naar deze gebieden gaan</p>
+          <p className="logos-label">Trusted by skiers heading to these resorts</p>
           <div className="logos-row">
             {topResorts.concat(snowTop).slice(0, 8).map((r) => (
               <div className="logo-item" key={"logo" + r.id}>{r.name}</div>
@@ -124,11 +128,11 @@ export default async function HomePage() {
       <section className="stats-bar">
         <div className="container">
           <div className="stats-inner">
-            <div className="stat-item"><div className="stat-number">{fmtNumber(totalResorts)}</div><div className="stat-label">Skigebieden gerankt</div></div>
-            <div className="stat-item"><div className="stat-number">{fmtNumber(totalReviews)}</div><div className="stat-label">Geverifieerde reviews</div></div>
-            <div className="stat-item"><div className="stat-number">{countriesGrouped.length}</div><div className="stat-label">Landen gedekt</div></div>
-            <div className="stat-item"><div className="stat-number">10 jaar</div><div className="stat-label">Historische sneeuwdata</div></div>
-            <div className="stat-item"><div className="stat-number">98%</div><div className="stat-label">Sneeuwzekerheid nauwkeurig</div></div>
+            <div className="stat-item"><div className="stat-number">{fmtNumber(totalResorts)}</div><div className="stat-label">Ski resorts ranked</div></div>
+            <div className="stat-item"><div className="stat-number">{fmtNumber(totalReviews)}</div><div className="stat-label">Verified reviews</div></div>
+            <div className="stat-item"><div className="stat-number">{countriesGrouped.length}</div><div className="stat-label">Countries covered</div></div>
+            <div className="stat-item"><div className="stat-number">10 years</div><div className="stat-label">Historical snow data</div></div>
+            <div className="stat-item"><div className="stat-number">98%</div><div className="stat-label">Snow certainty accuracy</div></div>
           </div>
         </div>
       </section>
@@ -136,23 +140,23 @@ export default async function HomePage() {
       {/* PROBLEM */}
       <section className="section" style={{ background: "var(--snow)" }}>
         <div className="container">
-          <span className="label">Het probleem</span>
-          <h2>Skigebied plannen is gebroken</h2>
+          <span className="label">The problem</span>
+          <h2>Resort planning is broken</h2>
           <div className="problem-grid">
             <div className="problem-card">
               <span className="problem-icon">😤</span>
-              <h3>Onbetrouwbare reviews</h3>
-              <p style={{ fontSize: 14 }}>TripAdvisor en Google zijn vol met onverifieerbare reviews van mensen die er nooit zijn geweest. Je weet niet wie je vertrouwt.</p>
+              <h3>Unreliable reviews</h3>
+              <p style={{ fontSize: 14 }}>TripAdvisor and Google are full of unverifiable reviews from people who were never there. You don&apos;t know who to trust.</p>
             </div>
             <div className="problem-card">
               <span className="problem-icon">🌫</span>
-              <h3>Geen sneeuwgarantie</h3>
-              <p style={{ fontSize: 14 }}>Sneeuwcondities zijn moeilijk te vergelijken. Elke website zegt dat hun resort &quot;uitstekend&quot; is. Je boekt €2.000 en belandt op groene pisten.</p>
+              <h3>No snow guarantee</h3>
+              <p style={{ fontSize: 14 }}>Snow conditions are hard to compare. Every website says their resort is &quot;excellent&quot;. You book €2,000 and land on green runs.</p>
             </div>
             <div className="problem-card">
               <span className="problem-icon">👥</span>
-              <h3>Groepen met gemengde niveaus</h3>
-              <p style={{ fontSize: 14 }}>Acht mensen, vier niveaus, drie budgetten. Elk jaar hetzelfde conflict. Niemand heeft een tool die écht helpt een compromis te vinden.</p>
+              <h3>Groups with mixed levels</h3>
+              <p style={{ fontSize: 14 }}>Eight people, four levels, three budgets. The same conflict every year. Nobody has a tool that actually helps find a compromise.</p>
             </div>
           </div>
         </div>
@@ -161,23 +165,23 @@ export default async function HomePage() {
       {/* HOW IT WORKS */}
       <section className="section" style={{ background: "var(--white)" }}>
         <div className="container" style={{ textAlign: "center" }}>
-          <span className="label">Hoe het werkt</span>
-          <h2>Van twijfel naar perfecte vakantie<br />in drie stappen</h2>
+          <span className="label">How it works</span>
+          <h2>From uncertainty to perfect holiday<br />in three steps</h2>
           <div className="steps">
             <div className="step">
               <div className="step-num">1</div>
-              <h3>Vul jouw criteria in</h3>
-              <p>Niveau, budget, reisduur en wat je zoekt. De AI Matcher doet de rest — geen eindeloos scrollen.</p>
+              <h3>Enter your criteria</h3>
+              <p>Level, budget, trip duration and what you&apos;re looking for. The AI Matcher does the rest — no endless scrolling.</p>
             </div>
             <div className="step">
               <div className="step-num">2</div>
-              <h3>Vergelijk met echte data</h3>
-              <p>Sneeuwzekerheids-score, geverifieerde reviews, pistekm per niveau, liftprijzen en reistijd. Alles naast elkaar.</p>
+              <h3>Compare with real data</h3>
+              <p>Snow certainty score, verified reviews, piste km per level, lift prices and travel time. Everything side by side.</p>
             </div>
             <div className="step">
               <div className="step-num">3</div>
-              <h3>Boek met vertrouwen</h3>
-              <p>Sla op in je wishlist, stel sneeuwmeldingen in en volg de conditie van jouw resort voor vertrek.</p>
+              <h3>Book with confidence</h3>
+              <p>Save to your wishlist, set snow alerts and track conditions at your resort before departure.</p>
             </div>
           </div>
         </div>
@@ -186,16 +190,16 @@ export default async function HomePage() {
       {/* FEATURES */}
       <section className="section" style={{ background: "var(--snow)" }}>
         <div className="container">
-          <span className="label">Functies</span>
-          <h2>Alles wat je nodig hebt voor<br />een betere skivakantie</h2>
+          <span className="label">Features</span>
+          <h2>Everything you need for<br />a better ski holiday</h2>
           <div className="features-grid">
             {[
-              { ic: "🤖", bg: "var(--peak-light)", h: "AI Resort Matcher", p: "Niveau + budget + reisduur + voorkeur → top 5 aanbevelingen op maat. Gebouwd op echte data, niet op gesponsorde plaatsing.", tag: "Gratis beschikbaar", tbg: "var(--peak-light)", tc: "var(--peak-dark)" },
-              { ic: "❄️", bg: "var(--blue-light)", h: "Sneeuwzekerheids-score", p: "Op basis van 10 jaar historische sneeuwdata, hoogte, windpatronen en klimaattrends. Elk resort een score van 1–10.", tag: "Explorer", tbg: "var(--peak-light)", tc: "var(--peak-dark)" },
-              { ic: "👥", bg: "#fef3e0", h: "Groepsplanning", p: "Voer meerdere niveaus en budgetten in. PeakFlow vindt resorts die voor iedereen werken — met uitleg waarom.", tag: "Explorer", tbg: "var(--peak-light)", tc: "var(--peak-dark)" },
-              { ic: "✅", bg: "var(--green-light)", h: "Geverifieerde reviews", p: "GPS-check of liftpas-code bevestigt dat je er echt bent geweest. Niveau van de reviewer staat bij elke review zichtbaar.", tag: "Explorer", tbg: "var(--peak-light)", tc: "var(--peak-dark)" },
-              { ic: "🔔", bg: "#fef3e0", h: "Sneeuw- & prijsalerts", p: "Verse sneeuw gevallen in jouw wishlist-resort? Of de prijs gezakt bij een boekingspartner? Je krijgt direct bericht.", tag: "Explorer", tbg: "var(--peak-light)", tc: "var(--peak-dark)" },
-              { ic: "📱", bg: "var(--blue-light)", h: "On-mountain companion", p: "Op de berg: pistemap offline, GPS run-tracking, live sneeuwconditie, vriendenlocatie. Alles in één app.", tag: "Binnenkort", tbg: "var(--blue-light)", tc: "var(--blue)" },
+              { ic: "🤖", bg: "var(--peak-light)", h: "AI Resort Matcher", p: "Level + budget + trip duration + preference → top 5 tailored recommendations. Built on real data, not sponsored placement.", tag: "Free", tbg: "var(--peak-light)", tc: "var(--peak-dark)" },
+              { ic: "❄️", bg: "var(--blue-light)", h: "Snow certainty score", p: "Based on 10 years of historical snow data, altitude, wind patterns and climate trends. Every resort scored 1–10.", tag: "Explorer", tbg: "var(--peak-light)", tc: "var(--peak-dark)" },
+              { ic: "👥", bg: "#fef3e0", h: "Group planning", p: "Enter multiple levels and budgets. PeakFlow finds resorts that work for everyone — with an explanation of why.", tag: "Explorer", tbg: "var(--peak-light)", tc: "var(--peak-dark)" },
+              { ic: "✅", bg: "var(--green-light)", h: "Verified reviews", p: "GPS check or lift pass code confirms you were really there. Reviewer level is shown alongside every review.", tag: "Explorer", tbg: "var(--peak-light)", tc: "var(--peak-dark)" },
+              { ic: "🔔", bg: "#fef3e0", h: "Snow & price alerts", p: "Fresh snow at your wishlist resort? Or the price dropped at a booking partner? You get notified right away.", tag: "Explorer", tbg: "var(--peak-light)", tc: "var(--peak-dark)" },
+              { ic: "📱", bg: "var(--blue-light)", h: "On-mountain companion", p: "On the slope: offline piste map, GPS run tracking, live snow conditions, friend locations. All in one app.", tag: "Coming soon", tbg: "var(--blue-light)", tc: "var(--blue)" },
             ].map((f) => (
               <div className="feature-block" key={f.h}>
                 <div className="feature-icon" style={{ background: f.bg }}>{f.ic}</div>
@@ -212,7 +216,7 @@ export default async function HomePage() {
       <section className="section" style={{ background: "var(--white)" }}>
         <div className="container">
           <span className="label">Top rankings</span>
-          <h2>De best beoordeelde resorts van 2025–26</h2>
+          <h2>The best rated resorts of 2025–26</h2>
           <div className="resort-grid">
             {topResorts.map((r, i) => (
               <Link href={`/resort/${r.id}`} className="resort-card" key={r.id}>
@@ -226,8 +230,8 @@ export default async function HomePage() {
                   <div className="resort-location">📍 {countryNL(r.Country)}{r.region ? `, ${r.region}` : ""}</div>
                   <div className="resort-stats">
                     <div className="resort-stat"><span>{r.pisteKm}</span> km piste</div>
-                    <div className="resort-stat"><span>{fmtNumber(r.altitudeTop ?? 0)}</span> m hoogte</div>
-                    <div className="resort-stat"><span>€{r.dayPassPrice}</span> dagkaart</div>
+                    <div className="resort-stat"><span>{fmtNumber(r.altitudeTop ?? 0)}</span> m altitude</div>
+                    <div className="resort-stat"><span>€{r.dayPassPrice}</span> day pass</div>
                   </div>
                   <div className="resort-rating"><span className="stars">{stars(toFiveStars(r.averageOverallRating))}</span><span className="count">{toFiveStars(r.averageOverallRating).toFixed(1)} ({fmtNumber(r.reviewCount)} reviews)</span></div>
                 </div>
@@ -235,7 +239,7 @@ export default async function HomePage() {
             ))}
           </div>
           <div style={{ textAlign: "center", marginTop: 32 }}>
-            <Link href="/resorts" className="btn btn-outline btn-lg">Alle {fmtNumber(totalResorts)} resorts bekijken →</Link>
+            <Link href="/resorts" className="btn btn-outline btn-lg">View all {fmtNumber(totalResorts)} resorts →</Link>
           </div>
         </div>
       </section>
@@ -243,12 +247,12 @@ export default async function HomePage() {
       {/* SNOW SCORE TABLE */}
       <section className="snow-section">
         <div className="container">
-          <span className="label">Sneeuwzekerheids-score</span>
-          <h2>Weet waar je aan toe bent —<br />vóór je boekt</h2>
-          <p style={{ color: "rgba(255,255,255,.7)", maxWidth: 480, marginTop: 12 }}>Op basis van 10 jaar historische sneeuwdata, hoogte en klimaattrends. Onze score is nergens anders beschikbaar.</p>
+          <span className="label">Snow certainty score</span>
+          <h2>Know what you&apos;re getting —<br />before you book</h2>
+          <p style={{ color: "rgba(255,255,255,.7)", maxWidth: 480, marginTop: 12 }}>Based on 10 years of historical snow data, altitude and climate trends. Our score is unavailable anywhere else.</p>
           <div className="snow-table">
             <div className="snow-table-header">
-              <div>Resort</div><div>Hoogte</div><div>Sneeuwzekerheid</div><div>Score</div>
+              <div>Resort</div><div>Altitude</div><div>Snow certainty</div><div>Score</div>
             </div>
             {snowTop.map((r) => {
               const sb = snowBar(r.snowScore ?? 0);
@@ -269,14 +273,14 @@ export default async function HomePage() {
       <section className="award-section">
         <div className="container" style={{ textAlign: "center" }}>
           <span className="label">PeakFlow Awards 2026</span>
-          <h2>De Michelin-sterren van de skiwereld</h2>
-          <p style={{ maxWidth: 480, margin: "12px auto 0" }}>Op basis van {fmtNumber(totalReviews)} geverifieerde reviews en objectieve data. De award waar elk skigebied naar streeft.</p>
+          <h2>The Michelin stars of the ski world</h2>
+          <p style={{ maxWidth: 480, margin: "12px auto 0" }}>Based on {fmtNumber(totalReviews)} verified reviews and objective data. The award every ski resort aspires to.</p>
           <div className="award-grid">
             {[
-              { t: "🏆", h: "Beste overall", w: topResorts[0]?.name ?? "—" },
-              { t: "❄️", h: "Beste sneeuwkwaliteit", w: snowTop[0]?.name ?? "—" },
-              { t: "👨‍👩‍👧", h: "Beste familieskigebied", w: beginnersPick?.name ?? topResorts[1]?.name ?? "—" },
-              { t: "💰", h: "Beste prijs-kwaliteit", w: topResorts[2]?.name ?? "—" },
+              { t: "🏆", h: "Best overall", w: topResorts[0]?.name ?? "—" },
+              { t: "❄️", h: "Best snow quality", w: snowTop[0]?.name ?? "—" },
+              { t: "👨‍👩‍👧", h: "Best family resort", w: beginnersPick?.name ?? topResorts[1]?.name ?? "—" },
+              { t: "💰", h: "Best value", w: topResorts[2]?.name ?? "—" },
             ].map((a) => (
               <div className="award-card" key={a.h}>
                 <span className="trophy">{a.t}</span>
@@ -292,26 +296,26 @@ export default async function HomePage() {
       {/* SEGMENTS */}
       <section className="segments">
         <div className="container">
-          <span className="label">Voor iedereen in de ski-industrie</span>
-          <h2>Eén platform, drie doelgroepen</h2>
+          <span className="label">For everyone in the ski industry</span>
+          <h2>One platform, three audiences</h2>
           <div className="seg-grid">
             <div className="seg">
               <span className="seg-emoji">⛷️</span>
-              <h3>Skiërs &amp; snowboarders</h3>
-              <p>Vind jouw perfecte resort met AI, vergelijk op sneeuwzekerheid, lees reviews van mensen die er echt zijn geweest en krijg meldingen als het sneeuwt.</p>
-              <div className="seg-price">Gratis · Explorer €4,99/mnd</div>
+              <h3>Skiers &amp; snowboarders</h3>
+              <p>Find your perfect resort with AI, compare on snow certainty, read reviews from people who were actually there and get alerts when it snows.</p>
+              <div className="seg-price">Free · Explorer €4.99/mo</div>
             </div>
             <div className="seg">
               <span className="seg-emoji">🏔</span>
-              <h3>Skigebied operators</h3>
-              <p>Beheer uw resortprofiel, monitor rankings, reageer op reviews en zie hoe u presteert ten opzichte van uw concurrenten met ons benchmark dashboard.</p>
-              <div className="seg-price">Resort Starter €79/mnd · Pro €199/mnd</div>
+              <h3>Ski resort operators</h3>
+              <p>Manage your resort profile, monitor rankings, respond to reviews and see how you perform against your competitors with our benchmark dashboard.</p>
+              <div className="seg-price">Resort Starter €79/mo · Pro €199/mo</div>
             </div>
             <div className="seg">
               <span className="seg-emoji">🎿</span>
-              <h3>Ski- &amp; snowboardmerken</h3>
-              <p>Bereik 12.000+ skiërs op het moment dat ze een resort bekijken en uitrusting overwegen. Contextuele plaatsing die generieke advertenties verslaat.</p>
-              <div className="seg-price">Brand Basis €299/mnd · Pro €699/mnd</div>
+              <h3>Ski &amp; snowboard brands</h3>
+              <p>Reach 12,000+ skiers at the moment they&apos;re browsing resorts and considering gear. Contextual placement that beats generic ads.</p>
+              <div className="seg-price">Brand Basic €299/mo · Pro €699/mo</div>
               <div className="seg-brands">
                 <span className="seg-brand">Atomic</span>
                 <span className="seg-brand">Burton</span>
@@ -326,13 +330,13 @@ export default async function HomePage() {
       {/* TESTIMONIALS */}
       <section className="section" style={{ background: "var(--snow)" }}>
         <div className="container">
-          <span className="label">Wat gebruikers zeggen</span>
-          <h2>Echte meningen van echte skiërs</h2>
+          <span className="label">What users say</span>
+          <h2>Real opinions from real skiers</h2>
           <div className="testimonial-grid">
             {[
-              { q: "De sneeuwzekerheids-score heeft ons gered. We hadden bijna Chamonix geboekt maar PeakFlow liet zien dat Zermatt dat jaar veel betrouwbaarder was. Beste beslissing ooit.", bg: "#e8f4fc", n: "Lars V.", r: "Expert skiër · 12 jaar ervaring" },
-              { q: "De groepsplanning tool is geniaal. Met 10 mensen, van absolute beginner tot zwarte piste fan, vond PeakFlow een resort perfect voor iedereen. Geen conflict meer.", bg: "#eaf5ec", n: "Sofie K.", r: "Beginner · Eerste skivakantie met vriendengroep" },
-              { q: "Ik kon eindelijk reviews lezen van mensen met hetzelfde niveau als ik. Reviews op TripAdvisor zijn nutteloos als je niet weet of de schrijver ook een expert is of een beginner.", bg: "#fef3e0", n: "Daan M.", r: "Gevorderd · 8 jaar skiën" },
+              { q: "The snow certainty score saved us. We almost booked Chamonix but PeakFlow showed that Zermatt was much more reliable that year. Best decision ever.", bg: "#e8f4fc", n: "Lars V.", r: "Expert skier · 12 years experience" },
+              { q: "The group planning tool is genius. With 10 people, from complete beginner to black run fan, PeakFlow found a resort perfect for everyone. No more conflict.", bg: "#eaf5ec", n: "Sofie K.", r: "Beginner · First ski trip with friends" },
+              { q: "I could finally read reviews from people at the same level as me. Reviews on TripAdvisor are useless if you don&apos;t know whether the writer is an expert or a beginner.", bg: "#fef3e0", n: "Daan M.", r: "Advanced · 8 years skiing" },
             ].map((t) => (
               <div className="testimonial" key={t.n}>
                 <div className="stars-row" style={{ fontSize: 14, marginBottom: 12, color: "#f59e0b" }}>★★★★★</div>
@@ -353,55 +357,55 @@ export default async function HomePage() {
       {/* PRICING PREVIEW */}
       <section className="section" style={{ background: "var(--white)" }}>
         <div className="container" style={{ textAlign: "center" }}>
-          <span className="label">Prijzen</span>
-          <h2>Minder dan één après-ski drankje</h2>
-          <p style={{ maxWidth: 400, margin: "12px auto 0" }}>Een skivakantie kost gemiddeld €2.000. PeakFlow Explorer kost €4,99 per maand.</p>
+          <span className="label">Pricing</span>
+          <h2>Less than one après-ski drink</h2>
+          <p style={{ maxWidth: 400, margin: "12px auto 0" }}>A ski holiday costs an average of €2,000. PeakFlow Explorer costs €4.99 per month.</p>
           <div className="pricing-grid">
             <div className="pricing-card">
               <div className="plan-name">Free</div>
               <div className="plan-price"><sup>€</sup>0</div>
-              <div className="plan-period">altijd gratis</div>
-              <div className="plan-desc">Voor wie wil verkennen wat PeakFlow te bieden heeft.</div>
+              <div className="plan-period">always free</div>
+              <div className="plan-desc">For those who want to explore what PeakFlow has to offer.</div>
               <ul>
-                <li>Top 50 rankings bekijken</li>
-                <li>AI Matcher (3 suggesties)</li>
-                <li>5 resorts op wishlist</li>
-                <li>Reviews lezen</li>
+                <li>View top 50 rankings</li>
+                <li>AI Matcher (3 suggestions)</li>
+                <li>5 resorts on wishlist</li>
+                <li>Read reviews</li>
               </ul>
-              <Link href="/register" className="btn btn-outline" style={{ width: "100%", justifyContent: "center" }}>Gratis starten</Link>
+              <Link href="/register" className="btn btn-outline" style={{ width: "100%", justifyContent: "center" }}>Get started free</Link>
             </div>
             <div className="pricing-card featured">
-              <div className="popular-badge">Meest populair</div>
+              <div className="popular-badge">Most popular</div>
               <div className="plan-name">Explorer</div>
-              <div className="plan-price"><sup>€</sup>4<span style={{ fontSize: 24 }}>,99</span></div>
-              <div className="plan-period">per maand · €39/jaar (35% korting)</div>
-              <div className="plan-desc">Voor de serieuze skiër die het beste wil.</div>
+              <div className="plan-price"><sup>€</sup>4<span style={{ fontSize: 24 }}>.99</span></div>
+              <div className="plan-period">per month · €39/year (35% off)</div>
+              <div className="plan-desc">For the serious skier who wants the best.</div>
               <ul>
-                <li>Volledige AI Matcher (onbeperkt)</li>
-                <li>Alle {fmtNumber(totalResorts)} rankings</li>
-                <li>Sneeuwzekerheids-score</li>
-                <li>Groepsplanning tool</li>
-                <li>Sneeuw- &amp; prijsalerts</li>
-                <li>Geverifieerde reviews schrijven</li>
-                <li>Ski-dagboek &amp; statistieken</li>
-                <li>Geen advertenties</li>
+                <li>Full AI Matcher (unlimited)</li>
+                <li>All {fmtNumber(totalResorts)} rankings</li>
+                <li>Snow certainty score</li>
+                <li>Group planning tool</li>
+                <li>Snow &amp; price alerts</li>
+                <li>Write verified reviews</li>
+                <li>Ski diary &amp; statistics</li>
+                <li>No ads</li>
               </ul>
               <Link href="/register" className="btn btn-primary" style={{ width: "100%", justifyContent: "center" }}>Start Explorer →</Link>
             </div>
           </div>
-          <p style={{ marginTop: 20, fontSize: 13, color: "var(--ink3)" }}>Voor skigebieden &amp; merken: <Link href="/pricing" style={{ color: "var(--peak)", fontWeight: 600 }}>bekijk B2B plannen →</Link></p>
+          <p style={{ marginTop: 20, fontSize: 13, color: "var(--ink3)" }}>For resorts &amp; brands: <Link href="/pricing" style={{ color: "var(--peak)", fontWeight: 600 }}>view B2B plans →</Link></p>
         </div>
       </section>
 
       {/* CTA */}
       <section className="cta-section">
         <div className="container">
-          <span className="label" style={{ color: "#6ee7b7", display: "block", textAlign: "center", marginBottom: 16 }}>Gratis starten</span>
-          <h2>Vind dit seizoen jouw perfecte resort</h2>
-          <p>Geen creditcard nodig. Gratis account, direct toegang tot de AI Matcher en de top 50 rankings.</p>
+          <span className="label" style={{ color: "#6ee7b7", display: "block", textAlign: "center", marginBottom: 16 }}>Get started free</span>
+          <h2>Find your perfect resort this season</h2>
+          <p>No credit card needed. Free account, instant access to the AI Matcher and the top 50 rankings.</p>
           <div className="cta-actions">
-            <Link href="/matcher" className="btn btn-white btn-xl">Start AI Matcher gratis →</Link>
-            <Link href="/resorts" className="btn btn-glass btn-lg">Bekijk alle rankings</Link>
+            <Link href="/matcher" className="btn btn-white btn-xl">Start AI Matcher for free →</Link>
+            <Link href="/resorts" className="btn btn-glass btn-lg">View all rankings</Link>
           </div>
         </div>
       </section>

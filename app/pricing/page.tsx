@@ -76,76 +76,76 @@ export default function PricingPage() {
 
       <section className="section">
         <div className="container" style={{ textAlign: "center" }}>
-          <span className="label">Prijsplannen</span>
-          <h2 style={{ marginBottom: 8 }}>Transparante prijzen voor iedereen</h2>
+          <span className="label">Pricing</span>
+          <h2 style={{ marginBottom: 8 }}>Transparent pricing for everyone</h2>
           <p style={{ maxWidth: 420, margin: "0 auto 24px", color: "var(--ink2)", fontSize: 14 }}>
-            Geen verborgen kosten. Geen verplichtingen. Opzeggen wanneer je wilt.
+            No hidden costs. No commitments. Cancel whenever you want.
           </p>
 
           {/* Segment */}
           <div style={{ display: "inline-flex", background: "var(--border)", borderRadius: 999, padding: 3, marginBottom: 24, gap: 2 }}>
-            <button className="btn" style={segBtn("consumer")} onClick={() => setSeg("consumer")}>⛷ Skiërs</button>
-            <button className="btn" style={segBtn("resort")} onClick={() => setSeg("resort")}>🏔 Skigebieden</button>
-            <button className="btn" style={segBtn("brand")} onClick={() => setSeg("brand")}>🎿 Merken</button>
+            <button className="btn" style={segBtn("consumer")} onClick={() => setSeg("consumer")}>⛷ Skiers</button>
+            <button className="btn" style={segBtn("resort")} onClick={() => setSeg("resort")}>🏔 Ski resorts</button>
+            <button className="btn" style={segBtn("brand")} onClick={() => setSeg("brand")}>🎿 Brands</button>
           </div>
 
-          {/* Jaar toggle */}
+          {/* Annual toggle */}
           <div className="pr-toggle">
-            <span>Maandelijks</span>
-            <button className={`pr-switch${annual ? " on" : ""}`} onClick={() => setAnnual(v => !v)} aria-label="Jaarlijks">
+            <span>Monthly</span>
+            <button className={`pr-switch${annual ? " on" : ""}`} onClick={() => setAnnual(v => !v)} aria-label="Annual">
               <span className="pr-knob" />
             </button>
-            <span>Jaarlijks <span className="save-pill">2 maanden gratis</span></span>
+            <span>Annual <span className="save-pill">2 months free</span></span>
           </div>
 
-          {/* ── SKIËRS ── */}
+          {/* ── SKIERS ── */}
           {seg === "consumer" && (
             <>
               <div className="pc-grid">
                 {/* Free */}
                 <div className="pc">
                   <div className="pc-name">Free</div>
-                  <div className="pc-sub">Ontdek PeakFlow. Geen creditcard, altijd gratis.</div>
+                  <div className="pc-sub">Discover PeakFlow. No credit card, always free.</div>
                   <div className="pc-price"><sup>€</sup>0</div>
-                  <div className="pc-period">voor altijd gratis</div>
+                  <div className="pc-period">free forever</div>
                   <hr />
                   <ul>
-                    <li><span className="g">✓</span> Top 50 skiresorts rankings</li>
-                    <li><span className="g">✓</span> AI Matcher — 3 gratis suggesties</li>
-                    <li><span className="g">✓</span> Wishlist tot 5 resorts</li>
-                    <li><span className="g">✓</span> Resortpagina&apos;s &amp; reviews lezen</li>
-                    <li><span className="g">✓</span> Basisfilters (land, niveau)</li>
+                    <li><span className="g">✓</span> Top 50 ski resort rankings</li>
+                    <li><span className="g">✓</span> AI Matcher — 3 free suggestions</li>
+                    <li><span className="g">✓</span> Wishlist up to 5 resorts</li>
+                    <li><span className="g">✓</span> Read resort pages &amp; reviews</li>
+                    <li><span className="g">✓</span> Basic filters (country, level)</li>
                   </ul>
-                  <Link href="/register" className="btn btn-outline" style={{ width: "100%", justifyContent: "center" }}>Gratis starten</Link>
+                  <Link href="/register" className="btn btn-outline" style={{ width: "100%", justifyContent: "center" }}>Get started free</Link>
                 </div>
 
                 {/* Explorer */}
                 <div className="pc hot">
-                  <div className="pc-badge">Beste keuze</div>
+                  <div className="pc-badge">Best choice</div>
                   <div className="pc-name">Explorer</div>
-                  <div className="pc-sub">Alles om jouw perfecte skivakantie te vinden en plannen.</div>
+                  <div className="pc-sub">Everything to find and plan your perfect ski holiday.</div>
                   <div className="pc-price">
-                    <sup>€</sup>{annual ? "4,16" : "4,99"}
+                    <sup>€</sup>{annual ? "4.16" : "4.99"}
                   </div>
                   <div className="pc-period">
-                    per maand · {annual ? "€49,99 per jaar" : "of €49,99/jaar (2 mnd gratis)"}
+                    per month · {annual ? "€49.99 per year" : "or €49.99/year (2 months free)"}
                   </div>
                   <hr />
                   <ul>
-                    <span className="lbl">Ontdekken</span>
-                    <li><span className="g">✓</span> Alle 2.000+ resorts + volledige rankings</li>
-                    <li><span className="g">✓</span> Volledige AI Matcher — onbeperkt</li>
-                    <li><span className="g">✓</span> Sneeuwzekerheids-score per resort</li>
-                    <li><span className="g">✓</span> Alle filters: sneeuw, prijs, niveau, land, sfeer</li>
-                    <li><span className="g">✓</span> PeakFlow Snowflake gecertificeerde resorts</li>
-                    <span className="lbl">Plannen</span>
-                    <li><span className="g">✓</span> Onbeperkte wishlist</li>
-                    <li><span className="g">✓</span> Groepsplanning tool</li>
-                    <li><span className="g">✓</span> Sneeuw- &amp; prijsalerts per resort</li>
-                    <li><span className="g">✓</span> Ski-dagboek &amp; reiskalender</li>
+                    <span className="lbl">Discover</span>
+                    <li><span className="g">✓</span> All 2,000+ resorts + full rankings</li>
+                    <li><span className="g">✓</span> Full AI Matcher — unlimited</li>
+                    <li><span className="g">✓</span> Snow certainty score per resort</li>
+                    <li><span className="g">✓</span> All filters: snow, price, level, country, vibe</li>
+                    <li><span className="g">✓</span> PeakFlow Snowflake certified resorts</li>
+                    <span className="lbl">Plan</span>
+                    <li><span className="g">✓</span> Unlimited wishlist</li>
+                    <li><span className="g">✓</span> Group planning tool</li>
+                    <li><span className="g">✓</span> Snow &amp; price alerts per resort</li>
+                    <li><span className="g">✓</span> Ski diary &amp; trip calendar</li>
                     <span className="lbl">Community</span>
-                    <li><span className="g">✓</span> Reviews schrijven &amp; resort raten</li>
-                    <li><span className="g">✓</span> Geen advertenties</li>
+                    <li><span className="g">✓</span> Write reviews &amp; rate resorts</li>
+                    <li><span className="g">✓</span> No ads</li>
                   </ul>
                   <button
                     className="btn btn-primary"
@@ -160,23 +160,23 @@ export default function PricingPage() {
                 {/* Pro */}
                 <div className="pc">
                   <div className="pc-name">Pro</div>
-                  <div className="pc-sub">Voor de skiër die niets aan het toeval overlaat.</div>
+                  <div className="pc-sub">For the skier who leaves nothing to chance.</div>
                   <div className="pc-price">
-                    <sup>€</sup>{annual ? "9,16" : "10,99"}
+                    <sup>€</sup>{annual ? "9.16" : "10.99"}
                   </div>
                   <div className="pc-period">
-                    per maand · {annual ? "€109,99 per jaar" : "of €109,99/jaar (2 mnd gratis)"}
+                    per month · {annual ? "€109.99 per year" : "or €109.99/year (2 months free)"}
                   </div>
                   <hr />
                   <ul>
-                    <li><span className="g">✓</span> Alles uit Explorer</li>
-                    <span className="lbl">Exclusief Pro</span>
-                    <li><span className="s">★</span> Vergelijk tot 5 resorts naast elkaar</li>
-                    <li><span className="s">★</span> Historische sneeuwdata — 10 jaar terug</li>
-                    <li><span className="s">★</span> Prijs-kwaliteitanalyse per resort</li>
-                    <li><span className="s">★</span> Seizoensrapport: beste weken per resort</li>
-                    <li><span className="s">★</span> Vroegtijdig toegang tot nieuwe features</li>
-                    <li><span className="s">★</span> Pro badge op je profiel</li>
+                    <li><span className="g">✓</span> Everything in Explorer</li>
+                    <span className="lbl">Pro exclusive</span>
+                    <li><span className="s">★</span> Compare up to 5 resorts side by side</li>
+                    <li><span className="s">★</span> Historical snow data — 10 years back</li>
+                    <li><span className="s">★</span> Value analysis per resort</li>
+                    <li><span className="s">★</span> Season report: best weeks per resort</li>
+                    <li><span className="s">★</span> Early access to new features</li>
+                    <li><span className="s">★</span> Pro badge on your profile</li>
                   </ul>
                   <button
                     className="btn btn-outline"
@@ -190,38 +190,38 @@ export default function PricingPage() {
               </div>
 
               <div className="value-note">
-                <span>💡 <strong>Skiërs geven gemiddeld €1.500–€4.000 per wintersportvakantie.</strong> Explorer helpt je de beste keuze maken — voor minder dan een kop koffie per maand.</span>
-                <span style={{ color: "var(--ink3)" }}>Altijd opzegbaar</span>
+                <span>💡 <strong>Skiers spend an average of €1,500–€4,000 per ski holiday.</strong> Explorer helps you make the best choice — for less than a cup of coffee per month.</span>
+                <span style={{ color: "var(--ink3)" }}>Cancel anytime</span>
               </div>
             </>
           )}
 
-          {/* ── SKIGEBIEDEN ── */}
+          {/* ── RESORTS ── */}
           {seg === "resort" && (
             <>
               <div className="pc-grid">
                 {/* Starter */}
                 <div className="pc">
                   <div className="pc-name">Starter</div>
-                  <div className="pc-sub">Professionele aanwezigheid op PeakFlow. Beheer jouw resort zelf.</div>
+                  <div className="pc-sub">Professional presence on PeakFlow. Manage your resort yourself.</div>
                   <div className="pc-price">
                     <sup>€</sup>{annual ? "83" : "99"}
                   </div>
                   <div className="pc-period">
-                    per maand · {annual ? "€999/jaar (spaar €189)" : "of €999/jaar (spaar €189)"}
+                    per month · {annual ? "€999/year (save €189)" : "or €999/year (save €189)"}
                   </div>
                   <hr />
                   <ul>
-                    <span className="lbl">Profiel</span>
+                    <span className="lbl">Profile</span>
                     <li><span className="g">✓</span> Verified &amp; PeakFlow Partner badge</li>
-                    <li><span className="g">✓</span> Onbeperkt foto&apos;s, video&apos;s &amp; beschrijving</li>
-                    <li><span className="g">✓</span> Dagkaartprijzen &amp; openingstijden beheren</li>
-                    <li><span className="g">✓</span> Piste-informatie &amp; faciliteiten updaten</li>
-                    <li><span className="g">✓</span> Reviews beantwoorden</li>
-                    <span className="lbl">Inzicht</span>
-                    <li><span className="g">✓</span> Wekelijkse ranking monitoring</li>
-                    <li><span className="g">✓</span> Paginabezoekers &amp; review-overzicht</li>
-                    <li><span className="g">✓</span> Sentiment analyse op reviews</li>
+                    <li><span className="g">✓</span> Unlimited photos, videos &amp; description</li>
+                    <li><span className="g">✓</span> Manage day pass prices &amp; opening times</li>
+                    <li><span className="g">✓</span> Update piste info &amp; facilities</li>
+                    <li><span className="g">✓</span> Respond to reviews</li>
+                    <span className="lbl">Insights</span>
+                    <li><span className="g">✓</span> Weekly ranking monitoring</li>
+                    <li><span className="g">✓</span> Page visitors &amp; review overview</li>
+                    <li><span className="g">✓</span> Sentiment analysis on reviews</li>
                   </ul>
                   <button
                     className="btn btn-outline"
@@ -229,37 +229,37 @@ export default function PricingPage() {
                     onClick={() => handleCheckout(annual ? "resort_starter_yearly" : "resort_starter_monthly")}
                     disabled={loading === (annual ? "resort_starter_yearly" : "resort_starter_monthly")}
                   >
-                    {loading === (annual ? "resort_starter_yearly" : "resort_starter_monthly") ? "Loading..." : "30 dagen gratis proberen"}
+                    {loading === (annual ? "resort_starter_yearly" : "resort_starter_monthly") ? "Loading..." : "Try free for 30 days"}
                   </button>
                 </div>
 
                 {/* Pro */}
                 <div className="pc hot">
-                  <div className="pc-badge">Aanbevolen</div>
+                  <div className="pc-badge">Recommended</div>
                   <div className="pc-name">Pro</div>
-                  <div className="pc-sub">Maximale zichtbaarheid, diepgaande data en actieve promotie naar skiërs.</div>
+                  <div className="pc-sub">Maximum visibility, deep data and active promotion to skiers.</div>
                   <div className="pc-price">
                     <sup>€</sup>{annual ? "332" : "399"}
                   </div>
                   <div className="pc-period">
-                    per maand · {annual ? "€3.990/jaar (spaar €798)" : "of €3.990/jaar (spaar €798)"}
+                    per month · {annual ? "€3,990/year (save €798)" : "or €3,990/year (save €798)"}
                   </div>
                   <hr />
                   <ul>
-                    <li><span className="g">✓</span> Alles uit Starter</li>
+                    <li><span className="g">✓</span> Everything in Starter</li>
                     <span className="lbl">Analytics</span>
-                    <li><span className="s">★</span> Realtime bezoekersdata + geografische herkomst</li>
-                    <li><span className="s">★</span> Concurrentie benchmark (tot 5 resorts)</li>
-                    <li><span className="s">★</span> Maandelijks performance rapport (PDF)</li>
+                    <li><span className="s">★</span> Real-time visitor data + geographic origin</li>
+                    <li><span className="s">★</span> Competitor benchmark (up to 5 resorts)</li>
+                    <li><span className="s">★</span> Monthly performance report (PDF)</li>
                     <li><span className="s">★</span> Data export (CSV / Excel)</li>
-                    <span className="lbl">Promotie</span>
-                    <li><span className="s">★</span> Uitgelichte positie in zoekresultaten</li>
-                    <li><span className="s">★</span> Promotie-banner op vergelijkbare resorts</li>
-                    <li><span className="s">★</span> Merken &amp; producten op jouw pagina</li>
-                    <li><span className="s">★</span> Elk seizoen genomineerd voor PeakFlow Award</li>
+                    <span className="lbl">Promotion</span>
+                    <li><span className="s">★</span> Featured position in search results</li>
+                    <li><span className="s">★</span> Promo banner on comparable resorts</li>
+                    <li><span className="s">★</span> Brands &amp; products on your page</li>
+                    <li><span className="s">★</span> Nominated for PeakFlow Award each season</li>
                     <span className="lbl">Support</span>
-                    <li><span className="s">★</span> Priority e-mail support</li>
-                    <li><span className="s">★</span> Persoonlijke onboarding call</li>
+                    <li><span className="s">★</span> Priority email support</li>
+                    <li><span className="s">★</span> Personal onboarding call</li>
                   </ul>
                   <button
                     className="btn btn-primary"
@@ -274,76 +274,76 @@ export default function PricingPage() {
                 {/* Enterprise */}
                 <div className="pc">
                   <div className="pc-name">Enterprise</div>
-                  <div className="pc-sub">Portfolio-deal voor groepen met meerdere resorts of volledige ketens.</div>
-                  <div className="pc-price" style={{ fontSize: 28, lineHeight: 1.3 }}>Op maat</div>
-                  <div className="pc-period">voor 3+ resorts · jaarcontract</div>
+                  <div className="pc-sub">Portfolio deal for groups with multiple resorts or full chains.</div>
+                  <div className="pc-price" style={{ fontSize: 28, lineHeight: 1.3 }}>Custom</div>
+                  <div className="pc-period">for 3+ resorts · annual contract</div>
                   <hr />
                   <ul>
-                    <li><span className="g">✓</span> Alles uit Pro</li>
+                    <li><span className="g">✓</span> Everything in Pro</li>
                     <span className="lbl">Extra</span>
-                    <li><span className="s">★</span> Portfolio-korting (tot 35%)</li>
+                    <li><span className="s">★</span> Portfolio discount (up to 35%)</li>
                     <li><span className="s">★</span> Dedicated account manager</li>
-                    <li><span className="s">★</span> Gecombineerde portfolio-analytics</li>
-                    <li><span className="s">★</span> Jaarlijks benchmark rapport NL + EN</li>
-                    <li><span className="s">★</span> Custom API-integratie</li>
-                    <li><span className="s">★</span> SLA &amp; contractgaranties</li>
+                    <li><span className="s">★</span> Combined portfolio analytics</li>
+                    <li><span className="s">★</span> Annual benchmark report</li>
+                    <li><span className="s">★</span> Custom API integration</li>
+                    <li><span className="s">★</span> SLA &amp; contract guarantees</li>
                   </ul>
-                  <button className="btn btn-outline" style={{ width: "100%", justifyContent: "center" }}>Contact opnemen</button>
+                  <button className="btn btn-outline" style={{ width: "100%", justifyContent: "center" }}>Contact us</button>
                 </div>
               </div>
 
               <div className="value-note">
-                <span>🏔 <strong>Duizenden skiërs plannen maandelijks via PeakFlow.</strong> Pro-resorts verschijnen bovenaan — één extra boeking dekt het jaarplan al ruimschoots.</span>
-                <span style={{ color: "var(--ink3)" }}>30 dagen gratis · geen creditcard vereist</span>
+                <span>🏔 <strong>Thousands of skiers plan monthly via PeakFlow.</strong> Pro resorts appear at the top — one extra booking more than covers the annual plan.</span>
+                <span style={{ color: "var(--ink3)" }}>30 days free · no credit card required</span>
               </div>
             </>
           )}
 
-          {/* ── MERKEN ── */}
+          {/* ── BRANDS ── */}
           {seg === "brand" && (
             <>
               <div className="pc-grid">
-                {/* Basis */}
+                {/* Basic */}
                 <div className="pc">
-                  <div className="pc-name">Brand Basis</div>
-                  <div className="pc-sub">Zet jouw merk neer bij actieve skiërs op het moment dat ze plannen.</div>
+                  <div className="pc-name">Brand Basic</div>
+                  <div className="pc-sub">Position your brand in front of active skiers at the moment they&apos;re planning.</div>
                   <div className="pc-price"><sup>€</sup>299</div>
-                  <div className="pc-period">per maand · €2.879/jaar (spaar €509)</div>
+                  <div className="pc-period">per month · €2,879/year (save €509)</div>
                   <hr />
                   <ul>
-                    <span className="lbl">Aanwezigheid</span>
-                    <li><span className="g">✓</span> Verified brand profiel</li>
-                    <li><span className="g">✓</span> Productcatalogus — onbeperkt producten</li>
-                    <li><span className="g">✓</span> Auto-matching op relevante resort-pagina&apos;s</li>
-                    <li><span className="g">✓</span> Categorie-aanwezigheid (ski&apos;s, helmen, jassen…)</li>
+                    <span className="lbl">Presence</span>
+                    <li><span className="g">✓</span> Verified brand profile</li>
+                    <li><span className="g">✓</span> Product catalogue — unlimited products</li>
+                    <li><span className="g">✓</span> Auto-matching on relevant resort pages</li>
+                    <li><span className="g">✓</span> Category presence (skis, helmets, jackets…)</li>
                     <span className="lbl">Data</span>
-                    <li><span className="g">✓</span> Impressie &amp; klikanalytics</li>
-                    <li><span className="g">✓</span> Maandelijks bereikrapport</li>
+                    <li><span className="g">✓</span> Impression &amp; click analytics</li>
+                    <li><span className="g">✓</span> Monthly reach report</li>
                   </ul>
-                  <button className="btn btn-outline" style={{ width: "100%", justifyContent: "center" }}>Start Basis</button>
+                  <button className="btn btn-outline" style={{ width: "100%", justifyContent: "center" }}>Start Basic</button>
                 </div>
 
                 {/* Pro */}
                 <div className="pc hot">
-                  <div className="pc-badge">Meest gekozen</div>
+                  <div className="pc-badge">Most popular</div>
                   <div className="pc-name">Brand Pro</div>
-                  <div className="pc-sub">Bereik de juiste skiërs gericht op niveau, resort-type en reisintentie.</div>
+                  <div className="pc-sub">Reach the right skiers targeted by level, resort type and travel intent.</div>
                   <div className="pc-price"><sup>€</sup>699</div>
-                  <div className="pc-period">per maand · €6.710/jaar (spaar €1.078)</div>
+                  <div className="pc-period">per month · €6,710/year (save €1,078)</div>
                   <hr />
                   <ul>
-                    <li><span className="g">✓</span> Alles uit Basis</li>
+                    <li><span className="g">✓</span> Everything in Basic</li>
                     <span className="lbl">Targeting</span>
-                    <li><span className="s">★</span> Gerichte resort-targeting (niveau, land, type)</li>
-                    <li><span className="s">★</span> Prominente Gear Selector vermelding</li>
-                    <li><span className="s">★</span> Gepersonaliseerde productaanbevelingen aan gebruikers</li>
-                    <span className="lbl">Inzicht</span>
+                    <li><span className="s">★</span> Targeted resort targeting (level, country, type)</li>
+                    <li><span className="s">★</span> Prominent Gear Selector listing</li>
+                    <li><span className="s">★</span> Personalised product recommendations to users</li>
+                    <span className="lbl">Insights</span>
                     <li><span className="s">★</span> Audience insights dashboard</li>
-                    <li><span className="s">★</span> Doelgroep-segmentatie (niveau, leeftijd, land)</li>
-                    <li><span className="s">★</span> Gedetailleerde campaign performance rapporten</li>
-                    <span className="lbl">Activatie</span>
-                    <li><span className="s">★</span> Demo day &amp; seizoenscampagne integratie</li>
-                    <li><span className="s">★</span> Aanbevolen merk bij PeakFlow content</li>
+                    <li><span className="s">★</span> Audience segmentation (level, age, country)</li>
+                    <li><span className="s">★</span> Detailed campaign performance reports</li>
+                    <span className="lbl">Activation</span>
+                    <li><span className="s">★</span> Demo day &amp; season campaign integration</li>
+                    <li><span className="s">★</span> Featured brand in PeakFlow content</li>
                   </ul>
                   <button className="btn btn-primary" style={{ width: "100%", justifyContent: "center" }}>Start Pro →</button>
                 </div>
@@ -351,35 +351,35 @@ export default function PricingPage() {
                 {/* Enterprise */}
                 <div className="pc">
                   <div className="pc-name">Brand Enterprise</div>
-                  <div className="pc-sub">Volledige categorie-dominantie en co-branded campagnes op maat.</div>
-                  <div className="pc-price" style={{ fontSize: 28, lineHeight: 1.3 }}>€1.500+</div>
-                  <div className="pc-period">per maand · jaarcontract</div>
+                  <div className="pc-sub">Full category dominance and co-branded campaigns tailored to you.</div>
+                  <div className="pc-price" style={{ fontSize: 28, lineHeight: 1.3 }}>€1,500+</div>
+                  <div className="pc-period">per month · annual contract</div>
                   <hr />
                   <ul>
-                    <li><span className="g">✓</span> Alles uit Pro</li>
-                    <span className="lbl">Exclusief</span>
-                    <li><span className="s">★</span> Categorie-exclusiviteit — alleen jouw merk</li>
-                    <li><span className="s">★</span> Co-branded campagnes met PeakFlow</li>
-                    <li><span className="s">★</span> Jaarlijks ski-marktrapport (NL + EN)</li>
+                    <li><span className="g">✓</span> Everything in Pro</li>
+                    <span className="lbl">Exclusive</span>
+                    <li><span className="s">★</span> Category exclusivity — your brand only</li>
+                    <li><span className="s">★</span> Co-branded campaigns with PeakFlow</li>
+                    <li><span className="s">★</span> Annual ski market report</li>
                     <li><span className="s">★</span> Dedicated account manager</li>
-                    <li><span className="s">★</span> Custom integraties &amp; API-toegang</li>
-                    <li><span className="s">★</span> Contractgaranties &amp; SLA</li>
+                    <li><span className="s">★</span> Custom integrations &amp; API access</li>
+                    <li><span className="s">★</span> Contract guarantees &amp; SLA</li>
                   </ul>
-                  <button className="btn btn-outline" style={{ width: "100%", justifyContent: "center" }}>Contact opnemen</button>
+                  <button className="btn btn-outline" style={{ width: "100%", justifyContent: "center" }}>Contact us</button>
                 </div>
               </div>
 
               <div className="value-note">
-                <span>🎿 <strong>PeakFlow bereikt skiërs op het moment dat ze plannen</strong> — hoge koopintentie, geen verspild bereik. Goedkoper dan Google Ads met hogere relevantie.</span>
-                <span style={{ color: "var(--ink3)" }}>Alle prijzen excl. BTW</span>
+                <span>🎿 <strong>PeakFlow reaches skiers at the moment they&apos;re planning</strong> — high purchase intent, no wasted reach. Cheaper than Google Ads with higher relevance.</span>
+                <span style={{ color: "var(--ink3)" }}>All prices excl. VAT</span>
               </div>
             </>
           )}
 
           <p style={{ marginTop: 20, fontSize: 12, color: "var(--ink3)" }}>
-            Alle prijzen excl. BTW · Stripe-beveiligde betalingen · Altijd opzegbaar
+            All prices excl. VAT · Stripe-secured payments · Cancel anytime
           </p>
-          <Link href="/" className="btn btn-ghost" style={{ marginTop: 10 }}>← Terug naar home</Link>
+          <Link href="/" className="btn btn-ghost" style={{ marginTop: 10 }}>← Back to home</Link>
         </div>
       </section>
     </>
